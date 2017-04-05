@@ -1,0 +1,33 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  devtools:
+    restart:
+      exclude: static/**, public/**
+  http:
+    multipart:
+      location: upload
+      max-file-size: 100MB
+      max-request-size: 500MB
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/whereyou?autoReconnect=true&useSSL=true&verifyServerCertificate=false
+    username: root
+    password: 1234
+  social:
+    facebook:
+      appId: 793471174138586
+      appSecret: 8bd93c8c3d77a71f6c26339a595cdb03
+      
+mybatis:
+  type-aliases-package: kr.ac.hansung.maldives.domain
+  mapper-locations:
+    - classpath:mapper/*-sql.xml
+
+security:
+  basic:
+    enabled: true
+    resource:
+      userInfoUri: https://graph.facebook.com/me

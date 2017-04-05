@@ -1,0 +1,6 @@
+@CHARSET "UTF-8";
+
+#navbar { padding: 10px; }
+#navbar ul.nav>li>a { color: #777 }
+#navbar .navbar-nav { margin: 7.5px 0; }
+#navbar .nav>li>a { padding:10px; padding:0; }
