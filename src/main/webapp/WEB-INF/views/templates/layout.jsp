@@ -17,8 +17,9 @@
 	<title><tiles:insertAttribute name="title"/></title>
 	
 	<!-- Bootstrap core CSS -->
-	<link href="<c:url value="/resources/css/bootstrap.min.css"/>"
-		rel="stylesheet">
+	<link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+	
+	<link href="<c:url value="/resources/css/font-awesome.min.css"/>" rel="stylesheet">
 	
 	<!-- Custom styles for this template -->
 	<link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
@@ -30,7 +31,7 @@
 	<div>
 		<tiles:insertAttribute name="header"/>
 	</div>
-	<div>
+	<div id="main-content" class="container">
 		<tiles:insertAttribute name="body"/>
 	</div>
 	<div>

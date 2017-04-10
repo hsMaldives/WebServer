@@ -1,19 +1,9 @@
 package kr.ac.hansung.maldives.web.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import kr.ac.hansung.maldives.web.model.RegistrationForm;
+import kr.ac.hansung.maldives.web.model.User;
 
-public class UserService implements UserDetailsService{
-	
-	/**
-	 * 
-	 */
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public interface UserService {
 
-	
+	public User registerNewUserAccount(RegistrationForm userAccountData) throws DuplicateEmailException;
 }

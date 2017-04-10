@@ -20,14 +20,14 @@ spring:
     facebook:
       appId: 793471174138586
       appSecret: 8bd93c8c3d77a71f6c26339a595cdb03
+  jpa: 
+    show-sql: true
       
 mybatis:
-  type-aliases-package: kr.ac.hansung.maldives.domain
+  type-aliases-package: kr.ac.hansung.maldives.domain 
   mapper-locations:
     - classpath:mapper/*-sql.xml
 
 security:
   basic:
     enabled: true
-    resource:
-      userInfoUri: https://graph.facebook.com/me
