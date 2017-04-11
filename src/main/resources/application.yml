@@ -13,9 +13,9 @@ spring:
       max-request-size: 500MB
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/whereyou?autoReconnect=true&useSSL=true&verifyServerCertificate=false
-    username: root
-    password: 1234
+    url: jdbc:mysql://localhost:3306/hereyou?autoReconnect=true&useSSL=true&verifyServerCertificate=false
+    username: hereYou
+    password: hereYou1!
   social:
     facebook:
       appId: 793471174138586

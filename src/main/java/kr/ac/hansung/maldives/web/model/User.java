@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="user_accounts")
+@Table(name="users")
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,26 +27,47 @@ public class User extends BaseEntity<Long>{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long user_idx;
  
-    @Column(name = "email", length = 100, nullable = false, unique = true)
+    @Column(name = "email", length = 150, nullable = false, unique = true)
     private String email;
- 
-    @Column(name = "first_name", length = 100,nullable = false)
-    private String firstName;
- 
-    @Column(name = "last_name", length = 100, nullable = false)
-    private String lastName;
- 
+    
     @Column(name = "password", length = 255)
     private String password;
+ 
+    @Column(name = "name", length = 20, nullable = false)
+    private String name;
+ 
+    @Column(name = "nickname", length = 20, nullable = false)
+    private String nickname;
  
     @Enumerated(EnumType.STRING)
     @Column(name = "role", length = 20, nullable = false)
     private UserRole role;
- 
+    
+    @Column(name = "age", nullable = false)
+    private Integer age;
+    
+    @Column(name = "sex", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private Sex sex;
+    
+    @Column(name = "job_idx", nullable = false)
+    private Integer job_idx;
+    
+    @Column(name = "point", nullable = false)
+    private Integer point;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "sign_in_provider", length = 20)
     private SocialMediaType signInProvider;
+    
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted;
+
+	@Override
+	public Long getId() {
+		return user_idx;
+	}
 
 }

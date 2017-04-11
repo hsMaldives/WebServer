@@ -1,5 +1,6 @@
 package kr.ac.hansung.maldives.web.model;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -19,16 +20,25 @@ public class RegistrationForm {
 	private String email;
 
 	@NotEmpty
-	@Size(max = 100)
-	private String firstName;
-
+	@Size(max = 20)
+	private String name;
+	
 	@NotEmpty
-	@Size(max = 100)
-	private String lastName;
+	@Size(max = 20)
+	private String nickname;
 
 	private String password;
 
 	private String passwordVerification;
+	
+	@NotNull
+	private Integer age;
+	
+	@NotNull
+	private Sex sex;
+	
+	@NotNull
+	private Integer job_idx;
 
 	private SocialMediaType signInProvider;
 

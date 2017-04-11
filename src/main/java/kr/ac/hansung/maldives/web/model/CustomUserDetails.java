@@ -19,9 +19,9 @@ public class CustomUserDetails extends SocialUser {
 
 	private static final long serialVersionUID = -4950595906773152481L;
 
-	private Long id;
-	private String firstName;
-	private String lastName;
+	private Long user_idx;
+	private String name;
+	private String nickname;
 	private UserRole role;
 	private SocialMediaType socialSignInProvider;
 
@@ -35,10 +35,10 @@ public class CustomUserDetails extends SocialUser {
 
 	public static class Builder {
 
-		private Long id;
+		private Long user_idx;
 		private String username;
-		private String firstName;
-		private String lastName;
+		private String name;
+		private String nickname;
 		private String password;
 
 		private UserRole role;
@@ -49,18 +49,13 @@ public class CustomUserDetails extends SocialUser {
 			this.authorities = new HashSet<>();
 		}
 
-		public Builder firstName(String firstName) {
-			this.firstName = firstName;
+		public Builder name(String name) {
+			this.name = name;
 			return this;
 		}
 
-		public Builder id(Long id) {
-			this.id = id;
-			return this;
-		}
-
-		public Builder lastName(String lastName) {
-			this.lastName = lastName;
+		public Builder user_idx(Long user_idx) {
+			this.user_idx = user_idx;
 			return this;
 		}
 
@@ -91,13 +86,18 @@ public class CustomUserDetails extends SocialUser {
 			this.username = username;
 			return this;
 		}
+		
+		public Builder nickname(String nickname){
+			this.nickname = nickname;
+			return this;
+		}
 
 		public CustomUserDetails build() {
 			CustomUserDetails user = new CustomUserDetails(username, password, authorities);
 
-			user.id = id;
-			user.firstName = firstName;
-			user.lastName = lastName;
+			user.user_idx = user_idx;
+			user.name = name;
+			user.nickname = nickname;
 			user.role = role;
 			user.socialSignInProvider = socialSignInProvider;
 

@@ -36,10 +36,15 @@ public class RepositoryUserService implements UserService {
 
 		UserBuilder user = User.builder()
 				.email(userAccountData.getEmail())
-				.firstName(userAccountData.getFirstName())
-				.lastName(userAccountData.getLastName())
 				.password(encodedPassword)
-				.role(UserRole.ROLE_USER);
+				.name(userAccountData.getName())
+				.nickname(userAccountData.getNickname())
+				.role(UserRole.ROLE_USER)
+				.age(userAccountData.getAge())
+				.sex(userAccountData.getSex())
+				.job_idx(userAccountData.getJob_idx())
+				.point(0)
+				.deleted(false);
 
 		if (userAccountData.isSocialSignIn()) {
 			user.signInProvider(userAccountData.getSignInProvider());

@@ -17,27 +17,27 @@
 				</c:if>
 				
 				<div class="row">
-					<div id="form-group-firstName" class="form-group col-lg-4">
-						<label class="control-label" for="user-firstName">이름:</label>
-						<form:input id="user-firstName" path="firstName" cssClass="form-control" />
-						<form:errors id="error-firstName" path="firstName" cssClass="help-block" />
-					</div>
-				</div>
-				
-				<div class="row">
-					<div id="form-group-lastName" class="form-group col-lg-4">
-						<label class="control-label" for="user-lastName">성:</label>
-						<form:input id="user-lastName" path="lastName" cssClass="form-control" />
-						<form:errors id="error-lastName" path="lastName" cssClass="help-block" />
-					</div>
-				</div>
-				
-				<div class="row">
 					<div id="form-group-email" class="form-group col-lg-4">
 						<label class="control-label" for="user-email">
 							Email:</label>
 						<form:input id="user-email" path="email" cssClass="form-control" />
 						<form:errors id="error-email" path="email" cssClass="help-block" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="form-group-firstName" class="form-group col-lg-4">
+						<label class="control-label" for="user-name">이름:</label>
+						<form:input id="user-name" path="name" cssClass="form-control" />
+						<form:errors path="name" cssClass="help-block" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="form-group-lastName" class="form-group col-lg-4">
+						<label class="control-label" for="user-nickname">닉네임:</label>
+						<form:input id="user-nickname" path="nickname" cssClass="form-control" />
+						<form:errors id="error-nickname" path="nickname" cssClass="help-block" />
 					</div>
 				</div>
 				
@@ -58,6 +58,34 @@
 						</div>
 					</div>
 				</c:if>
+				
+				<div class="row">
+					<div id="form-group-lastName" class="form-group col-lg-4">
+						<label class="control-label" for="user-age">나이:</label>
+						<form:input id="user-age" path="age" type="number" cssClass="form-control" />
+						<form:errors id="error-age" path="age" cssClass="help-block" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="form-group-lastName" class="form-group col-lg-4">
+						<label class="control-label" for="user-sex">성별:</label>
+						<div class="radio-inline">
+							<form:radiobutton path="sex" value="men" label="남자" />
+							<form:radiobutton path="sex" value="women" label="여자" />						
+						</div>
+						<form:errors id="error-sex" path="sex" cssClass="help-block" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="form-group-lastName" class="form-group col-lg-4">
+						<label class="control-label" for="user-job_idx">직업:</label>
+						<form:input id="user-job_idx" path="job_idx" type="number" cssClass="form-control" />
+						<form:errors id="error-job_idx" path="job_idx" cssClass="help-block" />
+					</div>
+				</div>
+				
 				
 				<button type="submit" class="btn btn-default">
 					가입

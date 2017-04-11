@@ -11,9 +11,8 @@ public class SecurityUtil {
 
 	public static void logInUser(User user) {
 		CustomUserDetails userDetails = CustomUserDetails.builder()
-				.firstName(user.getFirstName())
-				.id(user.getId())
-				.lastName(user.getLastName())
+				.name(user.getName())
+				.user_idx(user.getUser_idx())
 				.password(user.getPassword())
 				.role(user.getRole())
 				.socialSignInProvider(user.getSignInProvider())

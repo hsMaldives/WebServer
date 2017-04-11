@@ -119,8 +119,7 @@ public class UserController {
 			}
 			
 			dto.setEmail(socialMediaProfile.getEmail());
-			dto.setFirstName(socialMediaProfile.getFirstName());
-			dto.setLastName(socialMediaProfile.getLastName());
+			dto.setName(socialMediaProfile.getLastName() + socialMediaProfile.getFirstName());
 
 			ConnectionKey providerKey = connection.getKey();
 			dto.setSignInProvider(SocialMediaType.valueOf(providerKey.getProviderId().toUpperCase()));
