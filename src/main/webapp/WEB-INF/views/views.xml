@@ -16,9 +16,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="user/*" extends="base">
+	<definition name="*/*" extends="base">
 		<put-attribute name="title" value="Where You"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/user/{1}.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
 	</definition>
+
+	
+	
 	
 </tiles-definitions>

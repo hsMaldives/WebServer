@@ -9,12 +9,12 @@
 		<div id="navbar" class="navbar-collapse">
 			<ul class="nav text-center col-xs-12">
 				<li class="dropup col-xs-2">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<a href="<c:url value="/"/>">
 						<div class="menu-icon">
 							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						</div>
 						<div class="menu-keyword">
-							<span class="menu-keyword">홈</span>
+							홈
 						</div>
 					</a>
 				</li>
@@ -24,7 +24,7 @@
 							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
 						</div>
 						<div class="menu-keyword">
-							<span class="menu-keyword">추천</span>
+							추천
 						</div>
 					</a>
 					<ul class="dropdown-menu">
@@ -53,12 +53,12 @@
 							<span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
 						</div>
 						<div class="menu-keyword">
-							<span class="menu-keyword">포인트</span>
+							포인트
 						</div>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">포인트 조회</a></li>
-						<li><a href="#">상품 구매</a></li>
+						<li><a href="<c:url value="/point/shop"/>">상품 구매</a></li>
 					</ul>
 				</li>
 				
@@ -68,7 +68,7 @@
 							<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
 						</div>
 						<div class="menu-keyword">
-							<span class="menu-keyword">설정</span>
+							설정
 						</div>
 					</a>
 					<ul class="dropdown-menu">
