@@ -26,4 +26,8 @@ public class StoreService {
 	   return storeRepository.findByStore_idx(lim);
    }
 
+   public List<Store> getStoresByBound(double startX, double endX, double startY, double endY) {
+	   return storeRepository.findByBound(startX,endX,startY,endY);
+   }
+
 }
