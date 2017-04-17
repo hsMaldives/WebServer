@@ -25,8 +25,8 @@ public class LocationController {
 	}
 	
 	@RequestMapping("/locationsss")
-	public @ResponseBody List<Store> findByLL(int lim){
-		List<Store> stores = storeService.getStoresBylim(lim);
+	public @ResponseBody List<Store> findByLL(double startX, double endX, double startY, double endY){
+		List<Store> stores = storeService.getStoresByBound(startX,endX,startY,endY);
 		return stores;
 	}
 }
