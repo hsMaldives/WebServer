@@ -27,22 +27,40 @@ import kr.ac.hansung.maldives.web.service.UserService;
 import kr.ac.hansung.maldives.web.utility.FacebookUtil;
 import kr.ac.hansung.maldives.web.utility.SecurityUtil;
 
+/**
+ * 사용자 관련 처리 Controller
+ * 
+ * @author MingyuBae
+ *
+ */
 @Controller
 @RequestMapping("/user")
 @SessionAttributes("user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private ProviderSignInUtils providerSignInUtils;
 
+	/**
+	 * 로그인 페이지
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage() {
 		return "user/login";
 	}
 
+	/**
+	 * 회원가입 form 페이지
+	 * 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(WebRequest request, Model model) {
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
@@ -53,71 +71,101 @@ public class UserController {
 		return "user/registrationForm";
 	}
 
-	@RequestMapping(value ="/register", method = RequestMethod.POST)
-    public String registerUserAccount(@Valid @ModelAttribute("user") RegistrationForm userAccountData,
-                                      BindingResult result,
-                                      WebRequest request) throws DuplicateConnectionException {
-        if (result.hasErrors()) {
-            return "user/registrationForm";
-        }
- 
-        User registered = createUserAccount(userAccountData, result);
- 
-        if (registered == null) {
-            return "user/registrationForm";
-        }
-        SecurityUtil.logInUser(registered);
-        providerSignInUtils.doPostSignUp(registered.getEmail(), request);
- 
-        return "redirect:/";
-    }
- 
-    private User createUserAccount(RegistrationForm userAccountData, BindingResult result) {
-        User registered = null;
- 
-        try {
-            registered = userService.registerNewUserAccount(userAccountData);
-        }
-        catch (DuplicateEmailException ex) {
-            addFieldError(
-                    "user",
-                    "email",
-                    userAccountData.getEmail(),
-                    "NotExist.user.email",
-                    result);
-        }
- 
-        return registered;
-    }
- 
-    private void addFieldError(String objectName, String fieldName, String fieldValue,  String errorCode, BindingResult result) {
-        FieldError error = new FieldError(
-                objectName,
-                fieldName,
-                fieldValue,
-                false,
-                new String[]{errorCode},
-                new Object[]{},
-                errorCode
-        );
- 
-        result.addError(error);
-    }
-	
+	/**
+	 * 회원가입 처리
+	 * 
+	 * @param userAccountData
+	 *            사용자가 입력한 계정 form
+	 * @param result
+	 *            form 검증 결과
+	 * @param request
+	 * @return
+	 * @throws DuplicateConnectionException
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String registerUserAccount(@Valid @ModelAttribute("user") RegistrationForm userAccountData,
+			BindingResult result, WebRequest request) throws DuplicateConnectionException {
+		if (result.hasErrors()) {
+			return "user/registrationForm";
+		}
+
+		User registered = createUserAccount(userAccountData, result);
+
+		if (registered == null) {
+			return "user/registrationForm";
+		}
+		SecurityUtil.logInUser(registered);
+		providerSignInUtils.doPostSignUp(registered.getEmail(), request);
+
+		return "redirect:/";
+	}
+
+	/**
+	 * 사용자 계정 생성
+	 * 
+	 * @param userAccountData
+	 *            사용자가 입력한 계정 form
+	 * @param result
+	 *            form 검증 결과
+	 * @return 생성된 계정 데이터
+	 */
+	private User createUserAccount(RegistrationForm userAccountData, BindingResult result) {
+		User registered = null;
+
+		try {
+			registered = userService.registerNewUserAccount(userAccountData);
+		} catch (DuplicateEmailException ex) {
+			addFieldError("user", "email", userAccountData.getEmail(), "NotExist.user.email", result);
+		}
+
+		return registered;
+	}
+
+	/**
+	 * 검증 오류 추가
+	 * 
+	 * @param objectName
+	 *            객체명
+	 * @param fieldName
+	 *            필드명
+	 * @param fieldValue
+	 *            필드내용
+	 * @param errorCode
+	 *            오류코드
+	 * @param result
+	 *            form 검증 결과
+	 */
+	private void addFieldError(String objectName, String fieldName, String fieldValue, String errorCode,
+			BindingResult result) {
+		FieldError error = new FieldError(objectName, fieldName, fieldValue, false, new String[] { errorCode },
+				new Object[] {}, errorCode);
+
+		result.addError(error);
+	}
+
+	/**
+	 * 회원가입 방식에 따라 적합한 회원가입 form 생성
+	 * 
+	 * @param connection
+	 *            소셜 연결 데이터
+	 * @return 회원가입 폼
+	 */
 	private RegistrationForm createRegistrationDTO(Connection<?> connection) {
 		RegistrationForm dto = new RegistrationForm();
 
 		if (connection != null) {
 			UserProfile socialMediaProfile = null;
-			
-			if(connection.getApi() instanceof Facebook){
-				Facebook facebook = (Facebook)connection.getApi();
-				
+
+			if (connection.getApi() instanceof Facebook) {
+				/* 소셜 로그인이 facebook 방식일 경우 */
+				Facebook facebook = (Facebook) connection.getApi();
+
+				/* facebook API 버전 변경으로 기존 방식을 사용할 수 없어 우회처리 */
 				socialMediaProfile = FacebookUtil.fetchUserProfile(facebook);
 			} else {
 				socialMediaProfile = connection.fetchUserProfile();
 			}
-			
+
 			dto.setEmail(socialMediaProfile.getEmail());
 			dto.setName(socialMediaProfile.getLastName() + socialMediaProfile.getFirstName());
 

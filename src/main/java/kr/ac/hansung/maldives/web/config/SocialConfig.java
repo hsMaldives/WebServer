@@ -13,6 +13,11 @@ import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 
+/**
+ * Social 연동 설정
+ * @author MingyuBae
+ *
+ */
 @Configuration
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter{

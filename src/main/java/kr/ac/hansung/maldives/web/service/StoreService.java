@@ -13,17 +13,16 @@ import kr.ac.hansung.maldives.web.model.Store;
 @Transactional
 @Service
 public class StoreService {
-	
 
 	@Autowired
 	private StoreRepository storeRepository;
 
-   public List<Store> getStores(){
-	   return storeRepository.findAll();
-   }
-   
-   public List<Store> getStoresBylim(int lim){
-	   return storeRepository.findByStore_idx(lim);
-   }
+	public List<Store> getStores() {
+		return storeRepository.findAll();
+	}
+
+	public List<Store> getStoresBylim(int lim) {
+		return storeRepository.findByStore_idx(lim);
+	}
 
 }
