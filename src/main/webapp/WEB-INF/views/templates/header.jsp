@@ -29,7 +29,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">주변장소 추천</a></li>
-						<li><a href="<c:url value="/googleMap"/>">장소 검색</a></li>
+						<li><a href="<c:url value="/location"/>">장소 검색</a></li>
 					</ul>
 				</li>
 				
