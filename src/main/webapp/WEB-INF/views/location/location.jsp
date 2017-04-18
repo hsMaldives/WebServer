@@ -16,7 +16,7 @@
 	var circle;
 
 	function initialize() {
-
+		infowindow = new google.maps.InfoWindow();
 		var bounds;
 		var startPoint;
 		var endPoint;
@@ -24,14 +24,13 @@
 		var startY;
 		var endX;
 		var endY;
-		var haightAshbury = new google.maps.LatLng(lat, lng);
+		var location = new google.maps.LatLng(lat, lng);
 		var mapOptions = {
 			zoom : 15,
-			center : haightAshbury,
+			center : location,
 			scaleControl : true,
 			mapTypeId : 'roadmap'
 		};
-		geocoder = new google.maps.Geocoder();
 
 		if (navigator.geolocation) {
 
@@ -39,54 +38,30 @@
 				// 현재 위경도 값(GPS) 변수에 넣기.
 				lat = pos.coords.latitude;
 				lng = pos.coords.longitude;
-				haightAshbury = new google.maps.LatLng(lat, lng);
+				location = new google.maps.LatLng(lat, lng);
 				mapOptions = {
-					zoom : 11,
-					center : haightAshbury
+					zoom : 15,
+					center : location
 				};
 			})
-		}
+		}	
 
 		map = new google.maps.Map(document.getElementById("map_contents"),
 				mapOptions);
-		
-		
-		google.maps.event.addListener(map, 'idle', function() {
-			bounds = map.getBounds();
-			startPoint = bounds.getSouthWest();
-			endPoint = bounds.getNorthEast();
-			startX = startPoint.lat();
-			startY = startPoint.lng();
-			endX = endPoint.lat();
-			endY = endPoint.lng();
-			ajaxFunc(startX, endX, startY, endY);
-		});
-		google.maps.event.addListener(map, 'zoom_changed', function() {
-			bounds = map.getBounds();
-			startPoint = bounds.getSouthWest();
-			endPoint = bounds.getNorthEast();
-			startX = startPoint.lat();
-			startY = startPoint.lng();
-			endX = endPoint.lat();
-			endY = endPoint.lng();
-			ajaxFunc(startX, endX, startY, endY);
-		});
-		google.maps.event.addListener(map, 'dragend', function() {
-			bounds = map.getBounds();
-			startPoint = bounds.getSouthWest();
-			endPoint = bounds.getNorthEast();
-			startX = startPoint.lat();
-			startY = startPoint.lng();
-			endX = endPoint.lat();
-			endY = endPoint.lng();
-			ajaxFunc(startX, endX, startY, endY);
-		});
-	
 
+		google.maps.event.addListener(map, 'bounds_changed', function() {
+			bounds = map.getBounds();
+			startPoint = bounds.getSouthWest();
+			endPoint = bounds.getNorthEast();
+			startX = startPoint.lat();
+			startY = startPoint.lng();
+			endX = endPoint.lat();
+			endY = endPoint.lng();
+			ajaxFunc(startX, endX, startY, endY);
+		});
 	}
 
 	function ajaxFunc(startX, endX, startY, endY) {
-		var infowindow = new google.maps.InfoWindow();
 		$.ajax({
 			type : "GET",
 			url : "${pageContext.request.contextPath}/locationsss",
@@ -97,9 +72,6 @@
 				endY : endY
 			},
 			dataType : "json",
-			beforeSend : function() {
-				fnRemoveMarker(); // 조회 전 기존 마커 제거
-			},
 			success : function(data) {
 				var markers = [];
 				var storeListHtml = "";
@@ -113,15 +85,14 @@
 							map : map
 						});
 
-						google.maps.event.addListener(marker, 'click',
-								function() {
-									infowindow.setContent("<strong>"
-											+ marker.title + "</strong>"
-											+ "<p>Let's go Maldives</p>");
-									infowindow.open(map, marker);
-								});
+						google.maps.event.addListener(marker, 'click',function() {
+							infowindow.close();			
+							infowindow.setContent("<strong>"
+									+ marker.title + "</strong>"
+									+ "<p>Let's go Maldives</p>");
+							infowindow.open(map, marker);
+						});
 						markers.push(marker);
-						//infowindow = new google.maps.InfoWindow()
 						
 						storeListHtml += '<a href="#" class="list-group-item" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.store_idx + '">\n';
 						storeListHtml += '	<h4 class="list-group-item-heading">' + val.name + '</h4>\n';
@@ -139,30 +110,16 @@
 			}
 		});
 	}
-	function fnRemoveMarker() {
-		for (var i = 1; i < markersArray.length; i++) {
-			markersArray[i].setMap(null);
-		}
-	}
-	//function addMarker(location) {
-
-	//}
 	
 	function showMapStoreInfo(markerIndex){
 		google.maps.event.trigger(markersArray[markerIndex], 'click');
 	}
-	onload = initialize;
 </script>
 
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZqKafyvL0OerIRPWS_XV9GhPcWPIAL_w&callback=initialize">
 	
 </script>
-
-
-
-//움직일때마다 가져오기 //범위(lim) //마커 정보 //맵 밑에 text로 리스트 -- 해당마커로 가게
-
 
 <div class="row">
 	<div class="col-xs-12">
