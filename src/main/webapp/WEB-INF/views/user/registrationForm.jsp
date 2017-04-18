@@ -70,10 +70,14 @@
 				<div class="row">
 					<div id="form-group-lastName" class="form-group col-lg-4">
 						<label class="control-label" for="user-sex">성별:</label>
-						<div class="radio-inline">
+						
+						<label class="radio-inline">
 							<form:radiobutton path="sex" value="men" label="남자" />
-							<form:radiobutton path="sex" value="women" label="여자" />						
-						</div>
+						</label>
+						<label class="radio-inline">
+						<form:radiobutton path="sex" value="women" label="여자" />
+						</label>
+					
 						<form:errors id="error-sex" path="sex" cssClass="help-block" />
 					</div>
 				</div>
@@ -81,8 +85,17 @@
 				<div class="row">
 					<div id="form-group-lastName" class="form-group col-lg-4">
 						<label class="control-label" for="user-job_idx">직업:</label>
-						<form:input id="user-job_idx" path="job_idx" type="number" cssClass="form-control" />
-						<form:errors id="error-job_idx" path="job_idx" cssClass="help-block" />
+						<form:select  path="job_idx" cssClass="form-control">
+							<form:option value="#1" label="학생" selected="true"/>
+							<form:option value="#2" label="회사원"/>
+							<form:option value="#3" label="주부"/>
+							<form:option value="#4" label="무직"/>
+							<form:option value="#5" label="기타"/>
+							<%--<form:options items	="${jobs }"/> --%>
+						</form:select>
+
+<%-- 						<form:input id="user-job_idx" path="job_idx" type="number" cssClass="form-control" /> --%>
+<%-- 						<form:errors id="error-job_idx" path="job_idx" cssClass="help-block" /> --%>
 					</div>
 				</div>
 				
