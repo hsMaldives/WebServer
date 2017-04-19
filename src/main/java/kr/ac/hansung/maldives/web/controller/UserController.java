@@ -1,5 +1,7 @@
 package kr.ac.hansung.maldives.web.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 
+import kr.ac.hansung.maldives.web.model.Job;
 import kr.ac.hansung.maldives.web.model.RegistrationForm;
 import kr.ac.hansung.maldives.web.model.SocialMediaType;
 import kr.ac.hansung.maldives.web.model.User;
@@ -64,9 +67,11 @@ public class UserController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(WebRequest request, Model model) {
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
-
 		RegistrationForm registration = createRegistrationDTO(connection);
+		List<Job> jobList = userService.getJobList();
+		
 		model.addAttribute("user", registration);
+		model.addAttribute("jobList", jobList);
 
 		return "user/registrationForm";
 	}

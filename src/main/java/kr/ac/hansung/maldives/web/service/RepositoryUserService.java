@@ -1,11 +1,15 @@
 package kr.ac.hansung.maldives.web.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.ac.hansung.maldives.web.dao.JobRepository;
 import kr.ac.hansung.maldives.web.dao.UserRepository;
+import kr.ac.hansung.maldives.web.model.Job;
 import kr.ac.hansung.maldives.web.model.RegistrationForm;
 import kr.ac.hansung.maldives.web.model.User;
 import kr.ac.hansung.maldives.web.model.User.UserBuilder;
@@ -17,6 +21,9 @@ public class RepositoryUserService implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	private UserRepository repository;
+	
+	@Autowired
+	private JobRepository jobRepository;
 
 	@Autowired
 	public RepositoryUserService(PasswordEncoder passwordEncoder, UserRepository repository) {
@@ -73,5 +80,10 @@ public class RepositoryUserService implements UserService {
 		}
 
 		return encodedPassword;
+	}
+
+	@Override
+	public List<Job> getJobList() {
+		return jobRepository.findAll();
 	}
 }
