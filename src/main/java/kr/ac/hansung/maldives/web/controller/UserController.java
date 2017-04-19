@@ -89,8 +89,12 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerUserAccount(@Valid @ModelAttribute("user") RegistrationForm userAccountData,
-			BindingResult result, WebRequest request) throws DuplicateConnectionException {
+			BindingResult result, WebRequest request, Model model) throws DuplicateConnectionException {
 		if (result.hasErrors()) {
+			List<Job> jobList = userService.getJobList();
+			
+			model.addAttribute("jobList", jobList);
+			
 			return "user/registrationForm";
 		}
 
