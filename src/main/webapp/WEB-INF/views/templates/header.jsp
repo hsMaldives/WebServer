@@ -84,7 +84,7 @@
 							</sec:authorize>
 						</li>
 						<li role="separator" class="divider"></li>
-						<li><a href="#">위치 설정</a></li>
+						<li><a href="#" onclick="callSettingActivity()">위치 설정</a></li>
 						<li><a href="#">알림 설정</a></li>
 						<li><a href="#">계정 설정</a></li>
 					</ul>

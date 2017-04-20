@@ -1,0 +1,8 @@
+spring:
+  social:
+    facebook:
+      appId: 793471174138586
+      appSecret: 8bd93c8c3d77a71f6c26339a595cdb03
+
+logging:
+  path: /home/whereyou/logs

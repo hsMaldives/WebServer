@@ -18,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 
@@ -65,10 +66,14 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String showRegistrationForm(WebRequest request, Model model) {
+	public String showRegistrationForm(@RequestParam(required=false) RegistrationForm registration,
+			WebRequest request, Model model) {
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
-		RegistrationForm registration = createRegistrationDTO(connection);
 		List<Job> jobList = userService.getJobList();
+		
+		if(registration == null){
+			registration = createRegistrationDTO(connection);
+		}
 		
 		model.addAttribute("user", registration);
 		model.addAttribute("jobList", jobList);
@@ -91,17 +96,13 @@ public class UserController {
 	public String registerUserAccount(@Valid @ModelAttribute("user") RegistrationForm userAccountData,
 			BindingResult result, WebRequest request, Model model) throws DuplicateConnectionException {
 		if (result.hasErrors()) {
-			List<Job> jobList = userService.getJobList();
-			
-			model.addAttribute("jobList", jobList);
-			
-			return "user/registrationForm";
+			return showRegistrationForm(userAccountData, request, model);
 		}
 
 		User registered = createUserAccount(userAccountData, result);
 
 		if (registered == null) {
-			return "user/registrationForm";
+			return showRegistrationForm(userAccountData, request, model);
 		}
 		SecurityUtil.logInUser(registered);
 		providerSignInUtils.doPostSignUp(registered.getEmail(), request);
