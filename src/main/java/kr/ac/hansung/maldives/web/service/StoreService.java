@@ -21,12 +21,12 @@ public class StoreService {
 		return storeRepository.findAll();
 	}
 
-	public List<Store> getStoresBylim(int lim) {
-		return storeRepository.findByStore_idx(lim);
+	public List<Store> getStoresByBound(double startX, double endX, double startY, double endY) {
+		return storeRepository.findByBound(startX, endX, startY, endY);
 	}
 
-   public List<Store> getStoresByBound(double startX, double endX, double startY, double endY) {
-	   return storeRepository.findByBound(startX,endX,startY,endY);
-   }
+	public Store getStoreById(int store_idx) {
+		return storeRepository.getOne(store_idx);
+	}
 
 }
