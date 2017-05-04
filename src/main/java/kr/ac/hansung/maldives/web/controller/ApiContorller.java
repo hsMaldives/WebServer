@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.ac.hansung.maldives.web.model.Location;
-import kr.ac.hansung.maldives.web.model.LocationAndRating;
 import kr.ac.hansung.maldives.web.model.Store;
+import kr.ac.hansung.maldives.web.model.StoreAndRating;
 import kr.ac.hansung.maldives.web.service.StoreService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,19 +26,54 @@ public class ApiContorller {
 	@Autowired
 	private StoreService storeService;
 	
-	@RequestMapping(value="/test", method=RequestMethod.POST)
-	public LocationAndRating test(@RequestBody LocationAndRating locationAndRating, Principal principal){
-		System.out.println(locationAndRating);
-		log.info("[별점 등록] locationAndRating: {}, User: {}", locationAndRating, principal);
+//	@RequestMapping(value="/test", method=RequestMethod.POST)
+//	public LocationAndRating test(@RequestBody LocationAndRating locationAndRating, Principal principal){
+//		System.out.println(locationAndRating);
+//		log.info("[별점 등록] locationAndRating: {}, User: {}", locationAndRating, principal);
+//		
+//		return locationAndRating;
+//	}
+	
+	
+	@RequestMapping(value="/storeAndRatingInfo", method=RequestMethod.POST)
+	public StoreAndRating ratingInfo(@RequestBody StoreAndRating storeAndRating, Principal principal){
+		System.out.println(storeAndRating);
+		log.info("[별점 등록] storeAndRating: {}, User: {}", storeAndRating, principal);
 		
-		return locationAndRating;
+		
+		//DB에 store별 별점정보를 쌓는다.
+		//
+		//
+		//
+		//
+		
+		return storeAndRating;
 	}
+	
+	
+	
+	@RequestMapping(value="/onlyLocationInfo", method=RequestMethod.POST)	
+	public Location onlyLocationInfo(@RequestBody Location location, Principal principal){
+		System.out.println(location);
+		log.info("[위치 정보] location: {}, location, User: {}", location, principal);
+		
+		
+		//location정보를  미평가 데이터로 DB에 쌓는다.
+		//
+		//
+		//
+		//
+		
+		return location;
+	}
+	
+	
 	
 	
 	
 	@RequestMapping(value="/locationInfo", method=RequestMethod.POST)
 	@ResponseBody
-	public List<Store> location(@RequestBody Location location){
+	public List<Store> locationInfo(@RequestBody Location location){
 		System.out.println(location);
 		log.info("[위치 정보] location: {}", location);
 		
@@ -63,6 +98,8 @@ public class ApiContorller {
 		
 		return stores;
 	}
+	
+	
 	
 	
 	
