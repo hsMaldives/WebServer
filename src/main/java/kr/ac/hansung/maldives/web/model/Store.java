@@ -16,7 +16,7 @@ import lombok.Data;
 public class Store {
 	@Id
 	@GeneratedValue
-	private Integer store_idx;
+	private Long store_idx;
 
 	@Column(name = "name", nullable = false)
 	private String name;

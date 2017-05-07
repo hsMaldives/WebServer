@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.ac.hansung.maldives.web.model.Location;
@@ -26,15 +25,6 @@ public class ApiContorller {
 	@Autowired
 	private StoreService storeService;
 	
-//	@RequestMapping(value="/test", method=RequestMethod.POST)
-//	public LocationAndRating test(@RequestBody LocationAndRating locationAndRating, Principal principal){
-//		System.out.println(locationAndRating);
-//		log.info("[별점 등록] locationAndRating: {}, User: {}", locationAndRating, principal);
-//		
-//		return locationAndRating;
-//	}
-	
-	
 	@RequestMapping(value="/storeAndRatingInfo", method=RequestMethod.POST)
 	public StoreAndRating ratingInfo(@RequestBody StoreAndRating storeAndRating, Principal principal){
 		System.out.println(storeAndRating);
@@ -49,8 +39,6 @@ public class ApiContorller {
 		
 		return storeAndRating;
 	}
-	
-	
 	
 	@RequestMapping(value="/onlyLocationInfo", method=RequestMethod.POST)	
 	public Location onlyLocationInfo(@RequestBody Location location, Principal principal){
@@ -67,12 +55,7 @@ public class ApiContorller {
 		return location;
 	}
 	
-	
-	
-	
-	
 	@RequestMapping(value="/locationInfo", method=RequestMethod.POST)
-	@ResponseBody
 	public List<Store> locationInfo(@RequestBody Location location){
 		System.out.println(location);
 		log.info("[위치 정보] location: {}", location);
@@ -98,12 +81,5 @@ public class ApiContorller {
 		
 		return stores;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 }

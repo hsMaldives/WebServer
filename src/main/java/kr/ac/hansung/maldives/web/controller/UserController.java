@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.DuplicateConnectionException;
@@ -22,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.request.WebRequest;
 
+import kr.ac.hansung.maldives.web.model.ChangeAccountForm;
+import kr.ac.hansung.maldives.web.model.CustomUserDetails;
 import kr.ac.hansung.maldives.web.model.Job;
 import kr.ac.hansung.maldives.web.model.RegistrationForm;
 import kr.ac.hansung.maldives.web.model.SocialMediaType;
 import kr.ac.hansung.maldives.web.model.User;
+import kr.ac.hansung.maldives.web.service.AccountService;
 import kr.ac.hansung.maldives.web.service.DuplicateEmailException;
 import kr.ac.hansung.maldives.web.service.UserService;
 import kr.ac.hansung.maldives.web.utility.FacebookUtil;
@@ -44,6 +48,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	@Autowired
 	private ProviderSignInUtils providerSignInUtils;
@@ -108,6 +115,41 @@ public class UserController {
 		providerSignInUtils.doPostSignUp(registered.getEmail(), request);
 
 		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/change-account", method=RequestMethod.GET)
+	public String changeUserInfoForm(@RequestParam(required=false) ChangeAccountForm changeAccount, Model model){
+		CustomUserDetails userDetails = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = accountService.findOne(userDetails.getUser_idx());
+		List<Job> jobList = userService.getJobList();
+		
+		if(changeAccount == null){
+			changeAccount = new ChangeAccountForm();
+			changeAccount.setAge(user.getAge());
+			changeAccount.setJob_idx(user.getJob_idx());
+			changeAccount.setNickname(user.getNickname());
+			changeAccount.setSex(user.getSex());
+		}
+		
+		model.addAttribute("user", user);
+		model.addAttribute("jobList", jobList);
+		model.addAttribute("changeAccount", changeAccount);
+		
+		return "user/changeAccountForm";
+	}
+	
+	@RequestMapping(value="/change-account", method=RequestMethod.POST)
+	public String changeUserInfoPost(@Valid @ModelAttribute("changeAccount") ChangeAccountForm changeAccount, 
+									BindingResult result, Model model){
+		CustomUserDetails userDetails = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if (result.hasErrors()) {
+			return changeUserInfoForm(changeAccount, model);
+		}
+		
+		accountService.changeAccountInfo(changeAccount, userDetails);
+		
+		return "redirect:/user/change-account";
 	}
 
 	/**

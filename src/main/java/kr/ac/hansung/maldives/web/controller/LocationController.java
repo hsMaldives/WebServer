@@ -33,7 +33,7 @@ public class LocationController {
 	}
 
 	@RequestMapping("/detail")
-	public String locationDetail(@RequestParam("store_idx") int store_idx, Model model) {
+	public String locationDetail(@RequestParam("store_idx") Long store_idx, Model model) {
 		Store store = storeService.getStoreById(store_idx);
 		model.addAttribute("store", store);
 		return "location/detail";

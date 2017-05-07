@@ -43,8 +43,8 @@
 						</div>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">미평가 장소 평가</a></li>
-						<li><a href="#">기존 평가 조회</a></li>
+						<li><a href="<c:url value="/evaluation/miss-evaluations"/>">미평가 장소 평가</a></li>
+						<li><a href="<c:url value="/evaluation/historys"/>">기존 평가 조회</a></li>
 					</ul>
 				</li>
 				<li class="dropup col-xs-3">
@@ -86,7 +86,7 @@
 						<li role="separator" class="divider"></li>
 						<li><a href="#" onclick="callSettingActivity()">위치 설정</a></li>
 						<li><a href="#">알림 설정</a></li>
-						<li><a href="#">계정 설정</a></li>
+						<li><a href="<c:url value="/user/change-account" />">계정 설정</a></li>
 					</ul>
 				</li>
 			</ul>

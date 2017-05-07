@@ -25,7 +25,7 @@ public class StoreService {
 		return storeRepository.findByBound(startX, endX, startY, endY);
 	}
 
-	public Store getStoreById(int store_idx) {
+	public Store getStoreById(Long store_idx) {
 		return storeRepository.getOne(store_idx);
 	}
 
