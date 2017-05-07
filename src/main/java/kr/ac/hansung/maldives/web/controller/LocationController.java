@@ -20,6 +20,7 @@ public class LocationController {
 	@Autowired
 	private StoreService storeService;
 
+
 	@RequestMapping("/")
 	public String location(Model model) {
 		storeService.getStores();
@@ -29,12 +30,14 @@ public class LocationController {
 	@RequestMapping("/getStores")
 	public @ResponseBody List<Store> getStoresByBound(double startX, double endX, double startY, double endY) {
 		List<Store> stores = storeService.getStoresByBound(startX, endX, startY, endY);
+		
 		return stores;
 	}
 
 	@RequestMapping("/detail")
 	public String locationDetail(@RequestParam("store_idx") Long store_idx, Model model) {
 		Store store = storeService.getStoreById(store_idx);
+
 		model.addAttribute("store", store);
 		return "location/detail";
 	}
