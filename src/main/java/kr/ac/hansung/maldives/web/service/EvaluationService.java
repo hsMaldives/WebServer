@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.ac.hansung.maldives.web.dao.EvaluationRepositry;
+import kr.ac.hansung.maldives.web.dao.EvaluationRepository;
 import kr.ac.hansung.maldives.web.dao.PositionRepository;
 import kr.ac.hansung.maldives.web.model.Evaluation;
 import kr.ac.hansung.maldives.web.model.Position;
@@ -14,7 +14,7 @@ import kr.ac.hansung.maldives.web.model.Position;
 public class EvaluationService {
 	
 	@Autowired
-	private EvaluationRepositry evaluationRepositry;
+	private EvaluationRepository evaluationRepositry;
 	
 	@Autowired
 	private PositionRepository positionRepository;

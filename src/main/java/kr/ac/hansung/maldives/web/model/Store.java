@@ -33,5 +33,8 @@ public class Store {
 	@Column(name = "address" )
 	private String address;
 	
+	//daumStoreItem
+	@Column(name = "dsi_idx")
+	private String dsi_idx;
 	
 }

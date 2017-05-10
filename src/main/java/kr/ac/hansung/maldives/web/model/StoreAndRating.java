@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class StoreAndRating {
 	
-	private Integer store_idx;
+	private DaumStoreItem daumStoreItem;
 	
 	private Float rating[];
 }
