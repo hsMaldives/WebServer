@@ -33,7 +33,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
 
         CustomUserDetails principal = CustomUserDetails.builder()
                 .name(user.getName())
-                .user_idx(user.getUser_idx())
+                .user_idx(user.getUserIdx())
                 .password(user.getPassword())
                 .role(user.getRole())
                 .socialSignInProvider(user.getSignInProvider())

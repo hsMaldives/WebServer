@@ -16,7 +16,7 @@ import lombok.Data;
 public class Store {
 	@Id
 	@GeneratedValue
-	private Long store_idx;
+	private Long storeIdx;
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -34,7 +34,6 @@ public class Store {
 	private String address;
 	
 	//daumStoreItem
-	@Column(name = "dsi_idx")
-	private String dsi_idx;
+	private String dsiId;
 	
 }

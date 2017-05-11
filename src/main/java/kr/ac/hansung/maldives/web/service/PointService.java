@@ -1,5 +1,7 @@
 package kr.ac.hansung.maldives.web.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,11 @@ public class PointService {
 		pointRepository.getOne(point_idx);
 	}
 
-	public boolean checkSamePlace(Long store_idx,Long user_idx){
-		pointRepository.findByUser_idxAndTime(user_idx);
+	public boolean checkSamePlace(Long store_idx,Long userIdx){
+		LocalDateTime beginTime = LocalDateTime.now().minusMinutes(15);
+		LocalDateTime endTime = LocalDateTime.now();
+		
+		pointRepository.findByUserUserIdxAndTimestampBetween(userIdx, beginTime, endTime);
 		return false;
 	}
 
@@ -30,13 +35,13 @@ public class PointService {
 		User user = accountService.findOne(user_idx);
 
 		PointLog point = new PointLog();
-		point.setPoint_type(pointType);
-		point.setAcc_point(acc_point);
+		point.setPointType(pointType);
+		point.setAccPoint(acc_point);
 		point.setStore(store);
-		point.setTotal_point(user.getPoint() + acc_point);
+		point.setTotalPoint(user.getPoint() + acc_point);
 		point.setUser(user);
 
-		user.setPoint(point.getTotal_point());
+		user.setPoint(point.getTotalPoint());
 
 		pointRepository.save(point);
 

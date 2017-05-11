@@ -21,7 +21,7 @@
 		<tbody>
 		  <c:forEach var="evaluation" items="${evaluations}">
 			<tr>
-				<td>${evaluation.position_idx }</td>
+				<td>${evaluation.positionIdx }</td>
 				<td>${evaluation.position.store.name }</td>
 				<td>${evaluation.eva1 }</td>
 				<td>${evaluation.eva2 }</td>

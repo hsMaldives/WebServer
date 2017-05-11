@@ -120,13 +120,13 @@ public class UserController {
 	@RequestMapping(value="/change-account", method=RequestMethod.GET)
 	public String changeUserInfoForm(@RequestParam(required=false) ChangeAccountForm changeAccount, Model model){
 		CustomUserDetails userDetails = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = accountService.findOne(userDetails.getUser_idx());
+		User user = accountService.findOne(userDetails.getUserIdx());
 		List<Job> jobList = userService.getJobList();
 		
 		if(changeAccount == null){
 			changeAccount = new ChangeAccountForm();
 			changeAccount.setAge(user.getAge());
-			changeAccount.setJob_idx(user.getJob_idx());
+			changeAccount.setJobIdx(user.getJobIdx());
 			changeAccount.setNickname(user.getNickname());
 			changeAccount.setSex(user.getSex());
 		}

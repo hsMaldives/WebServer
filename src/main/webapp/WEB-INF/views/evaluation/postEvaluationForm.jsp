@@ -68,7 +68,7 @@
 			</div>
 		</div>
 		
-		<form:hidden path="position_idx"/>
+		<form:hidden path="positionIdx"/>
 		<button type="submit" class="btn btn-default">
 			평가
 		</button>

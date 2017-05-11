@@ -2,21 +2,21 @@ package kr.ac.hansung.maldives.web.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
-@Table(name="Job")
-
 @Data
-public class Job {
+
+@Entity
+public class Category {
+
 	@Id
-	@GeneratedValue
-	private Integer jobIdx;
+	private String categoryCode;
 	
-	@Column(name = "name", nullable = false)
+	@Column(length=30)
 	private String name;
+	
+	@Column(length=50)
+	private String description;
 }

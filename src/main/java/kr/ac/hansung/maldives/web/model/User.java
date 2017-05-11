@@ -1,5 +1,7 @@
 package kr.ac.hansung.maldives.web.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -15,19 +19,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name="users")
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Builder
+@Entity
+@Table(name="users")
 public class User extends BaseEntity<Long>{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long user_idx;
+    private Long userIdx;
  
     @Column(name = "email", length = 150, nullable = false, unique = true)
     private String email;
@@ -53,7 +57,7 @@ public class User extends BaseEntity<Long>{
     private Sex sex;
     
     @Column(name = "job_idx", nullable = false)
-    private Integer job_idx;
+    private Integer jobIdx;
     
     @Column(name = "point", nullable = false)
     private Integer point;
@@ -64,10 +68,14 @@ public class User extends BaseEntity<Long>{
     
     @Column(name = "deleted", nullable = false)
     private Boolean deleted;
+    
+    @ManyToMany
+    @JoinTable(name="favorites")
+    private List<Category> favories;
 
 	@Override
 	public Long getId() {
-		return user_idx;
+		return userIdx;
 	}
 
 }

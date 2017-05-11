@@ -21,6 +21,8 @@ spring:
       appId: 153824501814870
       appSecret: e74abda16538ad2b03f143ab30d2ab06
   jpa: 
+    hibernate:
+      ddl-auto: update
     show-sql: true
 
 mybatis:

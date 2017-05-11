@@ -49,7 +49,7 @@ public class RepositoryUserService implements UserService {
 				.role(UserRole.ROLE_USER)
 				.age(userAccountData.getAge())
 				.sex(userAccountData.getSex())
-				.job_idx(userAccountData.getJob_idx())
+				.jobIdx(userAccountData.getJobIdx())
 				.point(0)
 				.deleted(false);
 

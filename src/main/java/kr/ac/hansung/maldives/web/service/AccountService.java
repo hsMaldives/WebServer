@@ -23,7 +23,7 @@ public class AccountService {
 	}
 
 	public void changeAccountInfo(ChangeAccountForm changeAccount, CustomUserDetails userDetails) {
-		User user = findOne(userDetails.getUser_idx());
+		User user = findOne(userDetails.getUserIdx());
 		
 		if(changeAccount.getPassword() != null 
 				&& ! changeAccount.getPassword().isEmpty()){
@@ -33,7 +33,7 @@ public class AccountService {
 		user.setNickname(changeAccount.getNickname());
 		user.setAge(changeAccount.getAge());
 		user.setSex(changeAccount.getSex());
-		user.setJob_idx(changeAccount.getJob_idx());
+		user.setJobIdx(changeAccount.getJobIdx());
 		
 		userRepository.save(user);
 		

@@ -21,7 +21,7 @@ public class Evaluation {
 	@GeneratedValue(generator="positionGenerator")
 	@GenericGenerator(name="positionGenerator", strategy="foreign", 
 				parameters=@Parameter(value="position", name="property"))
-	private Long position_idx;
+	private Long positionIdx;
 	
 	private Double eva1;
 	

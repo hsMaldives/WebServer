@@ -1,4 +1,7 @@
 spring:
+  jpa: 
+    hibernate:
+      ddl-auto: none
   social:
     facebook:
       appId: 793471174138586

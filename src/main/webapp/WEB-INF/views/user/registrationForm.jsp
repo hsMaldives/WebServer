@@ -85,12 +85,12 @@
 				<div class="row">
 					<div id="form-group-lastName" class="form-group col-lg-4">
 						<label class="control-label" for="user-job_idx">직업:</label>
-						<form:select  path="job_idx" cssClass="form-control">
+						<form:select  path="jobIdx" cssClass="form-control">
 							<option value="">직업을 선택해 주세요</option>
 							<form:options items	="${jobList }" itemValue="job_idx" itemLabel="name"/>
 						</form:select>
 						
-						<form:errors id="error-job_idx" path="job_idx" cssClass="help-block" />
+						<form:errors id="error-job_idx" path="jobIdx" cssClass="help-block" />
 					</div>
 				</div>
 				

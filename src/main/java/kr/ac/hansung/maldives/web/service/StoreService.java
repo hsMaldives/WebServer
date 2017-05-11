@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.hansung.maldives.web.dao.StoreRepository;
-import kr.ac.hansung.maldives.web.model.DaumStoreItem;
 import kr.ac.hansung.maldives.web.model.Store;
 
 @Transactional

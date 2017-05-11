@@ -22,7 +22,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>${store.store_idx }</td>
+				<td>${store.storeIdx }</td>
 				<td>${store.code }</td>
 				<td>${store.name }</td>
 				<td>${store.latitude }</td>

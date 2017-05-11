@@ -29,7 +29,7 @@ public class EvaluationController {
 	@RequestMapping(value="/historys", method=RequestMethod.GET)
 	public String getHistoryList(Model model){
 		CustomUserDetails userDetails = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<Evaluation> evaluations = evaluationService.findByUser_idxAndNotEmptyEvaluation(userDetails.getUser_idx());
+		List<Evaluation> evaluations = evaluationService.findByUser_idxAndNotEmptyEvaluation(userDetails.getUserIdx());
 		
 		model.addAttribute("evaluations", evaluations);
 		
@@ -39,7 +39,7 @@ public class EvaluationController {
 	@RequestMapping(value="/miss-evaluations", method=RequestMethod.GET)
 	public String getMissEvaluationList(Model model){
 		CustomUserDetails userDetails = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<Position> positions = evaluationService.findByUser_idxAndEmptyEvaluation(userDetails.getUser_idx());
+		List<Position> positions = evaluationService.findByUser_idxAndEmptyEvaluation(userDetails.getUserIdx());
 		
 		model.addAttribute("positions", positions);
 		
@@ -56,12 +56,12 @@ public class EvaluationController {
 		}
 		
 		if(position == null 
-				|| ! position.getUser().getUser_idx().equals(userDetails.getUser_idx())
+				|| ! position.getUser().getUserIdx().equals(userDetails.getUserIdx())
 				|| position.getEvaluation() != null){
 			return "redirect:/evaluation/miss-evaluations";
 		}
 		
-		evaluation.setPosition_idx(position.getPosition_idx());
+		evaluation.setPositionIdx(position.getPositionIdx());
 		
 		//TODO 카테고리별 평가 항목 설정이 필요
 		
@@ -75,14 +75,14 @@ public class EvaluationController {
 	public String postEvaluationPost(@Valid @ModelAttribute("evaluation") Evaluation evaluation, 
 									BindingResult result, Model model){
 		CustomUserDetails userDetails = (CustomUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Position position = evaluationService.positionFindByOne(evaluation.getPosition_idx());
+		Position position = evaluationService.positionFindByOne(evaluation.getPositionIdx());
 		
 		if (result.hasErrors()) {
-			return postEvaluationForm(evaluation, evaluation.getPosition_idx(), model);
+			return postEvaluationForm(evaluation, evaluation.getPositionIdx(), model);
 		}
 		
 		if(position == null 
-				|| ! position.getUser().getUser_idx().equals(userDetails.getUser_idx())
+				|| ! position.getUser().getUserIdx().equals(userDetails.getUserIdx())
 				|| position.getEvaluation() != null){
 			return "redirect:/evaluation/miss-evaluations";
 		}

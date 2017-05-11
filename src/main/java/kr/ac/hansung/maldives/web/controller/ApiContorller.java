@@ -52,13 +52,13 @@ public class ApiContorller {
 		store.setName(dsi.getTitle());
 		store.setAddress(dsi.getAddress());
 		//store.setCode(dsi.getCategory());
-		store.setDsi_idx(dsi.getId());
+		store.setDsiId(dsi.getId());
 		store.setLatitude(dsi.getLatitude());
 		store.setLongitude(dsi.getLongitude());
 
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
-		User user = accountService.findOne(userDetails.getUser_idx());
+		User user = accountService.findOne(userDetails.getUserIdx());
 
 		///////////////////////////////////////
 		// pointService.checkSamePlace(storeAndRating.getStore_idx(),
@@ -81,13 +81,13 @@ public class ApiContorller {
 		store.setName(dsi.getTitle());
 		store.setAddress(dsi.getAddress());
 		//store.setCode(dsi.getCategory());
-		store.setDsi_idx(dsi.getId());
+		store.setDsiId(dsi.getId());
 		store.setLatitude(dsi.getLatitude());
 		store.setLongitude(dsi.getLongitude());
 
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
-		User user = accountService.findOne(userDetails.getUser_idx());
+		User user = accountService.findOne(userDetails.getUserIdx());
 
 		//////////////////////////////////////
 		// Store dbStore = storeService.getStoreById();

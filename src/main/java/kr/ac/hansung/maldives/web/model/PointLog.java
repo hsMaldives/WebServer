@@ -1,6 +1,6 @@
 package kr.ac.hansung.maldives.web.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class PointLog {
 	
 	@Id
 	@GeneratedValue
-	private Long point_idx;
+	private Long pointIdx;
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_idx")
@@ -33,12 +33,12 @@ public class PointLog {
 	
 	
 	// 이번에 쌓는 포인트
-	private Integer acc_point;
+	private Integer accPoint;
 
 	// 현재 총 포인트
-	private Integer total_point;
+	private Integer totalPoint;
 
-	private Date timestamp;
+	private LocalDateTime timestamp;
 	
-	private PointType point_type;
+	private PointType pointType;
 }

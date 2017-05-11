@@ -94,7 +94,7 @@
 						});
 						markers.push(marker);
 						
-						storeListHtml += '<a href=<c:url value="/location/detail"/>?store_idx='+ val.store_idx +' class="list-group-item" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.store_idx + '">\n';
+						storeListHtml += '<a href=<c:url value="/location/detail"/>?store_idx='+ val.storeIdx +' class="list-group-item" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.storeIdx + '">\n';
 						storeListHtml += '	<h4 class="list-group-item-heading">' + val.name + '</h4>\n';
 						storeListHtml += '	<p class="list-group-item-text">' + val.address + '</p>\n';
 						storeListHtml += '</a>\n';

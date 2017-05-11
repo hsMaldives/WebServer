@@ -17,11 +17,11 @@
 		<tbody>
 		  <c:forEach var="position" items="${positions}">
 			<tr>
-				<td>${position.position_idx }</td>
+				<td>${position.positionIdx }</td>
 				<td>${position.store.name }</td>
 				<td>${position.time }</td>
 				<td>
-					<a href="<c:url value="/evaluation/post-evaluation?position_idx=${position.position_idx }"/>">
+					<a href="<c:url value="/evaluation/post-evaluation?position_idx=${position.positionIdx }"/>">
 						<span class="glyphicon glyphicon-check" aria-hidden="true"></span>
 					</a>
 				</td>

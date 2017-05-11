@@ -38,7 +38,7 @@ public class RegistrationForm {
 	private Sex sex;
 	
 	@NotNull
-	private Integer job_idx;
+	private Integer jobIdx;
 
 	private SocialMediaType signInProvider;
 

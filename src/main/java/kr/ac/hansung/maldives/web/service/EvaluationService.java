@@ -20,11 +20,11 @@ public class EvaluationService {
 	private PositionRepository positionRepository;
 	
 	public List<Evaluation> findByUser_idxAndNotEmptyEvaluation(Long user_idx){
-		return evaluationRepositry.findByUser_idxAndNotEmptyEvaluation(user_idx);
+		return evaluationRepositry.findByPositionUserUserIdx(user_idx);
 	}
 	
 	public List<Position> findByUser_idxAndEmptyEvaluation(Long user_idx){
-		return positionRepository.findByUser_idxAndEmptyEvaluation(user_idx);
+		return positionRepository.findByUserUserIdxAndPositionIdxIsNull(user_idx);
 	}
 	
 	public Position positionFindByOne(Long position_idx){
@@ -32,13 +32,13 @@ public class EvaluationService {
 	}
 	
 	public void savePostEvaluation(Evaluation evaluation){
-		Position position = positionFindByOne(evaluation.getPosition_idx());
+		Position position = positionFindByOne(evaluation.getPositionIdx());
 		
-		evaluation.setPosition_idx(null);
+		evaluation.setPositionIdx(null);
 		evaluation.setPosition(position);
 		evaluationRepositry.save(evaluation);
 		
-		position.setEva_bit(true);
+		position.setEvaBit(true);
 		position.setEvaluation(evaluation);
 		positionRepository.save(position);
 	}
