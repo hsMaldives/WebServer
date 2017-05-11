@@ -11,6 +11,7 @@
 		<div class="">
 			<h2>Point Shop</h2>
 		</div>
+<<<<<<< HEAD
 		
 		
 		<div class="panel panel-primary"">
@@ -18,6 +19,8 @@
 		
 		
 		</div>
+=======
+>>>>>>> branch 'master' of https://github.com/hsMaldives/WebServer.git
 
 		<div>
 			<button class="btn btn-primary filter-button" data-filter="all">All</button>

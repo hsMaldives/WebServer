@@ -19,7 +19,7 @@ public class CustomUserDetails extends SocialUser {
 
 	private static final long serialVersionUID = -4950595906773152481L;
 
-	private Long user_idx;
+	private Long userIdx;
 	private String name;
 	private String nickname;
 	private UserRole role;
@@ -35,7 +35,7 @@ public class CustomUserDetails extends SocialUser {
 
 	public static class Builder {
 
-		private Long user_idx;
+		private Long userIdx;
 		private String username;
 		private String name;
 		private String nickname;
@@ -55,7 +55,7 @@ public class CustomUserDetails extends SocialUser {
 		}
 
 		public Builder user_idx(Long user_idx) {
-			this.user_idx = user_idx;
+			this.userIdx = user_idx;
 			return this;
 		}
 
@@ -95,7 +95,7 @@ public class CustomUserDetails extends SocialUser {
 		public CustomUserDetails build() {
 			CustomUserDetails user = new CustomUserDetails(username, password, authorities);
 
-			user.user_idx = user_idx;
+			user.userIdx = userIdx;
 			user.name = name;
 			user.nickname = nickname;
 			user.role = role;

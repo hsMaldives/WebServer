@@ -18,11 +18,13 @@ spring:
     password: hereYou1!
   social:
     facebook:
-      appId: 793471174138586
-      appSecret: 8bd93c8c3d77a71f6c26339a595cdb03
+      appId: 153824501814870
+      appSecret: e74abda16538ad2b03f143ab30d2ab06
   jpa: 
+    hibernate:
+      ddl-auto: update
     show-sql: true
-      
+
 mybatis:
   type-aliases-package: kr.ac.hansung.maldives.domain 
   mapper-locations:

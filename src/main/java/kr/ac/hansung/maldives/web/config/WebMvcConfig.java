@@ -8,24 +8,23 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 public class WebMvcConfig {
-	
+
 	@Bean
-	public TilesConfigurer tilesConfigurer(){
+	public TilesConfigurer tilesConfigurer() {
 		final TilesConfigurer configurer = new TilesConfigurer();
-		
-		configurer.setDefinitions(new String[] {
-				"/WEB-INF/views/**/views.xml"
-				});
+
+		configurer.setDefinitions(new String[] { "/WEB-INF/views/**/views.xml" });
 		configurer.setCheckRefresh(true);
-		
+
 		return configurer;
 	}
-	
+
 	@Bean
-	public TilesViewResolver tilesViewResolver(){
+	public TilesViewResolver tilesViewResolver() {
 		final TilesViewResolver resolver = new TilesViewResolver();
 		resolver.setViewClass(TilesView.class);
-		
+
 		return resolver;
 	}
+
 }

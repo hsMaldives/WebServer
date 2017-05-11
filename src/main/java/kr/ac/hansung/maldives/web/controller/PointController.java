@@ -19,8 +19,6 @@ public class PointController {
 	
 	@RequestMapping("/shop")
 	public String poingShop(Model model){
-		
-		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
 		User user = accountService.findByEmail(username);
