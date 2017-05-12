@@ -56,9 +56,8 @@
 							포인트
 						</div>
 					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">포인트 조회</a></li>
-						<li><a href="<c:url value="/point/shop"/>">상품 구매</a></li>
+					<ul class="dropdown-menu">						
+						<li><a href="<c:url value="/point/pointShop"/>">포인트 사용</a></li>
 					</ul>
 				</li>
 				
@@ -84,8 +83,7 @@
 							</sec:authorize>
 						</li>
 						<li role="separator" class="divider"></li>
-						<li><a href="#" onclick="callSettingActivity()">위치 설정</a></li>
-						<li><a href="#">알림 설정</a></li>
+						<li><a href="#" onclick="callSettingActivity()">앱 설정</a></li>
 						<li><a href="<c:url value="/user/change-account" />">계정 설정</a></li>
 					</ul>
 				</li>

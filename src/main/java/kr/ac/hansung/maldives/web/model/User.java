@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -59,8 +60,8 @@ public class User extends BaseEntity<Long>{
     @Enumerated(EnumType.ORDINAL)
     private Sex sex;
     
-    @Column(name = "job_idx", nullable = false)
-    private Integer jobIdx;
+//    @Column(nullable = false)
+//    private Integer jobIdx;
     
     @Column(name = "point", nullable = false)
     private Integer point;
@@ -83,6 +84,10 @@ public class User extends BaseEntity<Long>{
 	@OneToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(unique = true)
 	private Cart cart;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="job_idx")
+	private Job job;
 
 	@Override
 	public Long getId() {

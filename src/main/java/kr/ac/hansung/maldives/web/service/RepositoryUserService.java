@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.hansung.maldives.web.dao.JobRepository;
 import kr.ac.hansung.maldives.web.dao.UserRepository;
+import kr.ac.hansung.maldives.web.model.Cart;
 import kr.ac.hansung.maldives.web.model.Job;
 import kr.ac.hansung.maldives.web.model.RegistrationForm;
+import kr.ac.hansung.maldives.web.model.ShippingAddress;
 import kr.ac.hansung.maldives.web.model.User;
 import kr.ac.hansung.maldives.web.model.User.UserBuilder;
 import kr.ac.hansung.maldives.web.model.UserRole;
@@ -49,9 +51,11 @@ public class RepositoryUserService implements UserService {
 				.role(UserRole.ROLE_USER)
 				.age(userAccountData.getAge())
 				.sex(userAccountData.getSex())
-				.jobIdx(userAccountData.getJobIdx())
+				.job(jobRepository.findOne(userAccountData.getJobIdx()))
 				.point(0)
-				.deleted(false);
+				.deleted(false)
+				.cart(new Cart())
+				.shippingAddress(new ShippingAddress());
 
 		if (userAccountData.isSocialSignIn()) {
 			user.signInProvider(userAccountData.getSignInProvider());

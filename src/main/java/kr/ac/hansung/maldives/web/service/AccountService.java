@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import kr.ac.hansung.maldives.web.dao.JobRepository;
 import kr.ac.hansung.maldives.web.dao.UserRepository;
 import kr.ac.hansung.maldives.web.model.ChangeAccountForm;
 import kr.ac.hansung.maldives.web.model.CustomUserDetails;
+import kr.ac.hansung.maldives.web.model.Job;
 import kr.ac.hansung.maldives.web.model.User;
 
 @Service
@@ -17,6 +19,9 @@ public class AccountService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private JobRepository jobRepository;
 	
 	public User findOne(Long user_idx){
 		return userRepository.findOne(user_idx);
@@ -33,7 +38,8 @@ public class AccountService {
 		user.setNickname(changeAccount.getNickname());
 		user.setAge(changeAccount.getAge());
 		user.setSex(changeAccount.getSex());
-		user.setJobIdx(changeAccount.getJobIdx());
+		Job job = jobRepository.findOne(changeAccount.getJobIdx());
+		user.setJob(job);
 		
 		userRepository.save(user);
 		

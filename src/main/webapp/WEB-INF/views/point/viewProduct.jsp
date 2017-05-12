@@ -13,7 +13,7 @@
 		<div class="row" ng-controller="cartCtrl">
 			<div class="col-md-6">
 				<img
-					src="<c:url value="/resources/images/${product.imageFileName }"/>"
+					src="<c:url value="/resources/img/${product.imageFileName }"/>"
 					alt="image" style="width: 80%" />
 			</div>
 
@@ -33,7 +33,7 @@
 
 				<c:if test="${pageContext.request.userPrincipal.name != null }">
 					<c:set var="role" value="${param.role }" />
-					<c:set var="url" value="/products" />
+					<c:set var="url" value="/point/products" />
 					<c:if test="${role='admin'}">
 						<c:set var="url" value="/admin/productInventory" />
 					</c:if>
@@ -44,7 +44,7 @@
 							ng-click="addToCart('${product.id }')">
 							<span class="glyphicon glyphicon-shopping-cart"></span> Order Now
 						</button>
-						<a href="<c:url value="/cart"/>" class="btn btn-default"> <span
+						<a href="<c:url value="/point/cart"/>" class="btn btn-default"> <span
 							class="glyphicon glyphicon-hand-right"></span> View Cart
 						</a>
 					</p>

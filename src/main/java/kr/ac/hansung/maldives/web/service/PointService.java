@@ -27,7 +27,8 @@ public class PointService {
 		LocalDateTime beginTime = LocalDateTime.now().minusMinutes(15);
 		LocalDateTime endTime = LocalDateTime.now();
 		
-		pointRepository.findByUserUserIdxAndTimestampBetween(userIdx, beginTime, endTime);
+//		if(pointRepository.findByUserUserIdxAndTimestampBetween(userIdx, beginTime, endTime)==null)
+//			return false;
 		return false;
 	}
 

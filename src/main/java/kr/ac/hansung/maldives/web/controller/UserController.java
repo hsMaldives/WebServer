@@ -126,7 +126,7 @@ public class UserController {
 		if(changeAccount == null){
 			changeAccount = new ChangeAccountForm();
 			changeAccount.setAge(user.getAge());
-			changeAccount.setJobIdx(user.getJobIdx());
+			changeAccount.setJobIdx(user.getJob().getJobIdx());
 			changeAccount.setNickname(user.getNickname());
 			changeAccount.setSex(user.getSex());
 		}

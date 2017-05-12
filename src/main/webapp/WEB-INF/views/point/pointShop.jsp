@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <script
 	src="${pageContext.request.contextPath}/resources/js/filtering.js"></script>
@@ -10,112 +11,81 @@
 	<div class="container">
 		<div class="">
 			<h2>Point Shop</h2>
+
+			<p class="lead">착한 가격에 만나보세요!!</p>
 		</div>
-<<<<<<< HEAD
-		
-		
-		<div class="panel panel-primary"">
-		
-		
-		
+
+
+
+		<div class="">
+			<table class="table table-striped" style="width: 100%">
+				<thead>
+					<tr class="bg-success">
+						<th>사용가능 포인트</th>
+						<th>사용한 포인트</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<td>${point }point</td>
+					<td>##</td>
+					<td></td>
+					<td></td>
+				</tbody>
+			</table>
+
+
 		</div>
-=======
->>>>>>> branch 'master' of https://github.com/hsMaldives/WebServer.git
+
+		<br />
+
 
 		<div>
+
+
+			<p>제품을 클릭하면 상세정보를 볼 수 있습니다.</p>
+			<%-- 			<c:forEach var="product" items="${products }"> --%>
+			<!-- 				<button class="btn btn-default filter-button" -->
+			<%-- 					data-filter="'${product.category }'">${product.category }</button> --%>
+			<%-- 			</c:forEach> --%>
 			<button class="btn btn-primary filter-button" data-filter="all">All</button>
-			<button class="btn btn-default filter-button" data-filter="photo">생활용품</button>
-			<button class="btn btn-default filter-button" data-filter="graphic">상품권</button>
-			<button class="btn btn-default filter-button" data-filter="webdesign">이벤트</button>
+			<button class="btn btn-default filter-button" data-filter="lock">자물쇠</button>
+			<button class="btn btn-default filter-button" data-filter="shoes">신발</button>
+			<button class="btn btn-default filter-button" data-filter="event">이벤트</button>
 		</div>
 		<br />
 
+
+
+
 		<div class="row">
-			<div class="col-md-3 filter photo">
-				<div class="each-item">
-					<img class="port-image"
-						src="http://www.templates4all.com/wp-content/uploads/2011/09/Engon-Joomla-Corporate-Portfolio-Template.jpg" />
-					<div class="cap1">
-						<h3>Car show</h3>
-						<p>A car showroom for all verities of cars to display</p>
-					</div>
-					<div class="cap2">
-						<p class="text-center">Visit</p>
+			<c:forEach var="product" items="${products }">
+				<div class="col-md-3 filter ${product.category }">
+					<div class="each-item">
+						<img class="port-image"
+							src="<c:url value="/resources/img/${product.imageFileName }"/>" />
+						<div class="cap1">
+							<h3>제품명 : ${product.name }</h3>
+							<p>제조사 : ${product.manufacturer }</p>
+							<p>가격 : ${product.price } point</p>
+						</div>
+						<div class="cap2">
+							<a href="<spring:url value="/point/viewProduct/${product.id }"/>">
+
+								<br />
+								<p class="text-center">
+									<span class="glyphicon glyphicon-info-sign"></span>Show Detail
+								</p>
+							</a>
+						</div>
+
 					</div>
 
 				</div>
 
-			</div>
+			</c:forEach>
 
-			<div class="col-md-3 filter graphic photo">
-				<div class="each-item">
-					<img class="port-image"
-						src="http://www.wpchats.com/wp-content/uploads/2011/11/Mixfolio-Wordpress-HTML5-Portfolio-Theme.jpg" />
-					<div class="cap1">
-						<h3>Car show</h3>
-						<p>A car showroom for all verities of cars to display</p>
-					</div>
-					<div class="cap2">
-						<p class="text-center">Visit</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 filter webdesign">
-				<div class="each-item">
-					<img class="port-image"
-						src="http://danielsitek.cz/pic/small/daniel-sitek-portfolio_small.jpg" />
-					<div class="cap1">
-						<h3>Car show</h3>
-						<p>A car showroom for all verities of cars to display</p>
-					</div>
-					<div class="cap2">
-						<p class="text-center">Visit</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 filter graphic photo">
-				<div class="each-item">
-					<img class="port-image"
-						src="http://101bestwebsites.com/public/images/entry_images//2009/05/14/medium_www.matthiasdittrich.com.jpg" />
-					<div class="cap1">
-						<h3>Car show</h3>
-						<p>A car showroom for all verities of cars to display</p>
-					</div>
-					<div class="cap2">
-						<p class="text-center">Visit</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 filter webdesign graphic">
-				<div class="each-item">
-					<img class="port-image"
-						src="http://paperhaus.com/images/products/shrapnel-design-handmade-double-thick-screwpost-portfolio-cover-11x14-landscape-black-anodized-aluminum-14231_detail.jpg" />
-					<div class="cap1">
-						<h3>Car show</h3>
-						<p>A car showroom for all verities of cars to display</p>
-					</div>
-					<div class="cap2">
-						<p class="text-center">Visit</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-3 filter photo">
-				<div class="each-item">
-					<img class="port-image"
-						src="http://4.bp.blogspot.com/_IDQ_mBDYk9I/SsON_Or-mGI/AAAAAAAAAEs/0AchAjEekYU/s400/Portfolio-idea-3.jpg" />
-					<div class="cap1">
-						<h3>Car show</h3>
-						<p>A car showroom for all verities of cars to display</p>
-					</div>
-					<div class="cap2">
-						<p class="text-center">Visit</p>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </section>
