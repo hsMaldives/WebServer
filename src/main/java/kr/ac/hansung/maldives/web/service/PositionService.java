@@ -1,5 +1,7 @@
 package kr.ac.hansung.maldives.web.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class PositionService {
 		Position position = new Position();
 		position.setUser(user);
 		position.setStore(store);
+		position.setTime(LocalDateTime.now());
 		return positionRepository.saveAndFlush(position);
 	}
 }

@@ -21,7 +21,6 @@ public class Position {
 	@GeneratedValue
 	private Long positionIdx;
 	private LocalDateTime time;
-	private Boolean evaBit;
 	
 	@OneToOne(mappedBy="position", cascade=CascadeType.ALL)
 	private Evaluation evaluation;
