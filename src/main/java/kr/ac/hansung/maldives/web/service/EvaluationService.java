@@ -38,7 +38,6 @@ public class EvaluationService {
 		evaluation.setPosition(position);
 		evaluationRepositry.save(evaluation);
 		
-		position.setEvaBit(true);
 		position.setEvaluation(evaluation);
 		positionRepository.save(position);
 	}
