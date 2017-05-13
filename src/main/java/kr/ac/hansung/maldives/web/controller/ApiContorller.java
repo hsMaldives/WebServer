@@ -97,29 +97,22 @@ public class ApiContorller {
 	}
 
 	@RequestMapping(value = "/onlyLocationInfo", method = RequestMethod.POST)
-	public void onlyLocationInfo(@RequestBody DaumStoreItem dsi, Principal principal) {
-		System.out.println(dsi);
-		log.info("[위치 정보] daumStoreItem: {}, User: {}", dsi, principal);
-
-		Store store = new Store();
-		store.setName(dsi.getTitle());
-		store.setAddress(dsi.getAddress());
-		//store.setCode(dsi.getCategory());
-		store.setDsiId(dsi.getId());
-		store.setLatitude(dsi.getLatitude());
-		store.setLongitude(dsi.getLongitude());
-
+	public boolean onlyLocationInfo(@RequestBody DaumStoreItem dsi, Principal principal) {
+		
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
 		User user = accountService.findOne(userDetails.getUserIdx());
-
-		//////////////////////////////////////
-		// Store dbStore = storeService.getStoreById();
-		// if (dbStore == null) {
-		// dbStore = storeService.addStore();
-		// }
-		//
-		// positionService.addPosition(user, dbStore);
+		Store store = storeService.getStoreByDsiId(dsi.getId());
+		
+		if(store == null){
+			store = storeService.addStoreByDaumStore(dsi);
+		}
+		
+		positionService.addPosition(user, store);
+		
+		log.info("[위치 정보 저장] daumStoreItem: {}, User: {}", dsi, principal);
+		
+		return true;
 	}
 
 	// @RequestMapping(value = "/locationInfo", method = RequestMethod.GET)
