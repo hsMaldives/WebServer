@@ -28,7 +28,7 @@
 						</div>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">주변장소 추천</a></li>
+						<li><a href="<c:url value="/recommend/"/>">주변장소 추천</a></li>
 						<li><a href="<c:url value="/location/"/>">장소 검색</a></li>
 					</ul>
 				</li>

@@ -12,9 +12,9 @@
             <div class="col-lg-12">
                 <img class="img-responsive" src="<c:url value = "/resources/img/profile.png"/>" alt="">
                 <div class="intro-text">
-                    <h1 class="name">Start Bootstrap</h1>
+                    <h1 class="name">어디가YOU</h1>
                     <hr class="star-light">
-                    <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
+                    <span class="skills">Team Maldives - Hansung CSE</span>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Portfolio</h2>
+                <h2>Recommend</h2>
                 <hr class="star-primary">
             </div>
         </div>
