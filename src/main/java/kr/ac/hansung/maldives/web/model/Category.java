@@ -3,6 +3,8 @@ package kr.ac.hansung.maldives.web.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(indexes = {
+		@Index(columnList="fullName", name="idx_cate_full_name")
+})
 public class Category {
 
 	@Id

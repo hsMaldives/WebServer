@@ -23,15 +23,15 @@ public class Evaluation {
 				parameters=@Parameter(value="position", name="property"))
 	private Long positionIdx;
 	
-	private Double eva1;
+	private Float eva1;
 	
-	private Double eva2;
+	private Float eva2;
 	
-	private Double eva3;
+	private Float eva3;
 	
-	private Double eva4;
+	private Float eva4;
 	
-	private Double eva5;
+	private Float eva5;
 	
 	@OneToOne
 	@JoinColumn(name="position_idx")

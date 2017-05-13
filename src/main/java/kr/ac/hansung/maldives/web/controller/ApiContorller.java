@@ -1,9 +1,11 @@
 package kr.ac.hansung.maldives.web.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,15 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.ac.hansung.maldives.model.DaumStoreItem;
+import kr.ac.hansung.maldives.model.StoreAndRating;
 import kr.ac.hansung.maldives.web.model.CustomUserDetails;
-import kr.ac.hansung.maldives.web.model.DaumStoreItem;
+import kr.ac.hansung.maldives.web.model.Evaluation;
 import kr.ac.hansung.maldives.web.model.Location;
 import kr.ac.hansung.maldives.web.model.PointLog;
 import kr.ac.hansung.maldives.web.model.PointLog.PointType;
+import kr.ac.hansung.maldives.web.model.Position;
 import kr.ac.hansung.maldives.web.model.Store;
-import kr.ac.hansung.maldives.web.model.StoreAndRating;
 import kr.ac.hansung.maldives.web.model.User;
 import kr.ac.hansung.maldives.web.service.AccountService;
+import kr.ac.hansung.maldives.web.service.EvaluationService;
 import kr.ac.hansung.maldives.web.service.PointService;
 import kr.ac.hansung.maldives.web.service.PositionService;
 import kr.ac.hansung.maldives.web.service.StoreService;
@@ -34,32 +39,51 @@ public class ApiContorller {
 
 	@Autowired
 	private StoreService storeService;
+	
 	@Autowired
 	private AccountService accountService;
+	
 	@Autowired
 	private PointService pointService;
+	
 	@Autowired
 	private PositionService positionService;
+	
+	@Autowired
+	private EvaluationService evaluationService;
 
 	@RequestMapping(value = "/storeAndRatingInfo", method = RequestMethod.POST)
 	public PointLog ratingInfo(@RequestBody StoreAndRating storeAndRating, Principal principal) {
-		System.out.println(storeAndRating);
-		log.info("[별점 등록] storeAndRating: {}, User: {}", storeAndRating, principal);
-
-		DaumStoreItem dsi = storeAndRating.getDaumStoreItem();
-
-		Store store = new Store();
-		store.setName(dsi.getTitle());
-		store.setAddress(dsi.getAddress());
-		//store.setCode(dsi.getCategory());
-		store.setDsiId(dsi.getId());
-		store.setLatitude(dsi.getLatitude());
-		store.setLongitude(dsi.getLongitude());
-
+		
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
 		User user = accountService.findOne(userDetails.getUserIdx());
+		DaumStoreItem dsi = storeAndRating.getStoreInfo();
+		Store store = storeService.getStoreByDsiId(dsi.getId());
+		
+		if(store == null){
+			store = storeService.addStoreByDaumStore(dsi);
+		}
+		
+		Position postion = positionService.addPosition(user, store);
+		
+		Evaluation evaluation = new Evaluation();
+		
+		evaluation.setPosition(postion);
+		for(int i=0; i<storeAndRating.getRating().length; i++){
+			try {
+				PropertyUtils.setProperty(evaluation, "eva" + (i+1), storeAndRating.getRating()[i]);
+			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+				log.warn("[별점 등록] Rating 변환 중 예외 발생 (Rating: {}, index: {})", storeAndRating.getRating(), i);
+			}
+			
+		}
 
+		evaluationService.saveEvaluation(evaluation);
+		
+		log.info("[별점 등록] storeAndRating: {}, User: {}", storeAndRating, principal);
+		
+		// TODO 포인드 적립 필요
 		///////////////////////////////////////
 		// pointService.checkSamePlace(storeAndRating.getStore_idx(),
 		/////////////////////////////////////// user.getUser_idx());

@@ -42,4 +42,8 @@ public class EvaluationService {
 		position.setEvaluation(evaluation);
 		positionRepository.save(position);
 	}
+	
+	public Evaluation saveEvaluation(Evaluation evaluation){
+		return evaluationRepositry.save(evaluation);
+	}
 }

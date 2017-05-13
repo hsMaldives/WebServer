@@ -4,15 +4,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
 
 
-@Entity
-@Table(name="Store")
-
 @Data
+@Entity
+@Table(name="store", indexes = {
+		@Index(columnList="dsiId", name="idx_store_dsi_id")
+})
 public class Store {
 	@Id
 	@GeneratedValue
@@ -20,9 +24,6 @@ public class Store {
 
 	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@Column(name = "code", nullable = false)
-	private Integer code;
 	
 	@Column(name = "latitude", nullable = false)
 	private Double latitude;
@@ -36,4 +37,7 @@ public class Store {
 	//daumStoreItem
 	private String dsiId;
 	
+	@ManyToOne
+	@JoinColumn(name="code")
+	private Category category;
 }
