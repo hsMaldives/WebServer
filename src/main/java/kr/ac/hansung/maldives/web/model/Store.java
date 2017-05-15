@@ -33,6 +33,15 @@ public class Store {
 	
 	@Column(name = "address" )
 	private String address;
+
+	@Column(length=300)
+	private String imageUrl;
+	
+	@Column(length=40)
+	private String phone;
+	
+	@Column(length=1000)
+	private String direction;
 	
 	//daumStoreItem
 	private String dsiId;
@@ -40,4 +49,5 @@ public class Store {
 	@ManyToOne
 	@JoinColumn(name="code")
 	private Category category;
+
 }

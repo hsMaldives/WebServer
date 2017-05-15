@@ -49,6 +49,9 @@ public class StoreService {
 		store.setLatitude(dsi.getLatitude());
 		store.setLongitude(dsi.getLongitude());
 		store.setName(dsi.getTitle());
+		store.setImageUrl(dsi.getImageUrl());
+		store.setPhone(dsi.getPhone());
+		store.setDirection(dsi.getDirection());
 		store.setCategory(categoryService.getCategory(dsi.getCategory()));
 		
 		storeRepository.save(store);
