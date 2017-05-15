@@ -81,9 +81,7 @@ public class User extends BaseEntity<Long>{
 	@JoinColumn(unique = true)
 	private ShippingAddress shippingAddress;
 
-	@OneToOne(optional = false, cascade = CascadeType.ALL)
-	@JoinColumn(unique = true)
-	private Cart cart;
+
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="job_idx")

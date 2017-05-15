@@ -53,6 +53,5 @@ public class Product implements Serializable {
 	private Integer unitInStock;
 	private String description;
 
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<CartItem> cartItems = new ArrayList<CartItem>();
+
 }

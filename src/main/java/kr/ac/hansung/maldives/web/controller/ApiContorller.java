@@ -2,8 +2,6 @@ package kr.ac.hansung.maldives.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
-import java.util.Comparator;
-import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.ac.hansung.maldives.model.DaumStoreItem;
 import kr.ac.hansung.maldives.model.StoreAndRating;
 import kr.ac.hansung.maldives.web.model.CustomUserDetails;
 import kr.ac.hansung.maldives.web.model.Evaluation;
-import kr.ac.hansung.maldives.web.model.Location;
 import kr.ac.hansung.maldives.web.model.PointLog;
-import kr.ac.hansung.maldives.web.model.PointLog.PointType;
 import kr.ac.hansung.maldives.web.model.Position;
 import kr.ac.hansung.maldives.web.model.Store;
 import kr.ac.hansung.maldives.web.model.User;

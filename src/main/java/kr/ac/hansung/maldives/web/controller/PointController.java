@@ -54,17 +54,17 @@ public class PointController {
 	
 
 	
-	@RequestMapping("/cart")
-	public String getCart(Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String email = authentication.getName();
-		
-		User user = accountService.findByEmail(email);
-		long cartId = user.getCart().getCartId();
-		
-		model.addAttribute("cartId", cartId);
-		
-		return "point/cart";
-	}
+//	@RequestMapping("/cart")
+//	public String getCart(Model model) {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String email = authentication.getName();
+//		
+//		User user = accountService.findByEmail(email);
+//		long cartId = user.getCart().getCartId();
+//		
+//		model.addAttribute("cartId", cartId);
+//		
+//		return "point/cart";
+//	}
 	
 }
