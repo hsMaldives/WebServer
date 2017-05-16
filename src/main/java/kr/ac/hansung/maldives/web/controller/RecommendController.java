@@ -23,8 +23,6 @@ public class RecommendController {
 	@Autowired
 	private StoreService storeService;
 
-	private List<Store> stores;// 훗날 제거
-
 	@RequestMapping
 	public String recommendHome(Model model) {
 
@@ -32,7 +30,7 @@ public class RecommendController {
 				.getPrincipal();
 
 		Long user_idx = userDetails.getUserIdx();
-		stores = recommendService.getRecommendStore(user_idx);
+		List<Store> stores = recommendService.getRecommendStore(user_idx);
 
 		model.addAttribute("stores", stores);
 
@@ -42,11 +40,9 @@ public class RecommendController {
 	@RequestMapping("/detail/{storeIdx}")
 	public String recmmendDetailPage(@PathVariable(value = "storeIdx") Long storeIdx, Model model) {
 
-		// Store store = storeService.getStoreById(storeIdx);
-		double average = 0.0;
-
-		int i = storeIdx.intValue(); // 제거
-		Store store = stores.get(i); // 제거
+		Store store = storeService.getStoreById(storeIdx);
+	
+		double average = 0.0; //##		
 
 		model.addAttribute("store", store);
 		model.addAttribute("average", average);

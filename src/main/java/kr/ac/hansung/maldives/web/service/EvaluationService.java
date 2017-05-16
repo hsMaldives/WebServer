@@ -19,6 +19,9 @@ public class EvaluationService {
 	@Autowired
 	private PositionRepository positionRepository;
 	
+	//average를 계산해서 가져와라
+	
+	
 	public List<Evaluation> findByUser_idxAndNotEmptyEvaluation(Long user_idx){
 		return evaluationRepositry.findByPositionUserUserIdx(user_idx);
 	}
