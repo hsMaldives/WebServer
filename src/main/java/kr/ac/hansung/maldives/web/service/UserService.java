@@ -11,4 +11,6 @@ public interface UserService {
 	public User registerNewUserAccount(RegistrationForm userAccountData) throws DuplicateEmailException;
 	
 	public List<Job> getJobList();
+	
+	
 }

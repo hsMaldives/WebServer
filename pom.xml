@@ -34,7 +34,9 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+	
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -119,6 +121,19 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
+			<!-- R serve -->
+		<dependency>
+			<groupId>org.nuiton.thirdparty</groupId>
+			<artifactId>Rserve</artifactId>
+			<version>0.6-1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.nuiton.thirdparty</groupId>
+			<artifactId>REngine</artifactId>
+			<version>0.6-1</version>
+		</dependency>
+		<!-- R serve end -->
 		
 		<!-- Security -->
 		<dependency>

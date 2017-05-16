@@ -53,7 +53,7 @@
 		<p>
 			<c:forEach var="store" items="${stores }">
 				<p>name : ${store.name }</p>
-				<p>category : ${store.category.fullName }</p>
+				<p>code : ${store.category.categoryCode }</p>
 				<p>address : ${store.address }</p>
 				<p>latitude : ${store.latitude }</p>
 				<p>longitude : ${store.longitude }</p>
