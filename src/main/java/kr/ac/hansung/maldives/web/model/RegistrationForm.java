@@ -39,6 +39,10 @@ public class RegistrationForm {
 	
 	@NotNull
 	private Integer jobIdx;
+	
+	private String address;	
+	private String country;
+	private String zipcode;
 
 	private SocialMediaType signInProvider;
 
