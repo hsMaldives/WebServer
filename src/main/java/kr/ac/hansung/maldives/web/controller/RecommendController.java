@@ -32,8 +32,8 @@ public class RecommendController {
 				.getPrincipal();
 
 		Long user_idx = userDetails.getUserIdx();
-		stores = recommendService.getRecommendStore(user_idx);
-
+		//stores = recommendService.getRecommendStore(user_idx);
+		stores = storeService.getStores();
 		model.addAttribute("stores", stores);
 
 		return "recommend/recommend";
@@ -42,11 +42,10 @@ public class RecommendController {
 	@RequestMapping("/detail/{storeIdx}")
 	public String recmmendDetailPage(@PathVariable(value = "storeIdx") Long storeIdx, Model model) {
 
-		// Store store = storeService.getStoreById(storeIdx);
+		Store store = storeService.getStoreById(storeIdx);
 		double average = 0.0;
 
-		int i = storeIdx.intValue(); // 제거
-		Store store = stores.get(i); // 제거
+		
 
 		model.addAttribute("store", store);
 		model.addAttribute("average", average);
