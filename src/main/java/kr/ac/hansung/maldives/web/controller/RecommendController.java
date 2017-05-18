@@ -32,8 +32,8 @@ public class RecommendController {
 				.getPrincipal();
 
 		Long user_idx = userDetails.getUserIdx();
-		//stores = recommendService.getRecommendStore(user_idx);
-		stores = storeService.getStores();
+		stores = recommendService.getRecommendStore(user_idx);
+		//stores = storeService.getStores();
 		model.addAttribute("stores", stores);
 
 		return "recommend/recommend";

@@ -34,6 +34,7 @@ public class RecommendService {
 		try {
 			connection = new RConnection("localhost", 6311);
 			// connection.login("whereyou", "whereyou@");
+			connection.eval("try(source(\"//Users//Heemin//itemBased.R\"))");
 			connection.eval("try(createModel(), silent = TRUE)");
 	
 			List<Evaluation> e = evaluationService.findByUser_idxAndNotEmptyEvaluation(user_idx);

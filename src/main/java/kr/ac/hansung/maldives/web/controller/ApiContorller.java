@@ -21,6 +21,7 @@ import kr.ac.hansung.maldives.web.model.Store;
 import kr.ac.hansung.maldives.web.model.User;
 import kr.ac.hansung.maldives.web.service.AccountService;
 import kr.ac.hansung.maldives.web.service.EvaluationService;
+import kr.ac.hansung.maldives.web.service.FusionTableService;
 import kr.ac.hansung.maldives.web.service.PointService;
 import kr.ac.hansung.maldives.web.service.PositionService;
 import kr.ac.hansung.maldives.web.service.StoreService;
@@ -46,6 +47,9 @@ public class ApiContorller {
 	
 	@Autowired
 	private EvaluationService evaluationService;
+	
+	@Autowired
+	private FusionTableService fusionTableService;
 
 	@RequestMapping(value = "/storeAndRatingInfo", method = RequestMethod.POST)
 	public PointLog ratingInfo(@RequestBody StoreAndRating storeAndRating, Principal principal) {
@@ -71,10 +75,11 @@ public class ApiContorller {
 			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 				log.warn("[별점 등록] Rating 변환 중 예외 발생 (Rating: {}, index: {})", storeAndRating.getRating(), i);
 			}
-			
 		}
 
 		evaluationService.saveEvaluation(evaluation);
+		
+		fusionTableService.addEvaluation(evaluation);
 		
 		log.info("[별점 등록] storeAndRating: {}, User: {}", storeAndRating, principal);
 		
