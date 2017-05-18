@@ -22,7 +22,7 @@ public class RepositoryUserService implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	private UserRepository repository;
-	
+
 	@Autowired
 	private JobRepository jobRepository;
 
@@ -42,6 +42,12 @@ public class RepositoryUserService implements UserService {
 
 		String encodedPassword = encodePassword(userAccountData);
 
+		ShippingAddress shippingAddress = ShippingAddress.builder()
+				.address(userAccountData.getAddress())
+				.country(userAccountData.getCountry())
+				.zipCode(userAccountData.getZipcode())
+				.build();
+		
 		UserBuilder user = User.builder()
 				.email(userAccountData.getEmail())
 				.password(encodedPassword)
@@ -53,7 +59,7 @@ public class RepositoryUserService implements UserService {
 				.job(jobRepository.findOne(userAccountData.getJobIdx()))
 				.point(0)
 				.deleted(false)				
-				.shippingAddress(new ShippingAddress());
+				.shippingAddress(shippingAddress);
 
 		if (userAccountData.isSocialSignIn()) {
 			user.signInProvider(userAccountData.getSignInProvider());

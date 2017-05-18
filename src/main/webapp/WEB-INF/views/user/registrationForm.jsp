@@ -94,6 +94,31 @@
 					</div>
 				</div>
 				
+				<hr/>
+				
+				<div class="row">
+					<div id="form-group-lastName" class="form-group col-lg-4">
+						<label class="control-label" for="user-address">주소:</label>
+						<form:input id="user-address" path="address" cssClass="form-control" />
+						<form:errors id="error-address" path="address" cssClass="help-block" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="form-group-lastName" class="form-group col-lg-4">
+						<label class="control-label" for="user-country">나라:</label>
+						<form:input id="user-country" path="country" cssClass="form-control" />
+						<form:errors id="error-country" path="country" cssClass="help-block" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div id="form-group-lastName" class="form-group col-lg-4">
+						<label class="control-label" for="user-zipcode">우편번호:</label>
+						<form:input id="user-zipcode" path="zipcode" cssClass="form-control" />
+						<form:errors id="error-zipcode" path="zipcode" cssClass="help-block" />
+					</div>
+				</div>
 				
 				<button type="submit" class="btn btn-default">
 					가입
