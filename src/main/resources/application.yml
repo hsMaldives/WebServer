@@ -26,7 +26,7 @@ spring:
     show-sql: true
 
 mybatis:
-  type-aliases-package: kr.ac.hansung.maldives.domain 
+  type-aliases-package: kr.ac.hansung.maldives.web.model 
   mapper-locations:
     - classpath:mapper/*-sql.xml
 

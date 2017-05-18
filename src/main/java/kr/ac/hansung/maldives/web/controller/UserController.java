@@ -33,7 +33,6 @@ import kr.ac.hansung.maldives.web.service.AccountService;
 import kr.ac.hansung.maldives.web.service.DuplicateEmailException;
 import kr.ac.hansung.maldives.web.service.UserService;
 import kr.ac.hansung.maldives.web.utility.FacebookUtil;
-import kr.ac.hansung.maldives.web.utility.SecurityUtil;
 
 /**
  * 사용자 관련 처리 Controller
@@ -61,7 +60,10 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage() {
+	public String loginPage(@RequestParam(required=false) String error, Model model) {
+		
+		model.addAttribute("error", error);
+		
 		return "user/login";
 	}
 
@@ -111,10 +113,10 @@ public class UserController {
 		if (registered == null) {
 			return showRegistrationForm(userAccountData, request, model);
 		}
-		SecurityUtil.logInUser(registered);
+		
 		providerSignInUtils.doPostSignUp(registered.getEmail(), request);
-
-		return "redirect:/";
+		
+		return "redirect:/user/login";
 	}
 	
 	@RequestMapping(value="/change-account", method=RequestMethod.GET)

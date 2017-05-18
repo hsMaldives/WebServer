@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ac.hansung.maldives.web.dao2.IbcfMapper">
+	<select id="selectStoresByUserIdx" resultType="Store" parameterType="Integer">
+		SELECT *
+		FROM store
+		WHERE store_idx in (
+			SELECT first as store_idx
+			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
+							JOIN ibcf ON position.store_idx = ibcf.row_names
+			WHERE user_idx = #{userIdx}
+							
+			UNION ALL
+		
+			SELECT second as store_idx
+			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
+							JOIN ibcf ON position.store_idx = ibcf.row_names
+			WHERE user_idx = #{userIdx}
+							
+			UNION ALL
+		
+			SELECT third as store_idx
+			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
+							JOIN ibcf ON position.store_idx = ibcf.row_names
+			WHERE user_idx = #{userIdx}
+		)
+	</select>
+</mapper>
