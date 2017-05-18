@@ -32,7 +32,7 @@
 				<td>${store.longitude }</td>
 				<td>${store.address }</td>
 				<td>${store.phone }</td>
-				<td>${store.direction }</td>
+				<td></td>
 			</tr>
 
 		</tbody>

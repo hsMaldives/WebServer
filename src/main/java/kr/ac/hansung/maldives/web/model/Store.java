@@ -40,9 +40,6 @@ public class Store {
 	@Column(length=40)
 	private String phone;
 	
-	@Column(length=1000)
-	private String direction;
-	
 	//daumStoreItem
 	private String dsiId;
 	

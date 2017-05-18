@@ -118,7 +118,6 @@
 
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZqKafyvL0OerIRPWS_XV9GhPcWPIAL_w&callback=initialize">
-	
 </script>
 
 <div class="row">

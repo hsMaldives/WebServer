@@ -51,7 +51,6 @@ public class StoreService {
 		store.setName(dsi.getTitle());
 		store.setImageUrl(dsi.getImageUrl());
 		store.setPhone(dsi.getPhone());
-		store.setDirection(dsi.getDirection());
 		store.setCategory(categoryService.getCategory(dsi.getCategory()));
 		
 		storeRepository.save(store);

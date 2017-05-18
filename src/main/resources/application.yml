@@ -33,3 +33,6 @@ mybatis:
 security:
   basic:
     enabled: true
+
+whereyou:
+  fusion-table-id: 1_hzEAwwva6MTOdWw6gN-uU7L2ikjeW5tnGqXWj-P
