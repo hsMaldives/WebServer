@@ -1,6 +1,7 @@
 package kr.ac.hansung.maldives.web.service;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,9 @@ public class CategoryService {
 		}
 		
 		return currentCategory;
+	}
+	
+	public List<Category> findByDepthAndCategoryCodeStartingWithOrderByCategoryCode(int depth, String categoryCode){
+		return categoryRepository.findByDepthAndCategoryCodeStartingWithOrderByCategoryCode(depth, categoryCode);
 	}
 }
