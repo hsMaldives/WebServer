@@ -31,8 +31,8 @@ public class RecommendController {
 
 		Long user_idx = userDetails.getUserIdx();
 		
-		model.addAttribute("UB_stores", recommendService.getRecommendUBStore(user_idx));
-		model.addAttribute("IB_stores", recommendService.getRecommendIBStore(user_idx));
+		//model.addAttribute("UB_stores", recommendService.getRecommendUBStore(user_idx));
+		model.addAttribute("stores", recommendService.getRecommendIBStore(user_idx));
 
 		return "recommend/recommend";
 	}

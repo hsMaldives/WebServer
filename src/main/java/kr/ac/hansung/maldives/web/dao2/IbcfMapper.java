@@ -10,5 +10,5 @@ import kr.ac.hansung.maldives.web.model.Store;
 @Mapper
 public interface IbcfMapper {
 
-	public List<Store> selectStoresByUserIdx(@Param("userIdx") int userIdx);
+	public List<Store> selectStoresByUserIdx(@Param("userIdx") long userIdx);
 }
