@@ -1,6 +1,5 @@
 package kr.ac.hansung.maldives.web.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +22,6 @@ public class RecommendController {
 	@Autowired
 	private StoreService storeService;
 
-	private List<Store> stores;// 훗날 제거
 
 	@RequestMapping
 	public String recommendHome(Model model) {
@@ -32,9 +30,9 @@ public class RecommendController {
 				.getPrincipal();
 
 		Long user_idx = userDetails.getUserIdx();
-		stores = recommendService.getRecommendStore(user_idx);
-		//stores = storeService.getStores();
-		model.addAttribute("stores", stores);
+		
+		model.addAttribute("UB_stores", recommendService.getRecommendUBStore(user_idx));
+		model.addAttribute("IB_stores", recommendService.getRecommendIBStore(user_idx));
 
 		return "recommend/recommend";
 	}
