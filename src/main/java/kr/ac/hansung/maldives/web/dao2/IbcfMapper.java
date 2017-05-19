@@ -10,5 +10,5 @@ import kr.ac.hansung.maldives.web.model.Store;
 @Mapper
 public interface IbcfMapper {
 
-	public List<Store> selectStoresByUserIdx(@Param("userIdx") long userIdx);
+	public List<Store> selectStoresByUserIdx(@Param("userIdx") long userIdx, @Param("colNum") int colNum[], @Param("avgEva") float avgEva);
 }

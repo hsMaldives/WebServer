@@ -2,42 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.hansung.maldives.web.dao2.IbcfMapper">
-	<select id="selectStoresByUserIdx" resultType="Store" parameterType="Long">
+	<select id="selectStoresByUserIdx" resultType="Store">
 		SELECT *
 		FROM store
-		WHERE store_idx in (
-			SELECT rec1 as store_idx
-			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
-							JOIN ibcf ON position.store_idx = ibcf.row_names
-			WHERE user_idx = #{userIdx}
-							
-			UNION ALL
-		
-			SELECT rec2 as store_idx
-			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
-							JOIN ibcf ON position.store_idx = ibcf.row_names
-			WHERE user_idx = #{userIdx}
-							
-			UNION ALL
-		
-			SELECT rec3 as store_idx
-			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
-							JOIN ibcf ON position.store_idx = ibcf.row_names
-			WHERE user_idx = #{userIdx}
-			
-			UNION ALL
-		
-			SELECT rec4 as store_idx
-			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
-							JOIN ibcf ON position.store_idx = ibcf.row_names
-			WHERE user_idx = #{userIdx}
-			
-			UNION ALL
-		
-			SELECT rec5 as store_idx
-			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
-							JOIN ibcf ON position.store_idx = ibcf.row_names
-			WHERE user_idx = #{userIdx}
-		)
+		WHERE store_idx in 
+			<foreach item="item" index="index" collection="colNum" open="(" separator=" UNION ALL " close=")" >
+				SELECT rec${colNum[index]} as store_idx
+				FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
+								JOIN ibcf ON position.store_idx = ibcf.row_names
+				WHERE user_idx = #{userIdx}
+					AND (evaluation.eva1 + evaluation.eva2 + evaluation.eva3) &gt;= (#{avgEva} * 3)
+			</foreach>
 	</select>
 </mapper>

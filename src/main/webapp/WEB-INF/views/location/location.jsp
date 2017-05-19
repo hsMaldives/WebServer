@@ -81,11 +81,16 @@
 								val.longitude);
 						var marker = new google.maps.Marker({
 							position : latLng,
+							icon: '<c:url value="/resources/img/marker1.png" />',
 							title : val.name,
 							map : map
 						});
 
-						google.maps.event.addListener(marker, 'click',function() {
+						google.maps.event.addListener(marker, 'click', function() {
+							for (var j = 0; j < markers.length; j++) {
+					          markers[j].setIcon('<c:url value="/resources/img/marker1.png" />');
+					        }
+							marker.setIcon('<c:url value="/resources/img/marker2.png" />');
 							infowindow.close();			
 							infowindow.setContent("<strong>"
 									+ marker.title + "</strong>"

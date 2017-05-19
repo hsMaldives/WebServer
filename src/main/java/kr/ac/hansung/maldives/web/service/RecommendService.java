@@ -42,7 +42,9 @@ public class RecommendService {
 		e.clear();
 		System.out.println("okok");
 		List<Store> ls = new ArrayList<Store>();
-		ls = ibcfMapper.selectStoresByUserIdx(user_idx);
+		int colNum[] = new int[] { 1, 2, 3, 4, 5 };
+		
+		ls = ibcfMapper.selectStoresByUserIdx(user_idx, colNum, 3.5f);
 		System.out.println("okok222");
 		if (ls.size() != 0) {
 			for (int j = 0; j < ls.size(); j++) {
