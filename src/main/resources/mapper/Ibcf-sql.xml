@@ -6,21 +6,35 @@
 		SELECT *
 		FROM store
 		WHERE store_idx in (
-			SELECT first as store_idx
+			SELECT rec1 as store_idx
 			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
 							JOIN ibcf ON position.store_idx = ibcf.row_names
 			WHERE user_idx = #{userIdx}
 							
 			UNION ALL
 		
-			SELECT second as store_idx
+			SELECT rec2 as store_idx
 			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
 							JOIN ibcf ON position.store_idx = ibcf.row_names
 			WHERE user_idx = #{userIdx}
 							
 			UNION ALL
 		
-			SELECT third as store_idx
+			SELECT rec3 as store_idx
+			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
+							JOIN ibcf ON position.store_idx = ibcf.row_names
+			WHERE user_idx = #{userIdx}
+			
+			UNION ALL
+		
+			SELECT rec4 as store_idx
+			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
+							JOIN ibcf ON position.store_idx = ibcf.row_names
+			WHERE user_idx = #{userIdx}
+			
+			UNION ALL
+		
+			SELECT rec5 as store_idx
 			FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
 							JOIN ibcf ON position.store_idx = ibcf.row_names
 			WHERE user_idx = #{userIdx}

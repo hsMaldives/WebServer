@@ -30,6 +30,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="<c:url value="/recommend/"/>">주변장소 추천</a></li>
 						<li><a href="<c:url value="/location/"/>">장소 검색</a></li>
+						<li><a href="<c:url value="/stats/heatmap"/>">열지도</a></li>
 					</ul>
 				</li>
 				

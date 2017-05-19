@@ -49,7 +49,7 @@ public class RecommendScheduler {
 			
 			connection = new RConnection("localhost", 6311);
 
-			connection.eval("try(source(\"//Users//Heemin//itembased.R\"))");
+			connection.eval("try(source(\"/home/whereyou/itembased.R\"))");
 			connection.eval("try(createIBModel(), silent = TRUE)");
 			
 			//connection.eval("try(source(\"//Users//Heemin//userbased.R\"))");
