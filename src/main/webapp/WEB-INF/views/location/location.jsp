@@ -83,6 +83,7 @@
 							position : latLng,
 							icon: '<c:url value="/resources/img/marker1.png" />',
 							title : val.name,
+							category : val.category.name,							
 							map : map
 						});
 
@@ -94,15 +95,62 @@
 							infowindow.close();			
 							infowindow.setContent("<strong>"
 									+ marker.title + "</strong>"
-									+ "<p>Let's go Maldives</p>");
+									+ "<p>"+marker.category+"</p>");
 							infowindow.open(map, marker);
 						});
 						markers.push(marker);
 						
-						storeListHtml += '<a href=<c:url value="/location/detail"/>?store_idx='+ val.storeIdx +' class="list-group-item" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.storeIdx + '">\n';
-						storeListHtml += '	<h4 class="list-group-item-heading">' + val.name + '</h4>\n';
-						storeListHtml += '	<p class="list-group-item-text">' + val.address + '</p>\n';
-						storeListHtml += '</a>\n';
+// 						storeListHtml += '<a href=<c:url value="/location/detail"/>?store_idx='+ val.storeIdx +' class="list-group-item" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.storeIdx + '">';
+// 						storeListHtml += '	<h4 class="list-group-item-heading">' + val.name + ' ';
+// 						storeListHtml += '[' + val.category.name + ']</h4>';
+// 						storeListHtml += '	<p class="list-group-item-text">' + val.address + '</p>';
+// 						storeListHtml += '</a>\n';
+						
+						
+						storeListHtml += '<a href=<c:url value="/location/detail"/>?store_idx='+ val.storeIdx +' class="" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.storeIdx + '">';
+// 						storeListHtml +='<div class="container">';
+						storeListHtml +='<div class="row">';
+
+						storeListHtml +='<section class="content">';
+								
+						storeListHtml +=	'<div class="col-md-8 col-md-offset-2">';
+						storeListHtml +=	'<div class="panel panel-default">';
+						storeListHtml +=		'<div class="panel-body">'	;					
+											
+						storeListHtml +=				'<div class="table-container">';
+						storeListHtml +=		'<table class="table table-filter">';
+						storeListHtml +=			'<tbody>';
+						storeListHtml +=				'<tr>';							
+						storeListHtml +=					'<td>';
+						storeListHtml +=						'<div class="media">';
+						storeListHtml +=							'<a href="#" class="pull-left">';
+						
+						storeListHtml +=							'</a>';
+						storeListHtml +=							'<div class="media-body">';
+						storeListHtml +=								'<span class="media-meta pull-right">('+val.category.name+')</span>';
+						storeListHtml +=								'<h4 class="title">'+val.name +' ';
+																			
+						storeListHtml +=								'</h4>';
+						storeListHtml +=								'<span class="summary">'+val.address+'</span>'+'<span class=pull-right><img src="'+val.imageUrl+'" style="width:50px; height:50px;"></span>';
+						storeListHtml +=							'</div>';
+						storeListHtml +=						'</div>';
+						storeListHtml +=					'</td>';
+						storeListHtml +=				'</tr>';
+														
+						storeListHtml +=			'</tbody>';
+						storeListHtml +=		'</table>';
+						storeListHtml +=	'</div>';
+						storeListHtml +='</div>';
+						storeListHtml +='</div>';
+									
+						storeListHtml +='</div>';
+						storeListHtml +='</section>';
+							
+// 						storeListHtml +='</div>';
+						storeListHtml +='</div>';
+						storeListHtml += '</a>';
+						
+						
 					});
 					
 					$('#store-list').html(storeListHtml);
@@ -130,4 +178,9 @@
 		<div id="store-list" class="list-group">
 		</div>
 	</div>
+	
+	
+	
 </div>
+	
+	

@@ -1,4 +1,3 @@
-<!-- products.jsp -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,7 +15,7 @@
 
 			<div class="">
 				<img class="center-block img-rounded " src="<c:url value="${store.imageUrl }"/>"
-					alt="image" style="width: 80%" />
+					alt="no image" style="width: 80%" />
 			</div>
 			
 			<br />
