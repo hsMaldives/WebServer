@@ -5,7 +5,7 @@
 #navbar .navbar-nav { margin: 7.5px 0; }
 #navbar .nav>li>a { padding:10px; padding:0; }
 #navbar .menu-keyword { font-size: 1.3rem; }
-#main-content { margin-bottom: 20px; }
+#main-content { margin-top: 60px; margin-bottom: 20px; }
 
 /* start protfolio-sec  */
 
@@ -56,3 +56,28 @@
     transition: all .5s;
 }
 /* end protfolio-sec  */
+
+/* start list-store */
+
+.list-store .media-body, .media-left, .media-right {
+	height: 80px;
+	vertical-align: middle;
+}
+
+.list-store .media-left {
+	width: 100px;
+}
+
+.list-store .media-left .media-object{
+	max-width: 90px;
+	max-height: 75px;
+}
+
+.list-store .media-body .media-heading {
+	margin: 5px 0;
+}
+
+.list-store .media-right {
+	
+}
+/* end list-store */

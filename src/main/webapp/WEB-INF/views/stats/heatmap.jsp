@@ -8,7 +8,7 @@
 <link href="<c:url value="/resources/js/jquery-ui-1.12.1/jquery-ui.theme.min.css"/>" rel="stylesheet">
 
 
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyCZqKafyvL0OerIRPWS_XV9GhPcWPIAL_w&amp;v=3&amp;libraries=visualization"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=${googleMapApiKey}&amp;v=3&amp;libraries=visualization"></script>
 
 <script type="text/javascript">
 	function ftOnLoadClientApi() {
@@ -21,6 +21,9 @@
 <script type="text/javascript">
 	var map;
 	var heatmap;
+	var infowindow;
+	var markersArray;
+	var selectedMarker;
 
 	function loadApi() {
 		gapi.client.load('fusiontables', 'v1', initialize);
@@ -28,14 +31,33 @@
 
 	function initialize() {
 		var mapDiv = document.getElementById('map-contents');
+		infowindow = new google.maps.InfoWindow();
 
 		map = new google.maps.Map(mapDiv, {
 			center : new google.maps.LatLng(37.59135357056928,
 					126.95347707605357),
 			zoom : 11
 		});
+		
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+					var pos = {
+						lat: position.coords.latitude,
+						lng: position.coords.longitude
+					};
+				
+					infowindow.setPosition(pos);
+					infowindow.setContent('Location found.');
+					map.setCenter(pos);
+				}, function() {
+					handleLocationError(true, infowindow, map.getCenter());
+			});
+		} else {
+			handleLocationError(false, infowindow, map.getCenter());
+		}
+		
 		var query = 'SELECT \'Location\', \'AvgEva\' '
-				+ 'FROM 1_hzEAwwva6MTOdWw6gN-uU7L2ikjeW5tnGqXWj-P '
+				+ 'FROM ${fusionTableId} '
 				+ 'ORDER BY Date ' + 'LIMIT 1000 ';
 		var request = gapi.client.fusiontables.query.sqlGet({
 			sql : query
@@ -43,6 +65,106 @@
 		request.execute(function(response) {
 			onDataFetched(response);
 		});
+		
+		google.maps.event.addListener(map, 'bounds_changed', function() {
+			storeListLoad();
+		});
+	}
+	
+	function handleLocationError(browserHasGeolocation, infowindow, pos) {
+		infowindow.setPosition(pos);
+		infowindow.setContent(browserHasGeolocation ?
+			'Error: The Geolocation service failed.' :
+			'Error: Your browser doesn\'t support geolocation.');
+	}
+	
+	function storeListLoad(){
+		bounds = map.getBounds();
+		startPoint = bounds.getSouthWest();
+		endPoint = bounds.getNorthEast();
+		startX = startPoint.lat();
+		startY = startPoint.lng();
+		endX = endPoint.lat();
+		endY = endPoint.lng();
+		if(map.getZoom() > 15){
+			ajaxFunc(startX, endX, startY, endY, $('#layer-setting-form [name="category"]').val());
+		} else {
+			removeMarker()
+		}
+	}
+	
+	function ajaxFunc(startX, endX, startY, endY, categoryCode) {
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/location/getStores",
+			data : {
+				startX : startX,
+				endX : endX,
+				startY : startY,
+				endY : endY,
+				categoryCode: categoryCode
+			},
+			dataType : "json",
+			success : function(data) {
+				removeMarker();
+				var markers = [];
+				var storeListHtml = "";
+				if (data) {
+					$.each(data, function(i, val) {
+						var latLng = new google.maps.LatLng(val.latitude, val.longitude);
+						if(typeof(selectedMaker) === 'undefined'
+								|| selectedMaker.storeIdx !== val.storeIdx ){
+							var marker = new google.maps.Marker({
+								position : latLng,
+								icon: '<c:url value="/resources/img/marker1.png" />',
+								title : val.name,
+								category : val.category.name,					
+								map : map,
+								storeIdx : val.storeIdx
+							});
+	
+							google.maps.event.addListener(marker, 'click', function() {
+								if(typeof(selectedMaker) !== 'undefined'){
+									markersArray.push(selectedMaker);
+								}
+								selectedMaker = marker;
+								
+								for (var j = 0; j < markers.length; j++) {
+						          markers[j].setIcon('<c:url value="/resources/img/marker1.png" />');
+						        }
+								marker.setIcon('<c:url value="/resources/img/marker2.png" />');
+								infowindow.close();			
+								infowindow.setContent(
+										'<a href="<c:url value="/location/detail"/>?store_idx=' + marker.storeIdx + '"> \n'
+											+ '<strong>' + marker.title + '</strong> \n'
+											+ '<p>' + marker.category + '</p> \n'
+										+ '</a>'
+								);
+								infowindow.open(map, marker);
+							});
+							markers.push(marker);
+						}
+					});
+				}
+				markersArray = markers;
+			},
+			error : function(xmlRequest) {
+				alert(xmlRequest.status + " " + xmlRequest.statusText + " "
+						+ xmlRequest.responseText);
+			}
+		});
+	}
+	
+	function removeMarker(){
+		if(typeof(markersArray) !== 'undefined'){
+			for (var i = 0; i < markersArray.length; i++) {
+				if(typeof(selectedMaker) === 'undefined' || selectedMaker !== markersArray[i]){
+					markersArray[i].setMap(null);
+				}
+	        }
+		}
+		
+		delete markersArray;
 	}
 
 	function onDataFetched(response) {
@@ -56,12 +178,14 @@
 
 	function extractLocations(rows) {
 		var locations = [];
-		for (var i = 0; i < rows.length; ++i) {
-			var row = rows[i];
-			if (row[0]) {
-				var locationSplit = row[0].split(', ');
-				locations[i] = new google.maps.LatLng(locationSplit[0],
-						locationSplit[1]);
+		if(typeof(rows) !== 'undefined'){
+			for (var i = 0; i < rows.length; ++i) {
+				var row = rows[i];
+				if (row[0]) {
+					var locationSplit = row[0].split(', ');
+					locations[i] = new google.maps.LatLng(locationSplit[0],
+							locationSplit[1]);
+				}
 			}
 		}
 		return locations;
@@ -119,6 +243,16 @@
 						+ '\n';
 			}
 			
+			if($('#layer-setting-form [name="begin-date"]').val() !== ''){
+				whereQuery += 'AND ' + 'Date >= \''
+					+ $('#layer-setting-form [name="begin-date"]').val() + "\' \n"
+			}
+			
+			if($('#layer-setting-form [name="end-date"]').val() !== ''){
+				whereQuery += ' AND ' + 'Date <= \''
+				+ $('#layer-setting-form [name="end-date"]').val() + '\' \n';
+			}
+			
 			var query = 'SELECT \'Location\', \'AvgEva\' \n'
 				+ 'FROM 1_hzEAwwva6MTOdWw6gN-uU7L2ikjeW5tnGqXWj-P \n'
 				+ 'WHERE ' + whereQuery
@@ -132,6 +266,8 @@
 			request.execute(function(response) {
 				onDataFetched(response);
 			});
+			
+			storeListLoad();
 			
 			event.preventDefault();
 		});
@@ -163,6 +299,24 @@
 				$('[name="begin-age"]').val(ui.values[0]);
 				$('[name="end-age"]').val(ui.values[1]);
 				$('#age-range').text(ui.values[0] + " ~ " + ui.values[1]);
+			}
+		});
+		
+		$('#layer-setting-form [name="begin-date"]').change(function (){
+			$('[name="end-date"]').attr('min', $('[name="begin-date"]').val());
+			
+			if($('[name="end-date"]').val() !== '' 
+					&& $('[name="begin-date"]').val() > $('[name="end-date"]').val()){
+				$('[name="end-date"]').val($('[name="begin-date"]').val());
+			}
+		});
+		
+		$('#layer-setting-form [name="end-date"]').change(function (){
+			$('[name="begin-date"]').attr('max', $('[name="end-date"]').val());
+			
+			if($('[name="begin-date"]').val() !== '' 
+					&& $('[name="begin-date"]').val() > $('[name="end-date"]').val()){
+				$('[name="begin-date"]').val($('[name="end-date"]').val());
 			}
 		});
 	});
@@ -235,6 +389,19 @@
 							<label class="radio-inline">
 								<input type="radio" name="sex" value="1" /> 여
 							</label>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-sm-2 control-label">기간</label>
+						<div class="col-sm-10 col-lg-6">
+							<div class="col-sm-5">
+								<input type="date" name="begin-date" class="form-control" />
+							</div>
+							<p class="col-sm-2 text-center"> ~ </p>
+							<div class="col-sm-5">
+								<input type="date" name="end-date" class="form-control" />
+							</div>
 						</div>
 					</div>
 			

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.ac.hansung.maldives.web.model.CustomUserDetails;
 import kr.ac.hansung.maldives.web.model.Store;
+import kr.ac.hansung.maldives.web.property.WhereyouProperty;
 import kr.ac.hansung.maldives.web.service.RecommendService;
 import kr.ac.hansung.maldives.web.service.StoreService;
 
@@ -19,8 +20,12 @@ public class RecommendController {
 
 	@Autowired
 	private RecommendService recommendService;
+	
 	@Autowired
 	private StoreService storeService;
+	
+	@Autowired
+	private WhereyouProperty whereyouProperty;
 
 
 	@RequestMapping
@@ -32,6 +37,7 @@ public class RecommendController {
 		Long user_idx = userDetails.getUserIdx();
 		
 		//model.addAttribute("UB_stores", recommendService.getRecommendUBStore(user_idx));
+		model.addAttribute("googleMapApiKey", whereyouProperty.getGoogleMapApiKey());
 		model.addAttribute("stores", recommendService.getRecommendIBStore(user_idx));
 
 		return "recommend/recommend";

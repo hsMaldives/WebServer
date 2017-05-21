@@ -40,23 +40,18 @@ public class RecommendService {
 			}
 		}
 		e.clear();
-		System.out.println("okok");
 		List<Store> ls = new ArrayList<Store>();
 		int colNum[] = new int[] { 1, 2, 3, 4, 5 };
 		
 		ls = ibcfMapper.selectStoresByUserIdx(user_idx, colNum, 3.5f);
-		System.out.println("okok222");
 		if (ls.size() != 0) {
 			for (int j = 0; j < ls.size(); j++) {
-				System.out.println(ls.get(j).getName());
 				if (mine.contains(ls.get(j))) {
 					ls.remove(ls.get(j));
 				}
 			}
 
-		} else
-			System.out.println("size zero");
-
+		}
 		return ls;
 	}
 
@@ -74,7 +69,6 @@ public class RecommendService {
 			}
 		}
 		e.clear();
-		System.out.println("111완");
 		List<Store> ls = new ArrayList<Store>();
 		try {
 			connection = new RConnection("localhost", 6311);
@@ -82,9 +76,7 @@ public class RecommendService {
 			// connection.eval("try(source(\"//Users//Heemin//userbased.R\"))");
 			// connection.eval("try(createUBModel(" + user_idx + "), silent =
 			// TRUE)");
-			System.out.println("222완");
 			String a = connection.eval("sim$user_id[2]").asString();
-			System.out.println("333완");
 			if (a.equals("NaN")) {
 				e = evaluationService.findByUser_idxAndNotEmptyEvaluation(Long.parseLong(a));
 				for (int i = 0; i < e.size(); i++) {

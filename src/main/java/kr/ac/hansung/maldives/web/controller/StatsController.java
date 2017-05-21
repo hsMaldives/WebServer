@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.ac.hansung.maldives.web.model.Category;
 import kr.ac.hansung.maldives.web.model.Job;
+import kr.ac.hansung.maldives.web.property.WhereyouProperty;
 import kr.ac.hansung.maldives.web.service.CategoryService;
-import kr.ac.hansung.maldives.web.service.FusionTableService;
 import kr.ac.hansung.maldives.web.service.JobService;
 
 @Controller
@@ -24,14 +24,15 @@ public class StatsController {
 	private CategoryService categoryService;
 	
 	@Autowired
-	private FusionTableService fusionTableService;
+	private WhereyouProperty whereyouProperty;
 	
 	@RequestMapping("/heatmap")
 	public String heatMap(Model model){
 		List<Category> categorys = categoryService.findByDepthAndCategoryCodeStartingWithOrderByCategoryCode(1, "00");
 		List<Job> jobs = jobServce.findAll();
 		
-		model.addAttribute("fusionTableId", fusionTableService.getFusionTableId());
+		model.addAttribute("googleMapApiKey", whereyouProperty.getGoogleMapApiKey());
+		model.addAttribute("fusionTableId", whereyouProperty.getFusionTableId());
 		model.addAttribute("categorys", categorys);
 		model.addAttribute("jobs", jobs);
 		

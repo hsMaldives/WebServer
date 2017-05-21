@@ -11,25 +11,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.ac.hansung.maldives.web.model.Store;
+import kr.ac.hansung.maldives.web.property.WhereyouProperty;
 import kr.ac.hansung.maldives.web.service.StoreService;
 
 @Controller
 @RequestMapping("/location")
 public class LocationController {
-
+	
 	@Autowired
 	private StoreService storeService;
-
-
+	
+	@Autowired
+	private WhereyouProperty whereyouProperty;
+	
 	@RequestMapping("/")
 	public String location(Model model) {
-		storeService.getStores();
+		
+		model.addAttribute("googleMapApiKey",whereyouProperty.getGoogleMapApiKey());
+		
 		return "location/location";
 	}
 
 	@RequestMapping("/getStores")
-	public @ResponseBody List<Store> getStoresByBound(double startX, double endX, double startY, double endY) {
-		List<Store> stores = storeService.getStoresByBound(startX, endX, startY, endY);
+	public @ResponseBody List<Store> getStoresByBound(@RequestParam(required=false, defaultValue="") String categoryCode, 
+			double startX, double endX, double startY, double endY) {
+		List<Store> stores = storeService.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
 		
 		return stores;
 	}

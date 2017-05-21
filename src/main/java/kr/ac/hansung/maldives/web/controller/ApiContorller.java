@@ -118,7 +118,6 @@ public class ApiContorller {
 	// @RequestMapping(value = "/locationInfo", method = RequestMethod.GET)
 	// public @ResponseBody List<Store> locationInfo(@RequestBody Location
 	// location) {
-	// System.out.println(location);
 	// log.info("[위치 정보] location: {}", location);
 	//
 	// // 가장 가까운 매장 정보

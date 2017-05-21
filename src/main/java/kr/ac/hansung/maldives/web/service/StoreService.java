@@ -25,8 +25,8 @@ public class StoreService {
 		return storeRepository.findAll();
 	}
 
-	public List<Store> getStoresByBound(double startX, double endX, double startY, double endY) {
-		return storeRepository.findByBound(startX, endX, startY, endY);
+	public List<Store> findByCategoryCategoryCodeStartingWithAndBound(String categoryCode, double startX, double endX, double startY, double endY) {
+		return storeRepository.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
 	}
 	
 	public Store getStoreByDsiId(String dsiId){

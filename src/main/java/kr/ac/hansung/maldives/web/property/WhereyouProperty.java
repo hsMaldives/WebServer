@@ -10,5 +10,8 @@ import lombok.Data;
 @ConfigurationProperties(prefix="whereyou")
 public class WhereyouProperty {
 
+	private String googleMapApiKey;
+	
 	private String fusionTableId;
+	
 }

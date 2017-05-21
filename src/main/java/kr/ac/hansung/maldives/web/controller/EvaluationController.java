@@ -19,8 +19,8 @@ import kr.ac.hansung.maldives.web.model.Evaluation;
 import kr.ac.hansung.maldives.web.model.Position;
 import kr.ac.hansung.maldives.web.service.EvaluationService;
 
-@RequestMapping("/evaluation")
 @Controller
+@RequestMapping("/evaluation")
 public class EvaluationController {
 
 	@Autowired

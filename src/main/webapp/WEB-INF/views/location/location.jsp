@@ -14,6 +14,8 @@
 	var geocoder;
 
 	var circle;
+	
+	var infowindow;
 
 	function initialize() {
 		infowindow = new google.maps.InfoWindow();
@@ -33,18 +35,21 @@
 		};
 
 		if (navigator.geolocation) {
-
-			navigator.geolocation.getCurrentPosition(function(pos) {
-				// 현재 위경도 값(GPS) 변수에 넣기.
-				lat = pos.coords.latitude;
-				lng = pos.coords.longitude;
-				location = new google.maps.LatLng(lat, lng);
-				mapOptions = {
-					zoom : 15,
-					center : location
-				};
-			})
-		}	
+			navigator.geolocation.getCurrentPosition(function(position) {
+					var pos = {
+						lat: position.coords.latitude,
+						lng: position.coords.longitude
+					};
+				
+					infowindow.setPosition(pos);
+					infowindow.setContent('Location found.');
+					map.setCenter(pos);
+				}, function() {
+					handleLocationError(true, infowindow, map.getCenter());
+			});
+		} else {
+			handleLocationError(false, infowindow, map.getCenter());
+		}
 
 		map = new google.maps.Map(document.getElementById("map_contents"),
 				mapOptions);
@@ -59,6 +64,13 @@
 			endY = endPoint.lng();
 			ajaxFunc(startX, endX, startY, endY);
 		});
+	}
+	
+	function handleLocationError(browserHasGeolocation, infowindow, pos) {
+		infowindow.setPosition(pos);
+		infowindow.setContent(browserHasGeolocation ?
+			'Error: The Geolocation service failed.' :
+			'Error: Your browser doesn\'t support geolocation.');
 	}
 
 	function ajaxFunc(startX, endX, startY, endY) {
@@ -170,7 +182,7 @@
 </script>
 
 <script async defer
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZqKafyvL0OerIRPWS_XV9GhPcWPIAL_w&callback=initialize">
+	src="https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}&amp;callback=initialize">
 </script>
 
 <div class="row">

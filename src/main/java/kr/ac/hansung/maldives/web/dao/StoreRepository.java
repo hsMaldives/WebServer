@@ -10,8 +10,8 @@ import kr.ac.hansung.maldives.web.model.Store;
 
 public interface StoreRepository extends JpaRepository<Store, Long>{
 
-	@Query("SELECT s FROM Store s WHERE :startX < s.latitude and s.latitude< :endX and :startY < s.longitude and s.longitude < :endY")
-	public List<Store> findByBound(@Param("startX")Double startX, @Param("endX")Double endX, @Param("startY")Double startY, @Param("endY")Double endY);
+	@Query("SELECT s FROM Store s WHERE s.category.categoryCode LIKE CONCAT(:categoryCode, '%') AND :startX < s.latitude and s.latitude< :endX and :startY < s.longitude and s.longitude < :endY")
+	public List<Store> findByCategoryCategoryCodeStartingWithAndBound(@Param("categoryCode") String categoryCode, @Param("startX")Double startX, @Param("endX")Double endX, @Param("startY")Double startY, @Param("endY")Double endY);
 	
 	public Store findByDsiId(String dsiId);
 	
