@@ -21,6 +21,37 @@
 		</plugins>
 	</build>
 	
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+	                <name>spring.profiles.active</name>
+	                <value>default</value>
+	            </property>
+			</activation>
+		</profile>
+		<profile>
+			<id>product</id>
+			<activation>
+				<property>
+	                <name>spring.profiles.active</name>
+	                <value>product</value>
+	            </property>
+			</activation>
+		</profile>
+		<profile>
+			<id>jenkins</id>
+			<activation>
+				<property>
+	                <name>spring.profiles.active</name>
+	                <value>jenkins</value>
+	            </property>
+			</activation>
+		</profile>
+	</profiles>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
