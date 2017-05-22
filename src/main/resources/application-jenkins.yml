@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://223.194.145.81:3306/hereyou?autoReconnect=true&useSSL=true&verifyServerCertificate=false
+  jpa: 
+    hibernate:
+      ddl-auto: none
