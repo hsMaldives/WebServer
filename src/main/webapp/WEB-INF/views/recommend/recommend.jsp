@@ -15,27 +15,25 @@
 		<h2>Item-based</h2>
 		<p class="lead">아이템 기반 추천</p>
 
-		<div class="col-xs-12">
-			<div class="list-group list-store">
-				<c:forEach var="store" items="${stores}" varStatus="status">
-					<div class="list-group-item">
-						<div class="media-left">
-							<img class="media-object" src="${store.imageUrl}" alt="매장사진">
-						</div>
-						<div class="media-body">
-							<h4 class="media-heading">
-								<a href="<c:url value="/recommend/detail/${store.storeIdx }"/>">${store.name }</a>
-							</h4>
-							<p class="list-group-item-text">
-								<a href="#" onclick="showMapStoreInfo(${status.index})">${store.address }</a>
-							</p>
-						</div>
-						<div class="media-right">
-							<span class="badge">${store.category.name }</span>
-						</div>
+		<div class="list-group list-store">
+			<c:forEach var="store" items="${stores}" varStatus="status">
+				<div class="list-group-item">
+					<div class="media-left">
+						<img class="media-object" src="${store.imageUrl}" alt="매장사진">
 					</div>
-				</c:forEach>
-			</div>
+					<div class="media-body">
+						<h4 class="media-heading">
+							<a href="<c:url value="/recommend/detail/${store.storeIdx }"/>">${store.name }</a>
+						</h4>
+						<p class="list-group-item-text">
+							<a href="#" onclick="showMapStoreInfo(${status.index})">${store.address }</a>
+						</p>
+					</div>
+					<div class="media-right">
+						<span class="badge">${store.category.name }</span>
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 </div>

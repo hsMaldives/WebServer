@@ -2,9 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.ac.hansung.maldives.web.dao2.IbcfMapper">
-	<select id="selectStoresByUserIdx" resultType="Store">
-		SELECT *
-		FROM store
+	<resultMap id="storeResult" type="Store" autoMapping="true">
+		<association property="category" resultMap="categoryResult" />
+	</resultMap>
+	
+	<resultMap id="categoryResult" type="Category" autoMapping="true">
+		<result property="name" column="category_name" />
+	</resultMap>
+
+	<select id="selectStoresByUserIdx" resultMap="storeResult">
+		SELECT store.*, category.category_code, category.description, category.name as category_name, category.depth, category.full_name
+		FROM store JOIN category ON store.code = category.category_code
 		WHERE store_idx in 
 			<foreach item="item" index="index" collection="colNum" open="(" separator=" UNION ALL " close=")" >
 				SELECT rec${colNum[index]} as store_idx
