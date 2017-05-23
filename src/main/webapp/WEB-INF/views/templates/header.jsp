@@ -39,7 +39,7 @@
     </nav>
 
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
+<nav id="footer-menu" class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container">
 		<div id="navbar" class="navbar-collapse">
 			<ul class="nav text-center col-xs-12">
@@ -96,11 +96,10 @@
 
 					</a>
 					<ul class="dropdown-menu">
-					
 						<li>
 							<sec:authorize access="isAuthenticated()">
-								<form:form action="${pageContext.request.contextPath}/user/logout" method="POST">
-									<input type="submit" value="로그아웃" />
+								<a href="#" onclick="logout()">로그아웃</a>
+								<form:form action="${pageContext.request.contextPath}/user/logout" id="logout-form" method="POST">
 								</form:form>
 							</sec:authorize>
 							<sec:authorize access="isAnonymous()">
@@ -116,3 +115,9 @@
 		</div>
 	</div>
 </nav>
+
+<script>
+	function logout(){
+		$('#logout-form').submit();
+	}
+</script>

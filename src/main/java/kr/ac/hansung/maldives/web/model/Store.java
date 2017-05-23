@@ -9,11 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="store", indexes = {
 		@Index(columnList="dsiId", name="idx_store_dsi_id")
 })

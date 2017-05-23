@@ -10,7 +10,7 @@
 
 	<name>WhereYou</name>
 	<description></description>
-	
+
 	<build>
 		<finalName>WhereYou</finalName>
 		<plugins>
@@ -20,38 +20,38 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<profiles>
 		<profile>
 			<id>default</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 				<property>
-	                <name>spring.profiles.active</name>
-	                <value>default</value>
-	            </property>
+					<name>spring.profiles.active</name>
+					<value>default</value>
+				</property>
 			</activation>
 		</profile>
 		<profile>
 			<id>product</id>
 			<activation>
 				<property>
-	                <name>spring.profiles.active</name>
-	                <value>product</value>
-	            </property>
+					<name>spring.profiles.active</name>
+					<value>product</value>
+				</property>
 			</activation>
 		</profile>
 		<profile>
 			<id>jenkins</id>
 			<activation>
 				<property>
-	                <name>spring.profiles.active</name>
-	                <value>jenkins</value>
-	            </property>
+					<name>spring.profiles.active</name>
+					<value>jenkins</value>
+				</property>
 			</activation>
 		</profile>
 	</profiles>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -65,9 +65,9 @@
 		<java.version>1.8</java.version>
 	</properties>
 
-	
+
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -79,6 +79,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.javassist</groupId>
+					<artifactId>javassist</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -133,14 +139,20 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-java8</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.21.0-GA</version>
+		</dependency>
 		
-		
+
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -152,7 +164,7 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
-			<!-- R serve -->
+		<!-- R serve -->
 		<dependency>
 			<groupId>org.nuiton.thirdparty</groupId>
 			<artifactId>Rserve</artifactId>
@@ -165,7 +177,7 @@
 			<version>0.6-1</version>
 		</dependency>
 		<!-- R serve end -->
-		
+
 		<!-- Security -->
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
@@ -179,8 +191,8 @@
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-security</artifactId>
 		</dependency>
-		
-		
+
+
 		<!-- View -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -195,8 +207,14 @@
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-extras</artifactId>
 			<version>3.0.7</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jboss</groupId>
+					<artifactId>javassist</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+
 		<!-- Google API -->
 		<dependency>
 			<groupId>com.google.maps</groupId>
