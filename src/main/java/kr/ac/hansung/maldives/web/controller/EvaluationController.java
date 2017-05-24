@@ -92,4 +92,11 @@ public class EvaluationController {
 		return "redirect:/evaluation/miss-evaluations";
 	}
 	
+	
+	@RequestMapping(value="/evaluation", method=RequestMethod.GET)
+	public String evaluationPage(Model model){
+		
+		
+		return "evaluation/evaluation";
+	}
 }

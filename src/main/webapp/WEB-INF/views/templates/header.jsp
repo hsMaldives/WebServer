@@ -76,6 +76,8 @@
 					<ul class="dropdown-menu">
 						<li><a href="<c:url value="/evaluation/miss-evaluations"/>">미평가 장소 평가</a></li>
 						<li><a href="<c:url value="/evaluation/historys"/>">기존 평가 조회</a></li>
+						<li><a href="<c:url value="/evaluation/evaluation"/>">장소 평가</a></li>
+						
 					</ul>
 				</li>
 				<li class="dropup col-xs-3">
