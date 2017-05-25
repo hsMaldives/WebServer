@@ -45,9 +45,11 @@ public class RecommendService {
 		
 		ls = ibcfMapper.selectStoresByUserIdx(user_idx, colNum, 3.5f);
 		if (ls.size() != 0) {
-			for (int j = 0; j < ls.size(); j++) {
+			for (int j = 0; j < ls.size();) {
 				if (mine.contains(ls.get(j))) {
 					ls.remove(ls.get(j));
+				} else {
+					j++;
 				}
 			}
 
