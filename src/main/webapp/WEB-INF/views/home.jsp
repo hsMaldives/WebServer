@@ -16,21 +16,14 @@
 		<div class="row">
 
 			<div class="col-lg-12 text-center">
-
-
-
 				<img class="img-responsive center-block img-rounded"
-					src="<c:url value = "/resources/img/whereyou(red).png"/>" alt="">
+					src="<c:url value = "/resources/img/main_logo.png"/>" alt="">
 				<div class="intro-text">
 					<div class="intro-text">
 
 						<hr class="star-primary">
 						<h2>Recommend System</h2>
 						<br /> <span class="skills">Team Maldives - Hansung CSE</span>
-						<p class="">A</p>
-						<p class="">B</p>
-						<p class="">C</p>
-						<p class="">D</p>
 						<hr class="star-primary">
 					</div>
 				</div>

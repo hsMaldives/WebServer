@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="form-group col-lg-4">
 				<label class="control-label" for="eva1">
-					평가1:</label>
+					가격:</label>
 				<form:input path="eva1" cssClass="rating rating-loading" data-min="0" data-max="5" data-step="0.5"/>
 				<form:errors id="error-eva1" path="eva1" cssClass="help-block" />
 			</div>
@@ -38,7 +38,7 @@
 		<div class="row">
 			<div class="form-group col-lg-4">
 				<label class="control-label" for="eva2">
-					평가2:</label>
+					맛:</label>
 				<form:input path="eva2" cssClass="rating rating-loading" data-min="0" data-max="5" data-step="0.5" />
 				<form:errors id="error-eva2" path="eva2" cssClass="help-block" />
 			</div>
@@ -46,7 +46,7 @@
 		<div class="row">
 			<div class="form-group col-lg-4">
 				<label class="control-label" for="eva3">
-					평가3:</label>
+					위생:</label>
 				<form:input path="eva3" cssClass="rating rating-loading" data-min="0" data-max="5" data-step="0.5" />
 				<form:errors id="error-eva3" path="eva3" cssClass="help-block" />
 			</div>
@@ -54,7 +54,7 @@
 		<div class="row">
 			<div class="form-group col-lg-4">
 				<label class="control-label" for="eva4">
-					평가4:</label>
+					친절:</label>
 				<form:input path="eva4" cssClass="rating rating-loading" data-min="0" data-max="5" data-step="0.5" />
 				<form:errors id="error-eva5" path="eva4" cssClass="help-block" />
 			</div>
@@ -62,7 +62,7 @@
 		<div class="row">
 			<div class="form-group col-lg-4">
 				<label class="control-label" for="eva5">
-					평가5:</label>
+					양:</label>
 				<form:input path="eva5" cssClass="rating rating-loading" data-min="0" data-max="5" data-step="0.5" />
 				<form:errors id="error-eva5" path="eva5" cssClass="help-block" />
 			</div>

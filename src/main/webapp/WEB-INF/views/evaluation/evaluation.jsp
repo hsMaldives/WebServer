@@ -26,35 +26,35 @@
 			<div class="row">
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="eva1">
-						평가1:</label>
+						가격:</label>
 					<input type="text" name="eva1" class="rating rating-loading eva" data-min="0" data-max="5" data-step="0.5"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="eva2">
-						평가2:</label>
+						맛:</label>
 					<input type="text" name="eva2" class="rating rating-loading eva" data-min="0" data-max="5" data-step="0.5"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="eva3">
-						평가3:</label>
+						위생:</label>
 					<input type="text" name="eva3" class="rating rating-loading eva" data-min="0" data-max="5" data-step="0.5"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="eva4">
-						평가4:</label>
+						친절:</label>
 					<input type="text" name="eva4" class="rating rating-loading eva" data-min="0" data-max="5" data-step="0.5"/>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="eva5">
-						평가5:</label>
+						양:</label>
 					<input type="text" name="eva5" class="rating rating-loading eva" data-min="0" data-max="5" data-step="0.5"/>
 				</div>
 			</div>
