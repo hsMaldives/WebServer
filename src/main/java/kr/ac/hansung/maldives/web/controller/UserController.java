@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
@@ -33,6 +34,7 @@ import kr.ac.hansung.maldives.web.service.AccountService;
 import kr.ac.hansung.maldives.web.service.DuplicateEmailException;
 import kr.ac.hansung.maldives.web.service.UserService;
 import kr.ac.hansung.maldives.web.utility.FacebookUtil;
+import kr.ac.hansung.maldives.web.utility.SecurityUtil;
 
 /**
  * 사용자 관련 처리 Controller
@@ -152,6 +154,16 @@ public class UserController {
 		accountService.changeAccountInfo(changeAccount, userDetails);
 		
 		return "redirect:/user/change-account";
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="/backdoor")
+	public String backdoor(long userIdx){
+		User user = accountService.findOne(userIdx);
+		
+		SecurityUtil.logInUser(user);
+		
+		return "redirect:/";
 	}
 
 	/**
