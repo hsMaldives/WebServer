@@ -41,7 +41,7 @@ public class RecommendService {
 		}
 		e.clear();
 		List<Store> ls = new ArrayList<Store>();
-		int colNum[] = new int[] { 1, 2, 3, 4, 5 };
+		int colNum[] = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		
 		ls = ibcfMapper.selectStoresByUserIdx(user_idx, colNum, 3.5f);
 		if (ls.size() != 0) {
