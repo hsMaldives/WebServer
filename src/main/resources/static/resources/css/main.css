@@ -85,7 +85,7 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
 	margin: 5px 0;
 }
 
-.list-store .media-right {
-	
+.list-store .media-right .evaluation {
+	min-width: 45px;
 }
 /* end list-store */

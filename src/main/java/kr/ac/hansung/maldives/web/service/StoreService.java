@@ -1,5 +1,6 @@
 package kr.ac.hansung.maldives.web.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,8 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.hansung.maldives.model.DaumStoreItem;
+import kr.ac.hansung.maldives.web.dao.StoreCommentRepository;
 import kr.ac.hansung.maldives.web.dao.StoreRepository;
+import kr.ac.hansung.maldives.web.dao.UserRepository;
+import kr.ac.hansung.maldives.web.dao2.StoreMapper;
+import kr.ac.hansung.maldives.web.model.CustomUserDetails;
 import kr.ac.hansung.maldives.web.model.Store;
+import kr.ac.hansung.maldives.web.model.StoreComment;
+import kr.ac.hansung.maldives.web.model.User;
 
 @Transactional
 @Service
@@ -17,24 +24,54 @@ public class StoreService {
 
 	@Autowired
 	private StoreRepository storeRepository;
+	
+	@Autowired
+	private StoreCommentRepository storeCommentRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private StoreMapper storeMapper;
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private AccountService accountService;
 
 	public List<Store> getStores() {
 		return storeRepository.findAll();
 	}
 
 	public List<Store> findByCategoryCategoryCodeStartingWithAndBound(String categoryCode, double startX, double endX, double startY, double endY) {
-		return storeRepository.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
+		List<Store> stores = storeRepository.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
+		
+		for(Store store: stores){
+			store.setAvgEvaluation(getStoreAvgEvaluationByStoreIdx(store.getStoreIdx()));
+		}
+		
+		return stores;
 	}
 	
 	public Store getStoreByDsiId(String dsiId){
-		return storeRepository.findByDsiId(dsiId);
+		Store store = storeRepository.findByDsiId(dsiId);
+		
+		if(store != null){
+			store.setAvgEvaluation(getStoreAvgEvaluationByStoreIdx(store.getStoreIdx()));
+		}
+		
+		return store;
 	}
 
 	public Store getStoreById(Long store_idx) {
-		return storeRepository.getOne(store_idx);
+		Store store = storeRepository.getOne(store_idx);
+		
+		if(store != null){
+			store.setAvgEvaluation(getStoreAvgEvaluationByStoreIdx(store.getStoreIdx()));
+		}
+		
+		return store;
 	}
 	
 	public Store addStore(Store store){		
@@ -56,6 +93,45 @@ public class StoreService {
 		storeRepository.save(store);
 		
 		return store;
+	}
+	
+	public double getStoreAvgEvaluationByStoreIdx(long storeIdx){
+		return storeMapper.getStoreAvgEvaluationByStoreIdx(storeIdx);
+	}
+
+	public boolean addComment(long storeIdx, long userIdx, String comment) {
+		Store store = storeRepository.getOne(storeIdx);
+		User user = userRepository.getOne(userIdx);
+		
+		if(store == null || user == null){
+			return false;
+		}
+		
+		StoreComment storeComment = StoreComment.builder()
+												.store(store)
+												.comment(comment)
+												.timestamp(LocalDateTime.now())
+												.deleted(false)
+												.user(user)
+												.build();
+		
+		storeCommentRepository.save(storeComment);
+		
+		return true;
+	}
+	
+	public List<StoreComment> getCommentList(long storeIdx){
+		List<StoreComment> storeComments = storeCommentRepository.findByStoreStoreIdx(storeIdx);
+		
+		return storeComments;
+	}
+
+	public StoreComment getComment(Long storeIdx) {
+		return storeCommentRepository.findOne(storeIdx);
+	}
+	
+	public void deleteComment(Long storeIdx){
+		storeCommentRepository.delete(storeIdx);
 	}
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <div class="row">
@@ -30,7 +31,13 @@
 						</p>
 					</div>
 					<div class="media-right">
-						<span class="badge">${store.category.name }</span>
+						<p class="text-right evaluation">
+							<c:if test="${not empty store.avgEvaluation }">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+								<fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/>
+							</c:if>
+						</p>
+						<p class="text-right"><span class="badge">${store.category.name }</span></p>
 					</div>
 				</div>
 			</c:forEach>

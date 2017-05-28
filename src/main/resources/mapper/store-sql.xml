@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ac.hansung.maldives.web.dao2.StoreMapper">
+
+	<select id="getStoreAvgEvaluationByStoreIdx" resultType="Double">
+		SELECT avg((eva1 + eva2 + eva3 + eva4 + eva5) / 5)
+		FROM position JOIN evaluation ON position.position_idx = evaluation.position_idx
+		WHERE store_idx = #{storeIdx}
+	</select>
+	
+</mapper>

@@ -11,9 +11,15 @@
 	</resultMap>
 
 	<select id="selectStoresByUserIdx" resultMap="storeResult">
-		SELECT store.*, category.category_code, category.description, category.name as category_name, category.depth, category.full_name
+		SELECT store.*, category.category_code, category.description, 
+			category.name as category_name, category.depth, category.full_name, 
+			(
+				SELECT avg((eva1 + eva2 + eva3 + eva4 + eva5) / 5) 
+				FROM position JOIN evaluation ON position.position_idx = evaluation.position_idx 
+				WHERE position.store_idx = store.store_idx
+			) as avg_evaluation
 		FROM store JOIN category ON store.code = category.category_code
-		WHERE store_idx in 
+		WHERE store.store_idx in 
 			<foreach item="item" index="index" collection="colNum" open="(" separator=" UNION ALL " close=")" >
 				SELECT rec${colNum[index]} as store_idx
 				FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
