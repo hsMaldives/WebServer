@@ -24,7 +24,7 @@
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">
-							<a href="<c:url value="/recommend/detail/${store.storeIdx }"/>">${store.name }</a>
+							<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
 						</h4>
 						<p class="list-group-item-text">
 							<a href="#" onclick="showMapStoreInfo(${status.index})">${store.address }</a>

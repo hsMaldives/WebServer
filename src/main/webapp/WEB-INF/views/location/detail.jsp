@@ -51,6 +51,17 @@
 						<th>평균평점</th>
 						<td>${store.avgEvaluation}</td>
 					</tr>
+					
+					<tr>
+						<th>연관매장</th>
+						<td>
+							<c:forEach var="store" items="${associationStores }">
+								<span class="association-store">
+									<a href="<c:url value="/location/detail/${store.storeIdx }" />"> ${store.name } </a>								
+								</span>
+							</c:forEach>
+						</td>
+					</tr>
 
 				</tbody>
 			</table>

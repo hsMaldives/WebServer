@@ -135,7 +135,7 @@
 								marker.setIcon('<c:url value="/resources/img/marker2.png" />');
 								infowindow.close();			
 								infowindow.setContent(
-										'<a href="<c:url value="/location/detail"/>?store_idx=' + marker.storeIdx + '"> \n'
+										'<a href="<c:url value="/location/detail/"/>' + marker.storeIdx + '"> \n'
 											+ '<strong>' + marker.title + '</strong> \n'
 											+ '<p>' + marker.category + '</p> \n'
 										+ '</a>'

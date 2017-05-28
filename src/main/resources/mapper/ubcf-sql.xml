@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.ac.hansung.maldives.web.dao2.UbcfMapper">
+
+	<select id="getAssociationStoreByStoreIdx" resultType="Store">
+		SELECT *
+		FROM store
+		WHERE store.store_idx in 
+			<foreach item="item" index="index" collection="colNum" open="(" separator=" UNION ALL " close=")" >
+				SELECT V${colNum[index]} as store_idx
+				FROM ubcf
+				WHERE row_names = #{storeIdx}
+			</foreach>
+	</select>
+</mapper>

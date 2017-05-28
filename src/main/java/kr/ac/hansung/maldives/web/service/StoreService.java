@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import kr.ac.hansung.maldives.web.dao.StoreCommentRepository;
 import kr.ac.hansung.maldives.web.dao.StoreRepository;
 import kr.ac.hansung.maldives.web.dao.UserRepository;
 import kr.ac.hansung.maldives.web.dao2.StoreMapper;
+import kr.ac.hansung.maldives.web.dao2.UbcfMapper;
 import kr.ac.hansung.maldives.web.model.CustomUserDetails;
 import kr.ac.hansung.maldives.web.model.Store;
 import kr.ac.hansung.maldives.web.model.StoreComment;
@@ -33,6 +35,9 @@ public class StoreService {
 	
 	@Autowired
 	private StoreMapper storeMapper;
+	
+	@Autowired
+	private UbcfMapper ubcfMapper;
 
 	@Autowired
 	private CategoryService categoryService;
@@ -48,7 +53,11 @@ public class StoreService {
 		List<Store> stores = storeRepository.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
 		
 		for(Store store: stores){
-			store.setAvgEvaluation(getStoreAvgEvaluationByStoreIdx(store.getStoreIdx()));
+			try {
+				store.setAvgEvaluation(getStoreAvgEvaluationByStoreIdx(store.getStoreIdx()));
+			} catch(BindingException e){
+				/* 평가 정보가 없을때 발생 */
+			}
 		}
 		
 		return stores;
@@ -95,10 +104,16 @@ public class StoreService {
 		return store;
 	}
 	
-	public double getStoreAvgEvaluationByStoreIdx(long storeIdx){
+	public Double getStoreAvgEvaluationByStoreIdx(long storeIdx){
 		return storeMapper.getStoreAvgEvaluationByStoreIdx(storeIdx);
 	}
 
+	public List<Store> getAssociationStoreByStoreIdx(long storeIdx){
+		int colNum[] = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		
+		return ubcfMapper.getAssociationStoreByStoreIdx(storeIdx, colNum);
+	}
+	
 	public boolean addComment(long storeIdx, long userIdx, String comment) {
 		Store store = storeRepository.getOne(storeIdx);
 		User user = userRepository.getOne(userIdx);

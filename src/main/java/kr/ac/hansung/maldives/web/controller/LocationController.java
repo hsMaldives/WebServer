@@ -52,14 +52,15 @@ public class LocationController {
 		return stores;
 	}
 
-	@RequestMapping("/detail")
-	public String locationDetail(@RequestParam("store_idx") Long store_idx, Model model) {
-		Store store = storeService.getStoreById(store_idx);
+	@RequestMapping("/detail/{storeIdx}")
+	public String locationDetail(@PathVariable(name="storeIdx") Long storeIdx, Model model) {
+		Store store = storeService.getStoreById(storeIdx);
+		List<Store> associationStores = storeService.getAssociationStoreByStoreIdx(storeIdx);
 		
-		store.setComments(storeService.getCommentList(store_idx));
-		store.setAvgEvaluation(storeService.getStoreAvgEvaluationByStoreIdx(store_idx));
+		store.setComments(storeService.getCommentList(storeIdx));
 		
 		model.addAttribute("store", store);
+		model.addAttribute("associationStores", associationStores);
 		
 		return "location/detail";
 	}
