@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.hansung.maldives.web.dao2.IbcfMapper;
+import kr.ac.hansung.maldives.web.dao2.UbcfMapper;
 import kr.ac.hansung.maldives.web.model.Evaluation;
 import kr.ac.hansung.maldives.web.model.Store;
 
@@ -25,9 +26,11 @@ public class RecommendService {
 	@Autowired
 	private EvaluationService evaluationService;
 
-
 	@Autowired
 	private IbcfMapper ibcfMapper;
+	
+	@Autowired
+	private UbcfMapper ubcfMapper;
 
 	public List<Store> getRecommendIBStore(long user_idx) {
 
@@ -60,43 +63,9 @@ public class RecommendService {
 	
 
 	public List<Store> getRecommendUBStore(long user_idx) {
-		RConnection connection = null;
-
-		List<Store> mine = new ArrayList<Store>();
-		List<Evaluation> e = evaluationService.findByUser_idxAndNotEmptyEvaluation(user_idx);
-		for (int i = 0; i < e.size(); i++) {
-			Store store = e.get(i).getPosition().getStore();
-			if (!mine.contains(store)) {
-				mine.add(store);
-			}
-		}
-		e.clear();
-		List<Store> ls = new ArrayList<Store>();
-		try {
-			connection = new RConnection("localhost", 6311);
-			// connection.login("whereyou", "whereyou@");
-			// connection.eval("try(source(\"//Users//Heemin//userbased.R\"))");
-			// connection.eval("try(createUBModel(" + user_idx + "), silent =
-			// TRUE)");
-			String a = connection.eval("sim$user_id[2]").asString();
-			if (a.equals("NaN")) {
-				e = evaluationService.findByUser_idxAndNotEmptyEvaluation(Long.parseLong(a));
-				for (int i = 0; i < e.size(); i++) {
-					Store store = e.get(i).getPosition().getStore();
-					if (!ls.contains(store) && !mine.contains(store)) {
-						ls.add(store);
-					}
-				}
-			}
-			connection.close();
-			return ls;
-		} catch (RserveException | REXPMismatchException ee) {
-			ee.printStackTrace();
-		} finally {
-			connection.close();
-		}
-		connection.close();
-		return null;
+		int colNum[] = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		List<Store> ls = ubcfMapper.getRecommendStoreByUserIdx(user_idx, colNum);
+		return ls;
 	}
 
 }

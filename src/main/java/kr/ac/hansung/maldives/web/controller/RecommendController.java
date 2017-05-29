@@ -32,7 +32,9 @@ public class RecommendController {
 		
 		//model.addAttribute("UB_stores", recommendService.getRecommendUBStore(user_idx));
 		model.addAttribute("googleMapApiKey", whereyouProperty.getGoogleMapApiKey());
-		model.addAttribute("stores", recommendService.getRecommendIBStore(user_idx));
+		model.addAttribute("ibcfStores", recommendService.getRecommendIBStore(user_idx));
+		
+		model.addAttribute("ubcfStores", recommendService.getRecommendUBStore(user_idx));
 
 		return "recommend/recommend";
 	}

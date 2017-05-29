@@ -17,7 +17,39 @@
 		<p class="lead">아이템 기반 추천</p>
 
 		<div class="list-group list-store">
-			<c:forEach var="store" items="${stores}" varStatus="status">
+			<c:forEach var="store" items="${ibcfStores}" varStatus="status">
+				<div class="list-group-item">
+					<div class="media-left">
+						<img class="media-object" src="${store.imageUrl}" alt="매장사진">
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">
+							<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
+						</h4>
+						<p class="list-group-item-text">
+							<a href="#" onclick="showMapStoreInfo(${status.index})">${store.address }</a>
+						</p>
+					</div>
+					<div class="media-right">
+						<p class="text-right evaluation">
+							<c:if test="${not empty store.avgEvaluation }">
+								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+								<fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/>
+							</c:if>
+						</p>
+						<p class="text-right"><span class="badge">${store.category.name }</span></p>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	
+	<div class="container">
+		<h2>User-based</h2>
+		<p class="lead">유저 기반 추천</p>
+
+		<div class="list-group list-store">
+			<c:forEach var="store" items="${ubcfStores}" varStatus="status">
 				<div class="list-group-item">
 					<div class="media-left">
 						<img class="media-object" src="${store.imageUrl}" alt="매장사진">
@@ -80,7 +112,7 @@
 		map = new google.maps.Map(document.getElementById('map-contents'), mapOptions);
 		
 		markers = [
-			<c:forEach var="store" items="${stores}" varStatus="status">
+			<c:forEach var="store" items="${ibcfStores}" varStatus="status">
 				new google.maps.Marker({
 					position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
 					icon: '<c:url value="/resources/img/marker1.png" />',
@@ -91,6 +123,19 @@
 				}) <c:if test="${!status.last}">, </c:if>
 			</c:forEach>
 		];
+		
+		markers.push([
+			<c:forEach var="store" items="${ubcfStores}" varStatus="status">
+				new google.maps.Marker({
+					position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
+					icon: '<c:url value="/resources/img/marker1.png" />',
+					title : '<c:out value="${store.name}" />',
+					category : '<c:out value="${store.category.name}" />',
+					map : map,
+					storeIdx : '${store.storeIdx}'
+				}) <c:if test="${!status.last}">, </c:if>
+			</c:forEach>
+		]);
 	
 		$.each(markers, function (index, eachMarker){
 			google.maps.event.addListener(eachMarker, 'click', function() {

@@ -13,12 +13,14 @@ import kr.ac.hansung.maldives.model.DaumStoreItem;
 import kr.ac.hansung.maldives.web.dao.StoreCommentRepository;
 import kr.ac.hansung.maldives.web.dao.StoreRepository;
 import kr.ac.hansung.maldives.web.dao.UserRepository;
+import kr.ac.hansung.maldives.web.dao2.IbcfMapper;
 import kr.ac.hansung.maldives.web.dao2.StoreMapper;
 import kr.ac.hansung.maldives.web.dao2.UbcfMapper;
 import kr.ac.hansung.maldives.web.model.CustomUserDetails;
 import kr.ac.hansung.maldives.web.model.Store;
 import kr.ac.hansung.maldives.web.model.StoreComment;
 import kr.ac.hansung.maldives.web.model.User;
+import lombok.NoArgsConstructor;
 
 @Transactional
 @Service
@@ -35,6 +37,9 @@ public class StoreService {
 	
 	@Autowired
 	private StoreMapper storeMapper;
+	
+	@Autowired
+	private IbcfMapper ibcfMapper;
 	
 	@Autowired
 	private UbcfMapper ubcfMapper;
@@ -107,11 +112,11 @@ public class StoreService {
 	public Double getStoreAvgEvaluationByStoreIdx(long storeIdx){
 		return storeMapper.getStoreAvgEvaluationByStoreIdx(storeIdx);
 	}
-
-	public List<Store> getAssociationStoreByStoreIdx(long storeIdx){
+	
+	public List<Store> ibcfGetAssociationStoresByRowNames(long storeIdx){
 		int colNum[] = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		
-		return ubcfMapper.getAssociationStoreByStoreIdx(storeIdx, colNum);
+		return ibcfMapper.getAssociationStoresByRowNames(storeIdx, colNum);
 	}
 	
 	public boolean addComment(long storeIdx, long userIdx, String comment) {

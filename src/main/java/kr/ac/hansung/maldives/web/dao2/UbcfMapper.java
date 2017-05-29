@@ -10,5 +10,5 @@ import kr.ac.hansung.maldives.web.model.Store;
 @Mapper
 public interface UbcfMapper {
 
-	public List<Store> getAssociationStoreByStoreIdx(@Param("storeIdx") long storeIdx, @Param("colNum") int colNum[]);
+	public List<Store> getRecommendStoreByUserIdx(@Param("userIdx") long userIdx, @Param("colNum") int colNum[]);
 }

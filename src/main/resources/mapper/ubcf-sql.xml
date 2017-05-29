@@ -3,14 +3,14 @@
 
 <mapper namespace="kr.ac.hansung.maldives.web.dao2.UbcfMapper">
 
-	<select id="getAssociationStoreByStoreIdx" resultType="Store">
+	<select id="getRecommendStoreByUserIdx" resultType="Store">
 		SELECT *
 		FROM store
 		WHERE store.store_idx in 
 			<foreach item="item" index="index" collection="colNum" open="(" separator=" UNION ALL " close=")" >
 				SELECT V${colNum[index]} as store_idx
 				FROM ubcf
-				WHERE row_names = #{storeIdx}
+				WHERE row_names = #{userIdx}
 			</foreach>
 	</select>
 </mapper>

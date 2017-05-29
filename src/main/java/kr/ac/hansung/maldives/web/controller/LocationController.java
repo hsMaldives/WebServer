@@ -55,7 +55,7 @@ public class LocationController {
 	@RequestMapping("/detail/{storeIdx}")
 	public String locationDetail(@PathVariable(name="storeIdx") Long storeIdx, Model model) {
 		Store store = storeService.getStoreById(storeIdx);
-		List<Store> associationStores = storeService.getAssociationStoreByStoreIdx(storeIdx);
+		List<Store> associationStores = storeService.ibcfGetAssociationStoresByRowNames(storeIdx);
 		
 		store.setComments(storeService.getCommentList(storeIdx));
 		
