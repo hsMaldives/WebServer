@@ -14,7 +14,8 @@
 		<div class="col-xs-12">
 
 			<div class="">
-				<img class="center-block img-rounded " src="<c:url value="${store.imageUrl }"/>"
+				<img class="center-block img-rounded " src="${store.imageUrl }"
+					onerror="this.style='display: none;'"
 					alt="image" style="width: 80%" />
 			</div>
 			

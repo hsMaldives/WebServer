@@ -29,7 +29,7 @@
 			</foreach>
 	</select>
 	
-	<select id="selectStoresByRowNames" resultMap="storeResult">
+	<select id="getAssociationStoresByRowNames" resultMap="storeResult">
 		SELECT store.*, category.category_code, category.description, 
 			category.name as category_name, category.depth, category.full_name, 
 			(

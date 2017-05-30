@@ -119,7 +119,7 @@
 // 						storeListHtml += '</a>\n';
 						
 						
-						storeListHtml += '<a href=<c:url value="/location/detail"/>?store_idx='+ val.storeIdx +' class="" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.storeIdx + '">';
+						storeListHtml += '<a href="<c:url value="/location/detail"/>?store_idx='+ val.storeIdx +'" class="" onclick="showMapStoreInfo(' + i + ')" data-store-idx="' + val.storeIdx + '">';
 // 						storeListHtml +='<div class="container">';
 						storeListHtml +='<div class="row">';
 
@@ -143,7 +143,7 @@
 						storeListHtml +=								'<h4 class="title">'+val.name +' ';
 																			
 						storeListHtml +=								'</h4>';
-						storeListHtml +=								'<span class="summary">'+val.address+'</span>'+'<span class=pull-right><img src="'+val.imageUrl+'" style="width:50px; height:50px;"></span>';
+						storeListHtml +=								'<span class="summary">'+val.address+'</span>'+'<span class=pull-right><img src="'+val.imageUrl+'" onerror="this.src=\'<c:url value="/resources/img/main_logo.png" />\'" style="width:50px; height:50px;"></span>';
 						storeListHtml +=							'</div>';
 						storeListHtml +=						'</div>';
 						storeListHtml +=					'</td>';

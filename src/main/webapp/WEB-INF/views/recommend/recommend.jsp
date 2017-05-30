@@ -20,14 +20,14 @@
 			<c:forEach var="store" items="${ibcfStores}" varStatus="status">
 				<div class="list-group-item">
 					<div class="media-left">
-						<img class="media-object" src="${store.imageUrl}" alt="매장사진">
+						<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">
 							<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
 						</h4>
 						<p class="list-group-item-text">
-							<a href="#" onclick="showMapStoreInfo(${status.index})">${store.address }</a>
+							<a href="#" onclick="showMapStoreInfo('ibcf', ${status.index})">${store.address }</a>
 						</p>
 					</div>
 					<div class="media-right">
@@ -52,14 +52,14 @@
 			<c:forEach var="store" items="${ubcfStores}" varStatus="status">
 				<div class="list-group-item">
 					<div class="media-left">
-						<img class="media-object" src="${store.imageUrl}" alt="매장사진">
+						<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">
 							<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
 						</h4>
 						<p class="list-group-item-text">
-							<a href="#" onclick="showMapStoreInfo(${status.index})">${store.address }</a>
+							<a href="#" onclick="showMapStoreInfo('ubcf', ${status.index})">${store.address }</a>
 						</p>
 					</div>
 					<div class="media-right">
@@ -80,7 +80,9 @@
 <script type="text/javascript">
 	var map;
 	var infowindow;
-	var markers;
+	var allMarkers;
+	var ibcfMarkers;
+	var ubcfMarkers;
 	
 	function initialize() {
 		infowindow = new google.maps.InfoWindow();
@@ -111,7 +113,7 @@
 		
 		map = new google.maps.Map(document.getElementById('map-contents'), mapOptions);
 		
-		markers = [
+		ibcfMarkers = [
 			<c:forEach var="store" items="${ibcfStores}" varStatus="status">
 				new google.maps.Marker({
 					position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
@@ -124,7 +126,7 @@
 			</c:forEach>
 		];
 		
-		markers.push([
+		ubcfMarkers = [
 			<c:forEach var="store" items="${ubcfStores}" varStatus="status">
 				new google.maps.Marker({
 					position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
@@ -135,12 +137,16 @@
 					storeIdx : '${store.storeIdx}'
 				}) <c:if test="${!status.last}">, </c:if>
 			</c:forEach>
-		]);
-	
-		$.each(markers, function (index, eachMarker){
+		];
+		
+		allMarkers = new Array();
+		allMarkers.push(ibcfMarkers);
+		allMarkers.push(ubcfMarkers);
+		
+		$.each(allMarkers, function (index, eachMarker){
 			google.maps.event.addListener(eachMarker, 'click', function() {
-				for (var j = 0; j < markers.length; j++) {
-		          markers[j].setIcon('<c:url value="/resources/img/marker1.png" />');
+				for (var j = 0; j < allMarkers.length; j++) {
+					allMarkers[j].setIcon('<c:url value="/resources/img/marker1.png" />');
 		        }
 				eachMarker.setIcon('<c:url value="/resources/img/marker2.png" />');
 				infowindow.close();			
@@ -162,8 +168,12 @@
 			'Error: Your browser doesn\'t support geolocation.');
 	}
 	
-	function showMapStoreInfo(markerIndex){
-		google.maps.event.trigger(markers[markerIndex], 'click');
+	function showMapStoreInfo(type, markerIndex){
+		if(type === 'ibcf'){
+			google.maps.event.trigger(ibcfMarkers[markerIndex], 'click');
+		} else if(type === 'ubcf'){
+			google.maps.event.trigger(ubcfMarkers[markerIndex], 'click');
+		}
 	}
 
 </script>
