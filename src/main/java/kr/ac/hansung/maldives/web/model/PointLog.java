@@ -26,12 +26,10 @@ public class PointLog {
 	@JoinColumn(name="user_idx")
 	private User user;
 
-
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="store_idx")
 	private Store store;
-	
-	
+		
 	// 이번에 쌓는 포인트
 	private Integer accPoint;
 
