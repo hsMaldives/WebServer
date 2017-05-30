@@ -1,7 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <div class="container-wrapper">
 
@@ -37,19 +37,11 @@
 					<tr>
 						<th>address</th>
 						<td>${store.address }</td>
-					</tr>
-					<tr>
-						<th>latitude</th>
-						<td>${store.latitude }</td>
-					</tr>
-					<tr>
-						<th>longitude</th>
-						<td>${store.longitude }</td>
-					</tr>
+					</tr>					
 
 					<tr>
 						<th>평균평점</th>
-						<td>${store.avgEvaluation}</td>
+						<td><fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/></td>
 					</tr>
 
 					<tr>
@@ -65,12 +57,55 @@
 				</tbody>
 			</table>
 
-			## 지도를 넣어주세요 ##adf
+			<div id="map_contents" style="width: 100%; height: 300px"></div>
+			<br/>
+			<script>
+				var map;
+				var marker;
+				var infowindow;
+			
+				function initialize() {
+					infowindow = new google.maps.InfoWindow();
+					var location = new google.maps.LatLng(${store.latitude}, ${store.longitude});
+					var mapOptions = {
+						zoom : 15,
+						center : location,
+						scaleControl : true,
+						mapTypeId : 'roadmap'
+					};
+			
+					map = new google.maps.Map(document.getElementById("map_contents"),
+							mapOptions);
+					
+					marker = new google.maps.Marker({
+						position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
+						icon: '<c:url value="/resources/img/marker1.png" />',
+						title : '${store.name}',
+						category : '${store.category.name}',							
+						map : map
+					});
+					
+					google.maps.event.addListener(marker, 'click', function() {
+						marker.setIcon('<c:url value="/resources/img/marker2.png" />');
+						infowindow.close();		
+						infowindow.setContent("<strong>"
+								+ marker.title + "</strong>"
+								+ "<p>"+marker.category+"</p>");
+						infowindow.open(map, marker);
+					});
+				}
+				
+			</script>
+			
+			<script async defer
+				src="https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}&amp;callback=initialize">
+			</script>
 
 
 			<ul class="media-list">
 				<c:forEach var="comment" items="${store.comments }">
-					<li class="media" style="border-bottom: 1px solid #eee; margin-bottom:15px; padding-bottom:10px;">
+					<li class="media"
+						style="border-bottom: 1px solid #eee; margin-bottom: 15px; padding-bottom: 10px;">
 						<div class="media-body">
 							<div>
 								<h4 class="media-heading"
@@ -93,15 +128,16 @@
 				action="<c:url value="/location/detail/${store.storeIdx}/comment/" />"
 				method="POST">
 				<div class="input-group">
-					<input type="text" class="form-control" name="comment" placeholder="plz comments...">
-					<span class="input-group-btn">
+					<input type="text" class="form-control" name="comment"
+						placeholder="plz comments..."> <span
+						class="input-group-btn">
 						<button class="btn btn-default" type="submit">
-						<span class="glyphicon glyphicon-pencil"></span>
-						
+							<span class="glyphicon glyphicon-pencil"></span>
+
 						</button>
 					</span>
 				</div>
-				
+
 			</form>
 
 			<script>

@@ -61,6 +61,7 @@ public class LocationController {
 		
 		model.addAttribute("store", store);
 		model.addAttribute("associationStores", associationStores);
+		model.addAttribute("googleMapApiKey",whereyouProperty.getGoogleMapApiKey());
 		
 		return "location/detail";
 	}
