@@ -12,67 +12,80 @@
 
 <div class="container-wrapper">
 
-	<div class="container">
-		<h2>Item-based</h2>
-		<p class="lead">아이템 기반 추천</p>
-
-		<div class="list-group list-store">
-			<c:forEach var="store" items="${ibcfStores}" varStatus="status">
-				<div class="list-group-item">
-					<div class="media-left">
-						<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">
-					</div>
-					<div class="media-body">
-						<h4 class="media-heading">
-							<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
-						</h4>
-						<p class="list-group-item-text">
-							<a href="#" onclick="showMapStoreInfo('ibcf', ${status.index})">${store.address }</a>
-						</p>
-					</div>
-					<div class="media-right">
-						<p class="text-right evaluation">
-							<c:if test="${not empty store.avgEvaluation }">
-								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-								<fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/>
-							</c:if>
-						</p>
-						<p class="text-right"><span class="badge">${store.category.name }</span></p>
-					</div>
+	<div class="container margin-top-20">
+		<ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active"><a href="#ubcf" aria-controls="profile" role="tab" data-toggle="tab">사용자 기반</a></li>
+		    <li role="presentation"><a href="#ibcf" aria-controls="home" role="tab" data-toggle="tab">아이템 기반</a></li>
+	    </ul>
+		
+		<div class="tab-content">
+			<div class="tab-pane active" id="ubcf">
+				<h2>User-based</h2>
+				<p class="lead">유저 기반 추천</p>
+		
+				<div class="list-group list-store">
+					<c:forEach var="store" items="${ubcfStores}" varStatus="status">
+						<div class="list-group-item">
+							<div class="media-left">
+								<div class="img-container">
+									<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">
+								</div>
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading">
+									<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
+								</h4>
+								<p class="list-group-item-text">
+									<a href="#" onclick="showMapStoreInfo('ubcf', ${status.index})">${store.address }</a>
+								</p>
+							</div>
+							<div class="media-right">
+								<p class="text-right evaluation">
+									<c:if test="${not empty store.avgEvaluation }">
+										<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+										<fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/>
+									</c:if>
+								</p>
+								<p class="text-right"><span class="badge">${store.category.name }</span></p>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
-			</c:forEach>
-		</div>
-	</div>
-	
-	<div class="container">
-		<h2>User-based</h2>
-		<p class="lead">유저 기반 추천</p>
-
-		<div class="list-group list-store">
-			<c:forEach var="store" items="${ubcfStores}" varStatus="status">
-				<div class="list-group-item">
-					<div class="media-left">
-						<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">
-					</div>
-					<div class="media-body">
-						<h4 class="media-heading">
-							<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
-						</h4>
-						<p class="list-group-item-text">
-							<a href="#" onclick="showMapStoreInfo('ubcf', ${status.index})">${store.address }</a>
-						</p>
-					</div>
-					<div class="media-right">
-						<p class="text-right evaluation">
-							<c:if test="${not empty store.avgEvaluation }">
-								<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-								<fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/>
-							</c:if>
-						</p>
-						<p class="text-right"><span class="badge">${store.category.name }</span></p>
-					</div>
+			</div>
+			
+			<div class="tab-pane" id="ibcf">
+				<h2>Item-based</h2>
+				<p class="lead">아이템 기반 추천</p>
+		
+				<div class="list-group list-store">
+					<c:forEach var="store" items="${ibcfStores}" varStatus="status">
+						<div class="list-group-item">
+							<div class="media-left">
+								<div class="img-container">
+									<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">						
+								</div>
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading">
+									<a href="<c:url value="/location/detail/${store.storeIdx }"/>">${store.name }</a>
+								</h4>
+								<p class="list-group-item-text">
+									<a href="#" onclick="showMapStoreInfo('ibcf', ${status.index})">${store.address }</a>
+								</p>
+							</div>
+							<div class="media-right">
+								<p class="text-right evaluation">
+									<c:if test="${not empty store.avgEvaluation }">
+										<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+										<fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/>
+									</c:if>
+								</p>
+								<p class="text-right"><span class="badge">${store.category.name }</span></p>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
-			</c:forEach>
+			</div>
 		</div>
 	</div>
 </div>

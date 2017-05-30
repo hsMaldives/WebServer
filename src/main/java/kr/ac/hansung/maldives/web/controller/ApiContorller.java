@@ -85,11 +85,11 @@ public class ApiContorller {
 		
 		// TODO 포인드 적립 필요
 		///////////////////////////////////////
-		// pointService.checkSamePlace(storeAndRating.getStore_idx(),
-		/////////////////////////////////////// user.getUser_idx());
-
-		// PointLog pointLog = pointService.addPoint(storeAndRating.getS,
-		// user.getUser_idx(), PointType.RATING, 30);
+//		// pointService.checkSamePlace(storeAndRating.getStore_idx(),
+//		/////////////////////////////////////// user.getUser_idx());
+//
+//		// PointLog pointLog = pointService.addPoint(storeAndRating.getS,
+//		// user.getUser_idx(), PointType.RATING, 30);
 
 		// return pointLog;
 

@@ -66,6 +66,9 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
 /* end protfolio-sec  */
 
 /* start list-store */
+.margin-top-20{
+	margin-top: 20px;
+}
 
 .list-store .media-body, .media-left, .media-right {
 	height: 80px;
@@ -74,6 +77,15 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
 
 .list-store .media-left {
 	width: 100px;
+}
+
+.list-store .media-left .img-container{
+	width: 100px; 
+	text-align: center;
+}
+
+.list-store .media-left .img-container .media-object{
+	display: initial;
 }
 
 .list-store .media-left .media-object{
