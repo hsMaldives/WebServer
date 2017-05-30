@@ -140,8 +140,7 @@
 		];
 		
 		allMarkers = new Array();
-		allMarkers.push(ibcfMarkers);
-		allMarkers.push(ubcfMarkers);
+		allMarkers = ibcfMarkers.concat(ubcfMarkers);
 		
 		$.each(allMarkers, function (index, eachMarker){
 			google.maps.event.addListener(eachMarker, 'click', function() {
@@ -151,7 +150,7 @@
 				eachMarker.setIcon('<c:url value="/resources/img/marker2.png" />');
 				infowindow.close();			
 				infowindow.setContent(
-						'<a href="<c:url value="/location/detail"/>?store_idx=' + eachMarker.storeIdx + '"> \n'
+						'<a href="<c:url value="/location/detail"/>/' + eachMarker.storeIdx + '/"> \n'
 							+ '<strong>' + eachMarker.title + '</strong> \n'
 							+ '<p>' + eachMarker.category + '</p> \n'
 						+ '</a>'
