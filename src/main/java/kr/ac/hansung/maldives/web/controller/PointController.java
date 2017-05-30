@@ -52,6 +52,15 @@ public class PointController {
 		
 	}
 	
+	@RequestMapping("/buyProduct/{productId}")
+	public String buyProduct(@PathVariable Long productId, Model model){
+		
+		Product product = productService.getProductById(productId);
+		model.addAttribute("product", product);
+		
+		return "point/buyProduct";
+	}
+	
 
 	
 //	@RequestMapping("/cart")

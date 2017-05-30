@@ -50,8 +50,7 @@
 			<%-- 					data-filter="'${product.category }'">${product.category }</button> --%>
 			<%-- 			</c:forEach> --%>
 			<button class="btn btn-primary filter-button" data-filter="all">All</button>
-			<button class="btn btn-default filter-button" data-filter="lock">자물쇠</button>
-			<button class="btn btn-default filter-button" data-filter="shoes">신발</button>
+			<button class="btn btn-default filter-button" data-filter="giftcard">상품권</button>
 			<button class="btn btn-default filter-button" data-filter="event">이벤트</button>
 		</div>
 		<br />
