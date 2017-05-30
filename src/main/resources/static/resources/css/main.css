@@ -101,3 +101,14 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
 	min-width: 45px;
 }
 /* end list-store */
+
+/* start Location Detail */
+.association-container .association-list .image-container {
+	height: 170px;
+}
+.association-container .association-list .image-container img {
+	max-width: 100%;
+    max-height: 100%;
+    width: inherit;
+    height: inherit;
+}
