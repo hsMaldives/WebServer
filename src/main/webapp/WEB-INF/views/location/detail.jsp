@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <div class="container-wrapper">
 
 	<div class="container">
@@ -15,12 +14,12 @@
 
 			<div class="">
 				<img class="center-block img-rounded " src="${store.imageUrl }"
-					onerror="this.style='display: none;'"
-					alt="image" style="width: 80%" />
+					onerror="this.style='display: none;'" alt="image"
+					style="width: 80%" />
 			</div>
-			
+
 			<br />
-			
+
 			<table class="table table-striped">
 				<tbody>
 					<tr>
@@ -52,41 +51,59 @@
 						<th>평균평점</th>
 						<td>${store.avgEvaluation}</td>
 					</tr>
-					
+
 					<tr>
 						<th>연관매장</th>
-						<td>
-							<c:forEach var="store" items="${associationStores }">
-								<span class="association-store">
-									<a href="<c:url value="/location/detail/${store.storeIdx }" />"> ${store.name } </a>								
+						<td><c:forEach var="store" items="${associationStores }">
+								<span class="association-store"> <a
+									href="<c:url value="/location/detail/${store.storeIdx }" />">
+										${store.name } </a>
 								</span>
-							</c:forEach>
-						</td>
+							</c:forEach></td>
 					</tr>
 
 				</tbody>
 			</table>
 
-			## 지도를 넣어주세요 ##
-			
-			<ul class="list-group">
+			## 지도를 넣어주세요 ##adf
+
+
+			<ul class="media-list">
 				<c:forEach var="comment" items="${store.comments }">
-					<li>
-						<span><c:out value="${comment.comment }" /></span>
-						<span>${comment.user.nickname }</span>
-						<span>${comment.timestamp }</span>
-						<c:if test="${comment.user.email eq pageContext.request.userPrincipal.name }">
-							<span><span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="deleteComment(${comment.storeCommentIdx })"></span></span>
-						</c:if>
+					<li class="media" style="border-bottom: 1px solid #eee; margin-bottom:15px; padding-bottom:10px;">
+						<div class="media-body">
+							<div>
+								<h4 class="media-heading"
+									style="display: inline-block; margin-right: 20px;">${comment.user.nickname }</h4>
+								<span class="pull-right">${comment.timestamp }</span>
+							</div>
+							<span><c:out value="${comment.comment }" /></span>
+							<c:if
+								test="${comment.user.email eq pageContext.request.userPrincipal.name }">
+								<span class="glyphicon glyphicon-remove pull-right"
+									aria-hidden="true"
+									onclick="deleteComment(${comment.storeCommentIdx })"></span>
+							</c:if>
+						</div>
 					</li>
 				</c:forEach>
 			</ul>
-			
-			<form id="comment-form" action="<c:url value="/location/detail/${store.storeIdx}/comment/" />" method="POST">
-				<input type="text" name="comment" />
-				<button type="submit">댓글 달기</button>
+
+			<form id="comment-form"
+				action="<c:url value="/location/detail/${store.storeIdx}/comment/" />"
+				method="POST">
+				<div class="input-group">
+					<input type="text" class="form-control" name="comment" placeholder="plz comments...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">
+						<span class="glyphicon glyphicon-pencil"></span>
+						
+						</button>
+					</span>
+				</div>
+				
 			</form>
-			
+
 			<script>
 				$(function (){
 					$('#comment-form').submit(function (event){
