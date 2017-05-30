@@ -3,6 +3,73 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
+<script>
+	var map;
+	var marker;
+	var infowindow;
+
+	function initialize() {
+		infowindow = new google.maps.InfoWindow();
+		var location = new google.maps.LatLng(${store.latitude}, ${store.longitude});
+		var mapOptions = {
+			zoom : 15,
+			center : location,
+			scaleControl : true,
+			mapTypeId : 'roadmap'
+		};
+
+		map = new google.maps.Map(document.getElementById("map_contents"),
+				mapOptions);
+		
+		marker = new google.maps.Marker({
+			position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
+			icon: '<c:url value="/resources/img/marker1.png" />',
+			title : '${store.name}',
+			category : '${store.category.name}',							
+			map : map
+		});
+		
+		google.maps.event.addListener(marker, 'click', function() {
+			marker.setIcon('<c:url value="/resources/img/marker2.png" />');
+			infowindow.close();		
+			infowindow.setContent("<strong>"
+					+ marker.title + "</strong>"
+					+ "<p>"+marker.category+"</p>");
+			infowindow.open(map, marker);
+		});
+	}
+	
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}&amp;callback=initialize"></script>
+<script src="<c:url value="/resources/js/owl.carousel.min.js" />"></script>
+
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/owl.carousel.min.css" />" />
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/owl.theme.default.min.css" />" />
+
+<script>
+	$(function (){
+		$('.owl-carousel').owlCarousel({
+		    loop:true,
+		    margin:10,
+		    nav:true,
+		    responsive:{
+		        0:{
+		            items:1
+		        },
+		        600:{
+		            items:3
+		        },
+		        1000:{
+		            items:5
+		        }
+		    }
+		});
+	});
+		
+</script>
+
+
 <div class="container-wrapper">
 
 	<div class="container">
@@ -43,65 +110,28 @@
 						<th>평균평점</th>
 						<td><fmt:formatNumber value="${store.avgEvaluation }" pattern=".00"/></td>
 					</tr>
-
-					<tr>
-						<th>연관매장</th>
-						<td><c:forEach var="store" items="${associationStores }">
-								<span class="association-store"> <a
-									href="<c:url value="/location/detail/${store.storeIdx }" />">
-										${store.name } </a>
-								</span>
-							</c:forEach></td>
-					</tr>
-
 				</tbody>
 			</table>
-
+			
+			<div class="association-container">
+				<h3>연관매장</h3>
+				<div class="association-list owl-carousel owl-theme">
+					<c:forEach var="store" items="${associationStores }">
+						<div class="item">
+							<a href="<c:url value="/location/detail/${store.storeIdx }" />">
+								<div class="image-container">
+									<img class="center-block img-rounded " src="${store.imageUrl }" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="연관매장 사진" />
+								</div>
+								
+								<p class="store-name text-center">
+									${store.name }
+								</p>
+							</a>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
 			<div id="map_contents" style="width: 100%; height: 300px"></div>
-			<br/>
-			<script>
-				var map;
-				var marker;
-				var infowindow;
-			
-				function initialize() {
-					infowindow = new google.maps.InfoWindow();
-					var location = new google.maps.LatLng(${store.latitude}, ${store.longitude});
-					var mapOptions = {
-						zoom : 15,
-						center : location,
-						scaleControl : true,
-						mapTypeId : 'roadmap'
-					};
-			
-					map = new google.maps.Map(document.getElementById("map_contents"),
-							mapOptions);
-					
-					marker = new google.maps.Marker({
-						position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
-						icon: '<c:url value="/resources/img/marker1.png" />',
-						title : '${store.name}',
-						category : '${store.category.name}',							
-						map : map
-					});
-					
-					google.maps.event.addListener(marker, 'click', function() {
-						marker.setIcon('<c:url value="/resources/img/marker2.png" />');
-						infowindow.close();		
-						infowindow.setContent("<strong>"
-								+ marker.title + "</strong>"
-								+ "<p>"+marker.category+"</p>");
-						infowindow.open(map, marker);
-					});
-				}
-				
-			</script>
-			
-			<script async defer
-				src="https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}&amp;callback=initialize">
-			</script>
-
-
 			<ul class="media-list">
 				<c:forEach var="comment" items="${store.comments }">
 					<li class="media"
