@@ -113,6 +113,13 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
     height: inherit;
 }
 
-/*  */
+/* start placeinfo */
 .placeinfo { background: white; padding: 5px; border: 1px solid #aaa; }
 .placeinfo title{ display: block; }
+/* end placeinfo */
+
+/* start eval-history-list */
+.eval-history-list .title-container .title { display: inline-block; }
+.eval-history-list .title-container .infomation { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 5px; }
+.eval-history-list .label-container { font-size:15px; }
+/* end eval-history-list */

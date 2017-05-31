@@ -49,11 +49,6 @@
 				FROM ibcf
 				WHERE row_names = #{rowNames}
 			</foreach>
-			AND store.store_idx NOT IN (
-				SELECT store_idx
-				FROM position
-				WHERE user_idx = #{userIdx}
-			)
 	</select>
 	
 </mapper>

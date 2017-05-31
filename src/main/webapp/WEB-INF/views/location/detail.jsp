@@ -132,7 +132,7 @@
 				</div>
 			</div>
 			<div id="map_contents" style="width: 100%; height: 300px"></div>
-			<ul class="media-list">
+			<ul class="media-list margin-top-20">
 				<c:forEach var="comment" items="${store.comments }">
 					<li class="media"
 						style="border-bottom: 1px solid #eee; margin-bottom: 15px; padding-bottom: 10px;">
@@ -159,7 +159,7 @@
 				method="POST">
 				<div class="input-group">
 					<input type="text" class="form-control" name="comment"
-						placeholder="plz comments..."> <span
+						placeholder="댓글을 남겨주세요"> <span
 						class="input-group-btn">
 						<button class="btn btn-default" type="submit">
 							<span class="glyphicon glyphicon-pencil"></span>

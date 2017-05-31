@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			
-			<button type="submit">평가</button>
+			<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> 평가</button>
 		</form>
 	</div>
 
