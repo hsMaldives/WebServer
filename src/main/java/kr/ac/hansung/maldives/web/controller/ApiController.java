@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/rating")
-public class ApiContorller {
+public class ApiController {
 
 	@Autowired
 	private StoreService storeService;

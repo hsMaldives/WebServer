@@ -6,9 +6,33 @@
 <div class="container-wrapper">
 	<div class="container">
 
+		<c:if test="${errorMsg != null }">
+			<script>
+ 			alert('${errorMsg}');
+			</script>
+		</c:if>
+
 		<h2>Product Detail</h2>
 		<!-- 		<h4>Here is detail information of the product</h4> -->
 		<br />
+
+		<div class="">
+			<table class="table table-striped" style="width: 100%">
+				<thead>
+					<tr class="bg-success">
+						<th>사용가능 포인트</th>
+						<th>사용한 포인트</th>
+					</tr>
+				</thead>
+				<tbody>
+					<td>${point }point</td>
+					<td>${spendedPoint}point</td>
+				</tbody>
+			</table>
+
+
+		</div>
+
 		<div class="row">
 			<div class="col-md-6">
 				<img src="<c:url value="/resources/img/${product.imageFileName }"/>"
@@ -25,7 +49,7 @@
 					<strong>Category</strong> : ${product.category }
 				</p>
 
-				<h4>${product.price }원</h4>
+				<h4>${product.price }point</h4>
 
 				
 
@@ -36,6 +60,7 @@
 						<c:set var="url" value="/admin/productInventory" />
 					</c:if>
 
+					<br />
 					<p>
 						<a href="<c:url value="/point/pointShop"/>"
 							class="btn btn-default">Back</a> <a
