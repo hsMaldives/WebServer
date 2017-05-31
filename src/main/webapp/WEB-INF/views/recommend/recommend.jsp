@@ -10,9 +10,8 @@
 	</div>
 </div>
 
-<div class="container-wrapper">
-
-	<div class="container margin-top-20">
+<div class="container container-wrapper margin-top-20">
+	<div class="row">
 		<ul class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#ubcf" aria-controls="profile" role="tab" data-toggle="tab">사용자 기반</a></li>
 		    <li role="presentation"><a href="#ibcf" aria-controls="home" role="tab" data-toggle="tab">아이템 기반</a></li>

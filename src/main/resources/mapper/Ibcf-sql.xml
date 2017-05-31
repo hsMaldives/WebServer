@@ -19,7 +19,7 @@
 				WHERE position.store_idx = store.store_idx
 			) as avg_evaluation
 		FROM store JOIN category ON store.code = category.category_code
-		WHERE store.store_idx in 
+		WHERE store.store_idx IN 
 			<foreach item="item" index="index" collection="colNum" open="(" separator=" UNION ALL " close=")" >
 				SELECT rec${colNum[index]} as store_idx
 				FROM evaluation JOIN position ON evaluation.position_idx = position.position_idx
@@ -27,6 +27,11 @@
 				WHERE user_idx = #{userIdx}
 					AND (evaluation.eva1 + evaluation.eva2 + evaluation.eva3) &gt;= (#{avgEva} * 3)
 			</foreach>
+			AND store.store_idx NOT IN (
+				SELECT store_idx
+				FROM position
+				WHERE user_idx = #{userIdx}
+			)
 	</select>
 	
 	<select id="getAssociationStoresByRowNames" resultMap="storeResult">
@@ -38,12 +43,17 @@
 				WHERE position.store_idx = store.store_idx
 			) as avg_evaluation
 		FROM store JOIN category ON store.code = category.category_code
-		WHERE store.store_idx in 
+		WHERE store.store_idx IN 
 			<foreach item="item" index="index" collection="colNum" open="(" separator=" UNION ALL " close=")" >
 				SELECT rec${colNum[index]} as store_idx
 				FROM ibcf
 				WHERE row_names = #{rowNames}
 			</foreach>
+			AND store.store_idx NOT IN (
+				SELECT store_idx
+				FROM position
+				WHERE user_idx = #{userIdx}
+			)
 	</select>
 	
 </mapper>

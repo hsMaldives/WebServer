@@ -9,7 +9,7 @@
 <script src="<c:url value="/resources/js/locales/LANG.js" />"></script>
 
 <div class="container">
-	<h2>장소 평가 조회</h2>
+	<h2>장소 평가</h2>
 	<p>기존에 방문했던 장소를 평가할 수 있습니다.</p>
 
 	<div class="map" id="map" style="height: 400px;"></div>
@@ -263,6 +263,13 @@
 					}
 				});
 			});
+			
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+						map.setCenter(new daum.maps.LatLng(position.coords.latitude, position.coords.longitude));
+					}, function() {
+				});
+			} else {}
 		});
 	</script>
 </div>
