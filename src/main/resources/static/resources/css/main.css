@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
 }
 
 .list-store .media-left .img-container{
-	width: 100px; 
+	width: 70px; 
 	text-align: center;
 }
 
@@ -89,7 +89,7 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
 }
 
 .list-store .media-left .media-object{
-	max-width: 90px;
+	max-width: 70px;
 	max-height: 75px;
 }
 
