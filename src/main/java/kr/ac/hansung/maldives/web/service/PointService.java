@@ -1,5 +1,6 @@
 package kr.ac.hansung.maldives.web.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import kr.ac.hansung.maldives.web.model.PointLog;
 import kr.ac.hansung.maldives.web.model.PointLog.PointType;
 import kr.ac.hansung.maldives.web.model.Product;
 import kr.ac.hansung.maldives.web.model.User;
+import kr.ac.hansung.maldives.web.property.WhereyouProperty;
 
 @Service
 public class PointService {
@@ -20,21 +22,22 @@ public class PointService {
 	@Autowired
 	private AccountService accountService;
 
-	private int point = 5; // 5원씩
+	private int evalPoint;
 	//checksameplace()?
 
 	public PointLog addPoint(Long user_idx) {
 		
 		
 		User user = accountService.findOne(user_idx);
-		user.setPoint(user.getPoint() + point);
+		user.setPoint(user.getPoint() + evalPoint);
 		
 		
 		PointLog pointLog = new PointLog();
-		pointLog.setAccPoint(point);
+		pointLog.setAccPoint(evalPoint);
 		pointLog.setPointType(PointType.RATING);
 		pointLog.setTotalPoint(user.getPoint());		
 		pointLog.setUser(user);
+		pointLog.setTimestamp(LocalDateTime.now());
 
 		pointRepository.saveAndFlush(pointLog);
 
@@ -50,6 +53,7 @@ public class PointService {
 		pointLog.setPointType(PointType.EVENT);
 		pointLog.setTotalPoint(user.getPoint());		
 		pointLog.setUser(user);
+		pointLog.setTimestamp(LocalDateTime.now());
 
 		pointRepository.saveAndFlush(pointLog);
 
@@ -65,6 +69,7 @@ public class PointService {
 		pointLog.setPointType(PointType.SPEND);
 		pointLog.setTotalPoint(pointLog.getTotalPoint());		
 		pointLog.setUser(user);
+		pointLog.setTimestamp(LocalDateTime.now());
 
 		pointRepository.saveAndFlush(pointLog);
 
@@ -83,5 +88,10 @@ public class PointService {
 		}
 
 		return -spendedPoint;
+	}
+	
+	@Autowired
+	public void setEvalPoint(WhereyouProperty whereyouProperty){
+		this.evalPoint = whereyouProperty.getEvalPoint();
 	}
 }
