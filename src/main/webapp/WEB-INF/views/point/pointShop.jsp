@@ -23,15 +23,11 @@
 					<tr class="bg-success">
 						<th>사용가능 포인트</th>
 						<th>사용한 포인트</th>
-						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<td>${point }point</td>
-					<td>${spendedPoint}point</td>
-					<td></td>
-					<td></td>
+					<td>${point } point</td>
+					<td>${spendedPoint} point</td>
 				</tbody>
 			</table>
 

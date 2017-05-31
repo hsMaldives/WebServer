@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.hansung.maldives.web.dao.PointRepository;
+import kr.ac.hansung.maldives.web.dao.ProductRepository;
 import kr.ac.hansung.maldives.web.model.PointLog;
 import kr.ac.hansung.maldives.web.model.PointLog.PointType;
 import kr.ac.hansung.maldives.web.model.Product;
@@ -23,19 +24,20 @@ public class PointService {
 	private AccountService accountService;
 
 	private int evalPoint;
-	//checksameplace()?
+	
+	@Autowired
+	private ProductRepository productRepository;
+	// checksameplace()?
 
 	public PointLog addPoint(Long user_idx) {
-		
-		
+
 		User user = accountService.findOne(user_idx);
 		user.setPoint(user.getPoint() + evalPoint);
-		
-		
+
 		PointLog pointLog = new PointLog();
 		pointLog.setAccPoint(evalPoint);
 		pointLog.setPointType(PointType.RATING);
-		pointLog.setTotalPoint(user.getPoint());		
+		pointLog.setTotalPoint(user.getPoint());
 		pointLog.setUser(user);
 		pointLog.setTimestamp(LocalDateTime.now());
 
@@ -51,7 +53,7 @@ public class PointService {
 		PointLog pointLog = new PointLog();
 		pointLog.setAccPoint(point);
 		pointLog.setPointType(PointType.EVENT);
-		pointLog.setTotalPoint(user.getPoint());		
+		pointLog.setTotalPoint(user.getPoint());
 		pointLog.setUser(user);
 		pointLog.setTimestamp(LocalDateTime.now());
 
@@ -61,19 +63,26 @@ public class PointService {
 	}
 
 	public PointLog usePoint(Long user_idx, Product product) {
-		User user = accountService.findOne(user_idx);
-		user.setPoint(user.getPoint() - product.getPrice());
+		if (product.getUnitInStock() > 0) {
+			User user = accountService.findOne(user_idx);
+			user.setPoint(user.getPoint() - product.getPrice());
 
-		PointLog pointLog = new PointLog();
-		pointLog.setAccPoint(-product.getPrice());
-		pointLog.setPointType(PointType.SPEND);
-		pointLog.setTotalPoint(pointLog.getTotalPoint());		
-		pointLog.setUser(user);
-		pointLog.setTimestamp(LocalDateTime.now());
+			PointLog pointLog = new PointLog();
+			pointLog.setAccPoint(-product.getPrice());
+			pointLog.setPointType(PointType.SPEND);
+			pointLog.setTotalPoint(pointLog.getTotalPoint());
+			pointLog.setUser(user);
+			pointLog.setTimestamp(LocalDateTime.now());
 
-		pointRepository.saveAndFlush(pointLog);
+			pointRepository.saveAndFlush(pointLog);
 
-		return pointLog;
+			product.setUnitInStock(product.getUnitInStock() - 1);
+			productRepository.saveAndFlush(product);
+			
+			return pointLog;
+		} 
+
+		return null;
 
 	}
 
@@ -89,9 +98,9 @@ public class PointService {
 
 		return -spendedPoint;
 	}
-	
+
 	@Autowired
-	public void setEvalPoint(WhereyouProperty whereyouProperty){
+	public void setEvalPoint(WhereyouProperty whereyouProperty) {
 		this.evalPoint = whereyouProperty.getEvalPoint();
 	}
 }
