@@ -24,7 +24,7 @@
 		
 				<div class="list-group list-store">
 					<c:forEach var="store" items="${ubcfStores}" varStatus="status">
-						<div class="list-group-item">
+						<div class="list-group-item" data-latitude="${store.latitude}" data-longitude="${store.longitude}">
 							<div class="media-left">
 								<div class="img-container">
 									<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">
@@ -36,6 +36,7 @@
 								</h4>
 								<p class="list-group-item-text">
 									<a href="#" onclick="showMapStoreInfo('ubcf', ${status.index})">${store.address }</a>
+									(<span class="distance"></span>km)
 								</p>
 							</div>
 							<div class="media-right">
@@ -58,7 +59,7 @@
 		
 				<div class="list-group list-store">
 					<c:forEach var="store" items="${ibcfStores}" varStatus="status">
-						<div class="list-group-item">
+						<div class="list-group-item" data-latitude="${store.latitude}" data-longitude="${store.longitude}">
 							<div class="media-left">
 								<div class="img-container">
 									<img class="media-object" src="${store.imageUrl}" onerror="this.src='<c:url value="/resources/img/main_logo.png" />'" alt="매장사진">						
@@ -70,6 +71,7 @@
 								</h4>
 								<p class="list-group-item-text">
 									<a href="#" onclick="showMapStoreInfo('ibcf', ${status.index})">${store.address }</a>
+									(<span class="distance"></span>km)
 								</p>
 							</div>
 							<div class="media-right">
@@ -170,7 +172,44 @@
 				infowindow.open(map, eachMarker);
 			});
 		});
+		
+		google.maps.event.addListener(map, 'bounds_changed', function() {
+			var numberFormat = new Intl.NumberFormat({ minimumFractionDigits: 3 });
+			$.each($('.list-store .list-group-item'), function (index, each){
+				var lat1 = map.getCenter().lat()
+				var lng1 = map.getCenter().lng()
+				var lat2 = $(each).attr("data-latitude")
+				var lng2 = $(each).attr("data-longitude")
+				
+				$(each).find('.distance').text(numberFormat.format(calDistance(lat1, lng1, lat2, lng2)));
+			});
+		});
 	}
+	
+	function calDistance(lat1, lng1, lat2, lng2){  
+	    
+	    var theta, dist;  
+	    theta = lng1 - lng2;  
+	    dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))   
+	          * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));  
+	    dist = Math.acos(dist);  
+	    dist = rad2deg(dist);  
+	      
+	    dist = dist * 60 * 1.1515;   
+	    dist = dist * 1.609344;    // 단위 mile 에서 km 변환.
+	  
+	    return dist;  
+	}  
+	
+	function deg2rad(deg){  
+	    return (deg * Math.PI / 180);  
+	}  
+	  
+	// 주어진 라디언(radian) 값을 도(degree) 값으로 변환  
+	function rad2deg(rad){  
+	    return (rad * 180 / Math.PI);  
+	} 
+
 	
 	function handleLocationError(browserHasGeolocation, infowindow, pos) {
 		infowindow.setPosition(pos);
