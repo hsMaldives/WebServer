@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.ac.hansung.maldives.web.model.Product;
 import kr.ac.hansung.maldives.web.model.User;
 import kr.ac.hansung.maldives.web.service.AccountService;
+import kr.ac.hansung.maldives.web.service.PointService;
 import kr.ac.hansung.maldives.web.service.ProductService;
 
 @Controller
@@ -25,6 +26,9 @@ public class PointController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private PointService pointService;
+	
 	@RequestMapping("/pointShop")
 	public String poingShop(Model model){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -35,10 +39,11 @@ public class PointController {
 		
 		
 		List<Product> products = productService.getProducts();
-		
+		int spendedPoint = pointService.spendedPoint(user.getUserIdx());
 		
 		model.addAttribute("products", products);
 		model.addAttribute("point", point);
+		model.addAttribute("spendedPoint", spendedPoint);
 		
 		return "point/pointShop";
 	}

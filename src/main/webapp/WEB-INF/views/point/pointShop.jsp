@@ -29,7 +29,7 @@
 				</thead>
 				<tbody>
 					<td>${point }point</td>
-					<td>##</td>
+					<td>${spendedPoint}point</td>
 					<td></td>
 					<td></td>
 				</tbody>

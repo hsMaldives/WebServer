@@ -19,6 +19,9 @@ public class EvaluationService {
 	@Autowired
 	private PositionRepository positionRepository;
 	
+	@Autowired
+	private PointService pointService;
+	
 	public List<Evaluation> findByUser_idxAndNotEmptyEvaluation(Long user_idx){
 		return evaluationRepositry.findByPositionUserUserIdx(user_idx);
 	}
@@ -40,6 +43,11 @@ public class EvaluationService {
 		
 		position.setEvaluation(evaluation);
 		positionRepository.save(position);
+		
+		
+		
+		//point add
+		pointService.addPoint(position.getUser().getId());
 	}
 	
 	public Evaluation saveEvaluation(Evaluation evaluation){

@@ -14,4 +14,7 @@ public class WhereyouProperty {
 	
 	private String fusionTableId;
 	
+	//평가했을 때 주는 포인트
+	private Integer evalPoint;
+	
 }

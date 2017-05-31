@@ -91,6 +91,8 @@ public class ApiContorller {
 //		// PointLog pointLog = pointService.addPoint(storeAndRating.getS,
 //		// user.getUser_idx(), PointType.RATING, 30);
 
+		pointService.addPoint(userDetails.getUserIdx());
+		
 		// return pointLog;
 
 		return null;
