@@ -112,3 +112,7 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
     width: inherit;
     height: inherit;
 }
+
+/*  */
+.placeinfo { background: white; padding: 5px; border: 1px solid #aaa; }
+.placeinfo title{ display: block; }

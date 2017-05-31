@@ -266,7 +266,7 @@
 			
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
-						map.setCenter(position.coords.latitude, position.coords.longitude);
+						map.setCenter(new daum.maps.LatLng(position.coords.latitude, position.coords.longitude));
 					}, function() {
 				});
 			} else {}
