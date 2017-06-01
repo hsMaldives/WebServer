@@ -3,47 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
-<script>
-	var map;
-	var marker;
-	var infowindow;
-
-	function initialize() {
-		infowindow = new google.maps.InfoWindow();
-		var location = new google.maps.LatLng(${store.latitude}, ${store.longitude});
-		var mapOptions = {
-			zoom : 15,
-			center : location,
-			scaleControl : true,
-			mapTypeId : 'roadmap'
-		};
-
-		map = new google.maps.Map(document.getElementById("map_contents"),
-				mapOptions);
-		
-		marker = new google.maps.Marker({
-			position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
-			icon: '<c:url value="/resources/img/marker1.png" />',
-			title : '${store.name}',
-			category : '${store.category.name}',							
-			map : map
-		});
-		
-		google.maps.event.addListener(marker, 'click', function() {
-			marker.setIcon('<c:url value="/resources/img/marker2.png" />');
-			infowindow.close();		
-			infowindow.setContent("<strong>"
-					+ marker.title + "</strong>"
-					+ "<p>"+marker.category+"</p>");
-			infowindow.open(map, marker);
-		});
-	}
-	
-</script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}&amp;callback=initialize"></script>
-<script src="<c:url value="/resources/js/owl.carousel.min.js" />"></script>
-
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/owl.carousel.min.css" />" />
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/owl.theme.default.min.css" />" />
 
@@ -169,46 +128,82 @@
 				</div>
 
 			</form>
-
-			<script>
-				$(function (){
-					$('#comment-form').submit(function (event){
-						$.ajax({
-							url: $('#comment-form').attr('action'),
-							method: 'POST',
-							data: $('#comment-form').serialize(),
-							success: function(data){
-								alert("댓글이 성공적으로 전송되었습니다.");
-								location.reload()
-							},
-							error: function (error){
-								alert("[Error] 댓글 전송중 오류가 발생하였습니다.");
-							}
-						});
-						
-						event.preventDefault();
-					});
-				});
-				
-				function deleteComment(commentIdx){
-					$.ajax({
-						url: '<c:url value="/location/detail/${store.storeIdx}/comment/" />' + commentIdx,
-						method: 'DELETE',
-						success: function(data){
-							alert("댓글이 성공적으로 삭제되었습니다.");
-							location.reload()
-						},
-						error: function (error){
-							alert("[Error] 댓글 삭제중 오류가 발생하였습니다.");
-						}
-					});
-				}
-			</script>
 		</div>
 	</div>
 </div>
 
+<script>
+	var map;
+	var marker;
+	var infowindow;
 
+	function initialize() {
+		infowindow = new google.maps.InfoWindow();
+		var location = new google.maps.LatLng(${store.latitude}, ${store.longitude});
+		var mapOptions = {
+			zoom : 15,
+			center : location,
+			scaleControl : true,
+			mapTypeId : 'roadmap'
+		};
 
+		map = new google.maps.Map(document.getElementById("map_contents"),
+				mapOptions);
+		
+		marker = new google.maps.Marker({
+			position : new google.maps.LatLng(${store.latitude}, ${store.longitude}),
+			icon: '<c:url value="/resources/img/marker1.png" />',
+			title : '${store.name}',
+			category : '${store.category.name}',							
+			map : map
+		});
+		
+		google.maps.event.addListener(marker, 'click', function() {
+			marker.setIcon('<c:url value="/resources/img/marker2.png" />');
+			infowindow.close();		
+			infowindow.setContent("<strong>"
+					+ marker.title + "</strong>"
+					+ "<p>"+marker.category+"</p>");
+			infowindow.open(map, marker);
+		});
+	}
+	
+</script>
 
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=${googleMapApiKey}&amp;callback=initialize"></script>
+<script src="<c:url value="/resources/js/owl.carousel.min.js" />"></script>
 
+<script>
+	$(function (){
+		$('#comment-form').submit(function (event){
+			$.ajax({
+				url: $('#comment-form').attr('action'),
+				method: 'POST',
+				data: $('#comment-form').serialize(),
+				success: function(data){
+					alert("댓글이 성공적으로 전송되었습니다.");
+					location.reload()
+				},
+				error: function (error){
+					alert("[Error] 댓글 전송중 오류가 발생하였습니다.");
+				}
+			});
+			
+			event.preventDefault();
+		});
+	});
+	
+	function deleteComment(commentIdx){
+		$.ajax({
+			url: '<c:url value="/location/detail/${store.storeIdx}/comment/" />' + commentIdx,
+			method: 'DELETE',
+			success: function(data){
+				alert("댓글이 성공적으로 삭제되었습니다.");
+				location.reload()
+			},
+			error: function (error){
+				alert("[Error] 댓글 삭제중 오류가 발생하였습니다.");
+			}
+		});
+	}
+</script>
