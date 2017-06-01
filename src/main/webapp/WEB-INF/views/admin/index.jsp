@@ -30,7 +30,7 @@
 			<p>현재 기준 평점: <span id="now-criterion-rate">${criterionRate}</span></p>
 			<form action="<c:url value="/admin/changeCriterionRate" />" id="change-criterion-rate-form" method="patch">
 				<div class="input-group">
-					<input name="criterionRate" type="text" class="form-control" placeholder="사용자 IDX" />
+					<input name="criterionRate" type="text" class="form-control" placeholder="기준평점" />
 					<span class="input-group-btn">
 						<button type="submit" class="btn btn-default">변경</button>
 					</span>

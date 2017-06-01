@@ -20,7 +20,7 @@ public class AdminController {
 	@Autowired
 	private RecommendService recommendService;
 	
-	@RequestMapping("/")
+	@RequestMapping()
 	public String index(Model model){
 		
 		model.addAttribute("criterionRate", recommendService.getCriterionRate());
