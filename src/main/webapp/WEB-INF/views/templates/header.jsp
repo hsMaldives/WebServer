@@ -23,16 +23,7 @@
 			<a class="navbar-brand" href="<c:url value="/"/>">어디가YOU</a>
 		</div>
 
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-navbar">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="hidden"><a href="#page-top"></a></li>
-				<li class="page-scroll"><a href="#portfolio">Portfolio</a></li>
-				<li class="page-scroll"><a href="#about">About</a></li>
-				<li class="page-scroll"><a href="#contact">Contact</a></li>
-			</ul>
-		</div>
-		<!-- /.navbar-collapse -->
+		
 	</div>
 	<!-- /.container-fluid -->
 </nav>
