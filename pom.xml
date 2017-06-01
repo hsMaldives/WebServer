@@ -144,8 +144,6 @@
 			<artifactId>javassist</artifactId>
 			<version>3.21.0-GA</version>
 		</dependency>
-		
-
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -164,6 +162,7 @@
 			<artifactId>spring-restdocs-mockmvc</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 		<!-- R serve -->
 		<dependency>
 			<groupId>org.nuiton.thirdparty</groupId>
@@ -176,7 +175,6 @@
 			<artifactId>REngine</artifactId>
 			<version>0.6-1</version>
 		</dependency>
-		<!-- R serve end -->
 
 		<!-- Security -->
 		<dependency>
@@ -190,6 +188,13 @@
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-security</artifactId>
+		</dependency>
+		
+		<!-- Lucy XSS -->
+		<dependency>
+			<groupId>com.navercorp.lucy</groupId>
+			<artifactId>lucy-xss-servlet</artifactId>
+			<version>2.0.0</version>
 		</dependency>
 
 
