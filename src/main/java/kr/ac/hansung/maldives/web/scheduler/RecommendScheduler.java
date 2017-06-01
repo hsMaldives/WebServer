@@ -17,7 +17,7 @@ public class RecommendScheduler {
 	private static final Logger log = LoggerFactory.getLogger(RecommendScheduler.class);
 	
 
-	@Scheduled(cron="0 * */3 * * *")
+	@Scheduled(cron="0 0 */3 * * *")
 	public long buildUBCFModel(){
 		RConnection connection = null;
 		long uptime = 0;
@@ -47,7 +47,7 @@ public class RecommendScheduler {
 		return uptime;
 	}
 
-	@Scheduled(cron="0 */15 * * * *")
+	@Scheduled(cron="0 */30 * * * *")
 	public long buildIBCFModel(){
 		RConnection connection = null;
 		long uptime = 0;

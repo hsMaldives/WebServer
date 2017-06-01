@@ -95,7 +95,7 @@
 					</tr>
 					<tr>
 						<th>category</th>
-						<td>${store.category.name }</td>
+						<td>${store.category.fullName }</td>
 					</tr>
 					<tr>
 						<th>phone</th>
