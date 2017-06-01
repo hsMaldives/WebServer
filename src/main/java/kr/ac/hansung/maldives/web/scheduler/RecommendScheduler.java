@@ -18,11 +18,14 @@ public class RecommendScheduler {
 	
 
 	@Scheduled(cron="0 * */3 * * *")
-	public void buildUBCFModel(){
+	public long buildUBCFModel(){
 		RConnection connection = null;
+		long uptime = 0;
 		
 		try {
 			long startTime = System.currentTimeMillis();
+			
+			log.info("[R_ubcf 모델 생성] 시작");
 			
 			connection = new RConnection("localhost", 6311);
 
@@ -33,19 +36,26 @@ public class RecommendScheduler {
 			
 			long endTime = System.currentTimeMillis();
 			
-			log.info("[R_ubcf 모델 생성] 완료 (작동시간: {}ms)", endTime - startTime);
+			uptime = endTime - startTime;
+			
+			log.info("[R_ubcf 모델 생성] 완료 (작동시간: {}ms)", uptime);
 		} catch (RserveException e) {
 			e.printStackTrace();
 			log.warn("[R_ubcf 모델 생성] 실패 - 예외 발생 (execption: {})", e.toString());
 		}
+		
+		return uptime;
 	}
 
 	@Scheduled(cron="0 */15 * * * *")
-	public void buildIBCFModel(){
+	public long buildIBCFModel(){
 		RConnection connection = null;
+		long uptime = 0;
 		
 		try {
 			long startTime = System.currentTimeMillis();
+			
+			log.info("[R_ibcf 모델 생성] 시작");
 			
 			connection = new RConnection("localhost", 6311);
 
@@ -56,10 +66,14 @@ public class RecommendScheduler {
 			
 			long endTime = System.currentTimeMillis();
 			
-			log.info("[R_ibcf 모델 생성] 완료 (작동시간: {}ms)", endTime - startTime);
+			uptime = endTime - startTime;
+			
+			log.info("[R_ibcf 모델 생성] 완료 (작동시간: {}ms)", uptime);
 		} catch (RserveException e) {
 			e.printStackTrace();
 			log.warn("[R_ibcf 모델 생성] 실패 - 예외 발생 (execption: {})", e.toString());
 		}
+		
+		return uptime;
 	}
 }

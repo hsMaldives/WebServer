@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
@@ -156,7 +155,6 @@ public class UserController {
 		return "redirect:/user/change-account";
 	}
 	
-	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/backdoor")
 	public String backdoor(long userIdx){
 		User user = accountService.findOne(userIdx);

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +15,9 @@ import kr.ac.hansung.maldives.web.dao.UserRepository;
 import kr.ac.hansung.maldives.web.dao2.IbcfMapper;
 import kr.ac.hansung.maldives.web.dao2.LocalbcfMapper;
 import kr.ac.hansung.maldives.web.dao2.StoreMapper;
-import kr.ac.hansung.maldives.web.dao2.UbcfMapper;
-import kr.ac.hansung.maldives.web.model.CustomUserDetails;
 import kr.ac.hansung.maldives.web.model.Store;
 import kr.ac.hansung.maldives.web.model.StoreComment;
 import kr.ac.hansung.maldives.web.model.User;
-import lombok.NoArgsConstructor;
 
 @Transactional
 @Service
@@ -43,16 +39,10 @@ public class StoreService {
 	private IbcfMapper ibcfMapper;
 	
 	@Autowired
-	private UbcfMapper ubcfMapper;
-	
-	@Autowired
 	private LocalbcfMapper localbcfMapper;
 
 	@Autowired
 	private CategoryService categoryService;
-	
-	@Autowired
-	private AccountService accountService;
 
 	public List<Store> getStores() {
 		return storeRepository.findAll();
