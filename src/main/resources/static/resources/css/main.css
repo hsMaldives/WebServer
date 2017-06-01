@@ -121,7 +121,7 @@ h1, h2, h3, h4, h5 { font-family: 'Hanna', sans-serif; }
 /* end placeinfo */
 
 #eval-tab-list { background: #337ab7; border-radius: 10px 10px 0 0; }
-#eval-tab-list li a:hover { background: #286090; border-color: #286090; border-bottom: 0; }
+#eval-tab-list li a:hover { background: #286090; border-color: #286090; border-bottom: 0; border-radius: 10px 10px 0 0; }
 #eval-tab-list li.active a:hover { background-color: #fff; border-color: #ddd; border-bottom: 0; }
 #eval-tab-list a { color: #fff }
 #eval-tab-list .active a { color: #337ab7 }
