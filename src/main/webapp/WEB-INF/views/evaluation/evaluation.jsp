@@ -247,7 +247,6 @@
 					data: JSON.stringify(sendObject),
 					contentType: 'application/json',
 					success: function (data){
-						console.log(data);
 						alert("평가가 완료되었습니다.");
 						
 						selectedPlace = undefined;

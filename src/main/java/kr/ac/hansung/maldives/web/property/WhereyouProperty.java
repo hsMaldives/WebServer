@@ -17,4 +17,6 @@ public class WhereyouProperty {
 	//평가했을 때 주는 포인트
 	private Integer evalPoint;
 	
+	private Float criterionRate;
+	
 }

@@ -205,8 +205,9 @@
 				
 				$(each).find('.distance').text(numberFormat.format(calDistance(lat1, lng1, lat2, lng2)));
 				
-				
 			});
+			
+			ibcfListOrderByDistance();
 		});
 	}
 	
@@ -309,8 +310,8 @@
 
 	
 	function calDistance(lat1, lng1, lat2, lng2){  
+	    var theta, dist;
 	    
-	    var theta, dist;  
 	    theta = lng1 - lng2;  
 	    dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))   
 	          * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));  
@@ -352,6 +353,18 @@
 	
 	function getAllMarkers(){
 		return ibcfMarkers.concat(ubcfMarkers).concat(locationMarkers);
+	}
+	
+	function ibcfListOrderByDistance(){
+		var sort_by_distance = function(a, b) {
+			return $(a).find('.distance').text().localeCompare($(b).find('.distance').text());
+		}
+		var list = $("#ibcf .list-store > div.list-group-item").get();
+		
+		list.sort(sort_by_distance);
+		for (var i = 0; i < list.length; i++) {
+			list[i].parentNode.appendChild(list[i]);
+		}
 	}
 </script>
 

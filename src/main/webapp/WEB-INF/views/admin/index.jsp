@@ -7,7 +7,7 @@
 	
 	<div class="row">
 		<div class="col-md-6 admin-panel">
-			<form action="<c:url value="/user/backdoor" />" method="get">
+			<form action="<c:url value="/user/backdoor" />" method="patch">
 				
 				<h3>사용자 계정 접속</h3>
 			
@@ -24,6 +24,18 @@
 			
 			<button type="button" class="btn btn-default" id="ibcfBtn">IBCF 모델 생성</button>
 			<button type="button" class="btn btn-default" id="ubcfBtn">UBCF 모델 생성</button>
+		</div>
+		<div class="col-md-6 admin-panel">
+			<h3>IBCF 기준 평점 수정</h3>
+			<p>현재 기준 평점: <span id="now-criterion-rate">${criterionRate}</span></p>
+			<form action="<c:url value="/admin/changeCriterionRate" />" id="change-criterion-rate-form" method="patch">
+				<div class="input-group">
+					<input name="criterionRate" type="text" class="form-control" placeholder="사용자 IDX" />
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-default">변경</button>
+					</span>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -72,6 +84,23 @@
 					$btn.button('reset');
 				}
 			});
+		});
+		
+		$('#change-criterion-rate-form').submit(function (event){
+			$.ajax({
+				url: $(this).attr("action"),
+				data: $(this).serialize(),
+				method: $(this).attr("method"),
+				success: function (data){
+					alert('IBCF 기준 평점 변경이 완료되었습니다\n(변경된 값: ' + data + ')');
+					$('#now-criterion-rate').text(data);
+				},
+				error: function (jqXHR, textStatus, errorThrown){
+					alert("IBCF 기준 평점 변경 중 오류가 발생하였습니다.");
+				}
+			});
+			
+			event.preventDefault();
 		});
 	});
 </script>
