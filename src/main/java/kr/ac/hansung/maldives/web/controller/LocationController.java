@@ -44,14 +44,6 @@ public class LocationController {
 		return "location/location";
 	}
 
-	@RequestMapping("/getStores")
-	public @ResponseBody List<Store> getStoresByBound(@RequestParam(required=false, defaultValue="") String categoryCode, 
-			double startX, double endX, double startY, double endY) {
-		List<Store> stores = storeService.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
-		
-		return stores;
-	}
-
 	@RequestMapping("/detail/{storeIdx}")
 	public String locationDetail(@PathVariable(name="storeIdx") Long storeIdx, Model model) {
 		Store store = storeService.getStoreById(storeIdx);
@@ -94,4 +86,13 @@ public class LocationController {
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@RequestMapping("/getStores")
+	public @ResponseBody List<Store> getStoresByBound(@RequestParam(required=false, defaultValue="") String categoryCode, 
+			double startX, double endX, double startY, double endY) {
+		List<Store> stores = storeService.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
+		
+		return stores;
+	}
+
 }

@@ -95,7 +95,7 @@
 							position : latLng,
 							icon: '<c:url value="/resources/img/marker1.png" />',
 							title : val.name,
-							category : val.category.name,							
+							category : val.category.name,					
 							map : map
 						});
 

@@ -12,9 +12,10 @@
 
 <div class="container container-wrapper margin-top-20">
 	<div class="row">
-		<ul class="nav nav-tabs" role="tablist">
+		<ul id="eval-tab-list" class="nav nav-tabs" role="tablist">
 		    <li role="presentation" class="active"><a href="#ubcf" aria-controls="profile" role="tab" data-toggle="tab">사용자 기반</a></li>
 		    <li role="presentation"><a href="#ibcf" aria-controls="home" role="tab" data-toggle="tab">아이템 기반</a></li>
+		    <li role="presentation"><a href="#local" role="tab" data-toggle="tab">위치 기반</a>
 	    </ul>
 		
 		<div class="tab-content">
@@ -87,6 +88,14 @@
 					</c:forEach>
 				</div>
 			</div>
+			<div class="tab-pane" id="local">
+				<h2>Location-based</h2>
+				<p class="lead">위치 기반 추천</p>
+				
+				<div class="list-group list-store">
+					
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -94,9 +103,13 @@
 <script type="text/javascript">
 	var map;
 	var infowindow;
-	var allMarkers;
+	var locationMarkers = new Array();
 	var ibcfMarkers;
 	var ubcfMarkers;
+	var selectedMarkerStoreIdx;
+	
+	var numberFormat = new Intl.NumberFormat({ minimumFractionDigits: 3 });
+	var evalFormat = new Intl.NumberFormat({ minimumFractionDigits: 2 });
 	
 	function initialize() {
 		infowindow = new google.maps.InfoWindow();
@@ -153,11 +166,9 @@
 			</c:forEach>
 		];
 		
-		allMarkers = new Array();
-		allMarkers = ibcfMarkers.concat(ubcfMarkers);
-		
-		$.each(allMarkers, function (index, eachMarker){
+		$.each(getAllMarkers(), function (index, eachMarker){
 			google.maps.event.addListener(eachMarker, 'click', function() {
+				var allMarkers = getAllMarkers();
 				for (var j = 0; j < allMarkers.length; j++) {
 					allMarkers[j].setIcon('<c:url value="/resources/img/marker1.png" />');
 		        }
@@ -170,11 +181,22 @@
 						+ '</a>'
 				);
 				infowindow.open(map, eachMarker);
+				selectedMarkerStoreIdx = eachMarker.storeIdx;
 			});
 		});
 		
-		google.maps.event.addListener(map, 'bounds_changed', function() {
-			var numberFormat = new Intl.NumberFormat({ minimumFractionDigits: 3 });
+		google.maps.event.addListener(map, 'idle', function() {			
+			var bounds = map.getBounds();
+			var startPoint = bounds.getSouthWest();
+			var endPoint = bounds.getNorthEast();
+			startX = startPoint.lat();
+			startY = startPoint.lng();
+			endX = endPoint.lat();
+			endY = endPoint.lng();
+			
+			removeMarker(locationMarkers);
+			ajaxFunc(startX, endX, startY, endY);
+			
 			$.each($('.list-store .list-group-item'), function (index, each){
 				var lat1 = map.getCenter().lat()
 				var lng1 = map.getCenter().lng()
@@ -182,9 +204,109 @@
 				var lng2 = $(each).attr("data-longitude")
 				
 				$(each).find('.distance').text(numberFormat.format(calDistance(lat1, lng1, lat2, lng2)));
+				
+				
 			});
 		});
 	}
+	
+	function removeMarker(markers){
+		$.each(markers, function (inedx, each){
+			each.setMap(null);
+		});
+	}
+	
+	function ajaxFunc(startX, endX, startY, endY) {
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/location/getStores",
+			data : {
+				startX : startX,
+				endX : endX,
+				startY : startY,
+				endY : endY
+			},
+			dataType : "json",
+			success : function(data) {
+				var mapCenterLat = map.getCenter().lat()
+				var mapCenterLng = map.getCenter().lng()
+				var markers = [];
+				var storeListHtml = "";
+				
+				if (data) {
+					var markers;
+					$.each(data, function(i, val) {
+						var latLng = new google.maps.LatLng(val.latitude,
+								val.longitude);
+						var marker = new google.maps.Marker({
+							position : latLng,
+							icon: '<c:url value="/resources/img/marker1.png" />',
+							title : val.name,
+							category : val.category.name,	
+							storeIdx : val.storeIdx,
+							map : map
+						});
+						
+						google.maps.event.addListener(marker, 'click', function() {
+							var allMarkers = getAllMarkers();
+							
+							for (var j = 0; j < allMarkers.length; j++) {
+								allMarkers[j].setIcon('<c:url value="/resources/img/marker1.png" />');
+					        }
+							marker.setIcon('<c:url value="/resources/img/marker2.png" />');
+							infowindow.close();			
+							infowindow.setContent(
+									'<a href="<c:url value="/location/detail"/>/' + marker.storeIdx + '/"> \n'
+										+ '<strong>' + marker.title + '</strong> \n'
+										+ '<p>' + marker.category + '</p> \n'
+									+ '</a>'
+							);
+							infowindow.open(map, marker);
+						});
+						markers.push(marker);
+
+						storeListHtml += '<div class="list-group-item" data-latitude="' + val.latitude + '" data-longitude="' + val.longitude + '">\n';
+						storeListHtml += '	<div class="media-left">\n';
+						storeListHtml += '		<div class="img-container">\n';
+						storeListHtml += '			<img class="media-object" src="' + val.imageUrl + '" onerror="this.src=\'<c:url value="/resources/img/main_logo.png" />\'" alt="매장사진">\n';					
+						storeListHtml += '		</div>\n';
+						storeListHtml += '	</div>\n';
+						storeListHtml += '	<div class="media-body">\n';
+						storeListHtml += '		<h4 class="media-heading">\n';
+						storeListHtml += '			<a href="<c:url value="/location/detail/"/>' + val.storeIdx + '">' + val.name + '</a>\n';
+						storeListHtml += '		</h4>\n';
+						storeListHtml += '		<p class="list-group-item-text">\n';
+						storeListHtml += '			<a href="#" onclick="showMapStoreInfo(\'local\', ' + i + ')">' + val.address + '</a>\n';
+						storeListHtml += '			(<span class="distance">' + numberFormat.format(calDistance(mapCenterLat, mapCenterLng, val.latitude, val.longitude)) + '</span>km)\n';
+						storeListHtml += '		</p>\n';
+						storeListHtml += '	</div>\n';
+						storeListHtml += '	<div class="media-right">\n';
+						storeListHtml += '		<p class="text-right evaluation">\n';
+						
+						if(typeof(val.avgEvaluation) !== 'undefined'){
+							storeListHtml += '				<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>\n';
+							storeListHtml += '				' + evalFormat.format(val.avgEvaluation) + '\n';
+						}
+						
+						storeListHtml += '		</p>\n';
+						storeListHtml += '		<p class="text-right"><span class="badge">' + val.category.name + '</span></p>\n';
+						storeListHtml += '	</div>\n';
+						storeListHtml += '</div>\n';
+
+					});
+					
+					$('#local .list-store').html(storeListHtml);
+				}
+				
+				locationMarkers = markers;
+			},
+			error : function(xmlRequest) {
+				alert(xmlRequest.status + " " + xmlRequest.statusText + " "
+						+ xmlRequest.responseText);
+			}
+		});
+	}
+
 	
 	function calDistance(lat1, lng1, lat2, lng2){  
 	    
@@ -223,9 +345,14 @@
 			google.maps.event.trigger(ibcfMarkers[markerIndex], 'click');
 		} else if(type === 'ubcf'){
 			google.maps.event.trigger(ubcfMarkers[markerIndex], 'click');
+		} else if(type === 'local'){
+			google.maps.event.trigger(locationMarkers[markerIndex], 'click');
 		}
 	}
-
+	
+	function getAllMarkers(){
+		return ibcfMarkers.concat(ubcfMarkers).concat(locationMarkers);
+	}
 </script>
 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=${googleMapApiKey}&amp;callback=initialize"></script>

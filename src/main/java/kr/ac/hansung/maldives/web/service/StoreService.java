@@ -14,6 +14,7 @@ import kr.ac.hansung.maldives.web.dao.StoreCommentRepository;
 import kr.ac.hansung.maldives.web.dao.StoreRepository;
 import kr.ac.hansung.maldives.web.dao.UserRepository;
 import kr.ac.hansung.maldives.web.dao2.IbcfMapper;
+import kr.ac.hansung.maldives.web.dao2.LocalbcfMapper;
 import kr.ac.hansung.maldives.web.dao2.StoreMapper;
 import kr.ac.hansung.maldives.web.dao2.UbcfMapper;
 import kr.ac.hansung.maldives.web.model.CustomUserDetails;
@@ -43,6 +44,9 @@ public class StoreService {
 	
 	@Autowired
 	private UbcfMapper ubcfMapper;
+	
+	@Autowired
+	private LocalbcfMapper localbcfMapper;
 
 	@Autowired
 	private CategoryService categoryService;
@@ -55,15 +59,7 @@ public class StoreService {
 	}
 
 	public List<Store> findByCategoryCategoryCodeStartingWithAndBound(String categoryCode, double startX, double endX, double startY, double endY) {
-		List<Store> stores = storeRepository.findByCategoryCategoryCodeStartingWithAndBound(categoryCode, startX, endX, startY, endY);
-		
-		for(Store store: stores){
-			try {
-				store.setAvgEvaluation(getStoreAvgEvaluationByStoreIdx(store.getStoreIdx()));
-			} catch(BindingException e){
-				/* 평가 정보가 없을때 발생 */
-			}
-		}
+		List<Store> stores = localbcfMapper.getRecommendStoreByLocationLimit10(categoryCode, startX, endX, startY, endY);
 		
 		return stores;
 	}
