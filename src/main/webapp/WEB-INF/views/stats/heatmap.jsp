@@ -7,6 +7,94 @@
 <link href="<c:url value="/resources/js/jquery-ui-1.12.1/jquery-ui.min.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/js/jquery-ui-1.12.1/jquery-ui.theme.min.css"/>" rel="stylesheet">
 
+<div class="row">
+	<div class="col-xs-12">
+		<div id="map-contents" style="width: 100%; height: 400px"></div>
+	</div>
+</div>
+<div class="row margin-top-20">
+	<div class="container panel panel-default">
+		<div class="row panel-body">
+			<div class="col-xs-12">
+				<form id="layer-setting-form">
+					<div class="form-group row">
+						<label for="category" class="col-sm-2 control-label">유형</label>
+						<div class="col-sm-10 col-lg-6">
+							<select name="category" class="form-control">
+								<option value="">전체</option>
+								<c:forEach var="category" items="${categorys}">
+									<option value="${category.categoryCode}">${category.name }</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+				
+					<div class="form-group row">
+						<label class="col-sm-2 control-label">평점</label>
+						<div class="col-sm-10 col-lg-6">
+							<div id="eva-slider-range"></div>
+							<p id="eva-range">0 ~ 5</p>
+							<input type="hidden" name="begin-eva"  value="0" />
+							<input type="hidden" name="end-eva" value="5" />
+						</div>
+					</div>
+			
+					<div class="form-group row">
+						<label class="col-sm-2 control-label">나이</label>
+						<div class="col-sm-10 col-lg-6">
+							<div id="age-slider-range"></div>
+							<p id="age-range">0 ~ 100</p>
+							<input type="hidden" name="begin-age" value="0" />
+							<input type="hidden" name="end-age" value="100" />
+						</div>
+					</div>
+			
+					<div class="form-group row">
+						<label for="category" class="col-sm-2 control-label">직업</label>
+						<div class="col-sm-10 col-lg-6">
+							<select name="job-idx" class="form-control">
+								<option value="">전체</option>
+								<c:forEach var="job" items="${jobs}">
+									<option value="${job.jobIdx}">${job.name }</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+	
+					<div class="form-group row">
+						<label class="col-sm-2 control-label">성별</label>
+						<div class="col-sm-10 col-lg-6">
+							<label class="radio-inline">
+								<input type="radio" name="sex" value="" checked="checked" /> 전체
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="sex" value="0" /> 남
+							</label> 
+							<label class="radio-inline">
+								<input type="radio" name="sex" value="1" /> 여
+							</label>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-sm-2 control-label">기간</label>
+						<div class="col-sm-10 col-lg-6">
+							<div class="col-sm-5">
+								<input type="date" name="begin-date" class="form-control" />
+							</div>
+							<p class="col-sm-2 text-center"> ~ </p>
+							<div class="col-sm-5">
+								<input type="date" name="end-date" class="form-control" />
+							</div>
+						</div>
+					</div>
+			
+					<button type="submit" class="btn btn-default">적용</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=${googleMapApiKey}&amp;v=3&amp;libraries=visualization"></script>
 
@@ -321,93 +409,3 @@
 		});
 	});
 </script>
-
-
-<div class="row">
-	<div class="col-xs-12">
-		<div id="map-contents" style="width: 100%; height: 400px"></div>
-	</div>
-</div>
-<div class="row">
-	<div class="container panel panel-default">
-		<div class="row panel-body">
-			<div class="col-xs-12">
-				<form id="layer-setting-form">
-					<div class="form-group row">
-						<label for="category" class="col-sm-2 control-label">유형</label>
-						<div class="col-sm-10 col-lg-6">
-							<select name="category" class="form-control">
-								<option value="">전체</option>
-								<c:forEach var="category" items="${categorys}">
-									<option value="${category.categoryCode}">${category.name }</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-				
-					<div class="form-group row">
-						<label class="col-sm-2 control-label">평점</label>
-						<div class="col-sm-10 col-lg-6">
-							<div id="eva-slider-range"></div>
-							<p id="eva-range">0 ~ 5</p>
-							<input type="hidden" name="begin-eva"  value="0" />
-							<input type="hidden" name="end-eva" value="5" />
-						</div>
-					</div>
-			
-					<div class="form-group row">
-						<label class="col-sm-2 control-label">나이</label>
-						<div class="col-sm-10 col-lg-6">
-							<div id="age-slider-range"></div>
-							<p id="age-range">0 ~ 100</p>
-							<input type="hidden" name="begin-age" value="0" />
-							<input type="hidden" name="end-age" value="100" />
-						</div>
-					</div>
-			
-					<div class="form-group row">
-						<label for="category" class="col-sm-2 control-label">직업</label>
-						<div class="col-sm-10 col-lg-6">
-							<select name="job-idx" class="form-control">
-								<option value="">전체</option>
-								<c:forEach var="job" items="${jobs}">
-									<option value="${job.jobIdx}">${job.name }</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-	
-					<div class="form-group row">
-						<label class="col-sm-2 control-label">성별</label>
-						<div class="col-sm-10 col-lg-6">
-							<label class="radio-inline">
-								<input type="radio" name="sex" value="" checked="checked" /> 전체
-							</label>
-							<label class="radio-inline">
-								<input type="radio" name="sex" value="0" /> 남
-							</label> 
-							<label class="radio-inline">
-								<input type="radio" name="sex" value="1" /> 여
-							</label>
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label class="col-sm-2 control-label">기간</label>
-						<div class="col-sm-10 col-lg-6">
-							<div class="col-sm-5">
-								<input type="date" name="begin-date" class="form-control" />
-							</div>
-							<p class="col-sm-2 text-center"> ~ </p>
-							<div class="col-sm-5">
-								<input type="date" name="end-date" class="form-control" />
-							</div>
-						</div>
-					</div>
-			
-					<button type="submit" class="btn btn-default">적용</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
